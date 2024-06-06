@@ -18,6 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        // Existing colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -51,11 +52,29 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // New colors
+        azulBackground: "#F5F8FF",
+        roxoPrincipal: "#570EFF",
+        branco: "#FFFFFF",
+        textoCor: "#5C5C5C",
+        preto: "#000000",
+        inProgress: "#FEFFC2",
+        finished: "#E3F6ED",
+        success: "#00CC99",
+        alert: "#F2C94C",
+        buttonBlueBackground: "#F1F7FF",
+        cinza: "#BDBDBD",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "16px",
+        md: "12px",
+        sm: "8px",
+      },
+      fontWeight: {
+        light: '300',
+        normal: '400',
+        semibold: '600',
+        bold: '700',
       },
       keyframes: {
         "accordion-down": {
