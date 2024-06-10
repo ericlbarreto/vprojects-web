@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar.tsx"
 import Menu from "../assets/menu.svg"
 import Sininho from "../assets/sininho.svg"
 import Logo from "../assets/v-projects_logo.svg"
