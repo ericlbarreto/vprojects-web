@@ -36,7 +36,7 @@ function Home() {
               <p className="font-extrabold text-[#2d2d2d]">
                 Tutorial da Plataforma
               </p>
-              <p className="text-justify text-textoCor">
+              <p className="text-textoCor">
                 Explore todas as funcionalidades e compreenda como elas podem
                 aprimorar sua experiência.
               </p>
