@@ -1,11 +1,11 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar.tsx"
 import Menu from "../assets/menu.svg"
 import Sininho from "../assets/sininho.svg"
 import Logo from "../assets/v-projects_logo.svg"
 
 function Header() {
     return (
-        <div className="fixed w-full bg-branco flex justify-between shadow-md py-5">
+        <div className="fixed w-full bg-branco flex justify-between shadow-md py-5 z-10">
             <div className="flex items-center ml-8">
                 <button>
                     <img src={Menu} alt="Menu" />
