@@ -14,7 +14,7 @@ function Header() {
 
   return (
     <>
-      <div className="fixed w-full bg-branco flex justify-between shadow-md py-5">
+      <div className="fixed w-full bg-branco flex justify-between shadow-md py-5 z-50">
         <div className="flex items-center ml-8">
           <button onClick={toggleSidebar}>
             <img src={Menu} alt="Menu" />
