@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <div className="pt-24">
+      <div className="pt-24 bg-azulBackground">
         <Outlet />
       </div>
     </div>

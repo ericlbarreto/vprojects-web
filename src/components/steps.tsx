@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
-import { Separator } from "@radix-ui/react-separator";
+import { Separator } from "./ui/separator";
 
 interface StepProps {
   step: number;
