@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -5,35 +6,52 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-  } from "@/components/ui/breadcrumb"
-
-import SalvarRascunho from "../assets/salvarRascunho.svg"
+} from "@/components/ui/breadcrumb";
+import SalvarRascunho from "../assets/salvarRascunho.svg";
 import Stepper from "./steps";
 
-
 function SubHeaderAv() {
-    return (
-        <div className="fixed z-10 w-screen bg-[#FBFCFF] h-32 flex justify-between">
-            <div className="m-4 ml-6">
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink className="underline" href="/">Menu Principal</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator/>
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Autoavaliação</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
+    const location = useLocation();
+    const currentPath = location.pathname;
 
-                <p className="font-bold pt-2">Autoavaliação</p>
+    return (
+        <div className="fixed w-screen bg-[#FBFCFF] h-32 flex justify-between px-4">
+            <div className="m-4 ml-6">
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink className="underline" href="/">Menu Principal</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            {currentPath === '/autoavaliacao' ? (
+                                <BreadcrumbPage className='text-[#50556b] font-bold'>Autoavaliação</BreadcrumbPage>
+                            ) : (
+                                <BreadcrumbLink className="underline" href="/autoavaliacao">Autoavaliação</BreadcrumbLink>
+                            )}
+                        </BreadcrumbItem>
+                        {currentPath === '/autoavaliacao/avaliacao-360' && (
+                            <>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage className='text-[#50556b] font-bold'>Avaliação 360</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </>
+                        )}
+                    </BreadcrumbList>
+                </Breadcrumb>
+
+                {currentPath === '/autoavaliacao' ? (
+                    <p className="font-bold pt-2 text-2xl font-extrabold">Autoavaliação</p>
+                ) : (
+                    <p className="font-bold pt-2 text-2xl font-extrabold">Avaliação 360</p>
+                )}
             </div>
 
-            <div className="m-8"><Stepper/></div>
-            <button className="m-8 h-12 w-36"> <img  src={SalvarRascunho} alt="Salvar rascunho" /></button>
-    </div>
-    )
+            <Stepper />
+            <button className="m-8 h-12 w-36"> <img src={SalvarRascunho} alt="Salvar rascunho" /></button>
+        </div>
+    );
 }
 
 export default SubHeaderAv;
