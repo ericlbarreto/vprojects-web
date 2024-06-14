@@ -13,7 +13,7 @@ import Stepper from "./steps";
 
 function SubHeaderAv() {
     return (
-        <div className="fixed w-screen bg-[#FBFCFF] h-32 flex justify-between">
+        <div className="fixed z-10 w-screen bg-[#FBFCFF] h-32 flex justify-between">
             <div className="m-4 ml-6">
             <Breadcrumb>
                 <BreadcrumbList>
