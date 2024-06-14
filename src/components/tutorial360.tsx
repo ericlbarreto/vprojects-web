@@ -23,18 +23,27 @@ function Tutorial() {
                     <div className="col-span-1 col-start-2 mt-10">
                         <BolinhaNum num={"1"} />
                     </div>
+
                     <div className="col-span-2">
                         <img src={LinhaCima} alt="Linha curvada para cima" />
-                    </div> <div className="col-span-1 mt-10">
+                    </div>
+
+                    <div className="col-span-1 mt-10">
                         <BolinhaNum num={"2"} />
                     </div>
+
                     <div className="col-span-2 mt-24">
                         <img src={LinhaBaixo} alt="Linha curvada para cima" />
-                    </div> <div className="col-span-1 mt-10">
-                        <BolinhaNum num={"3"} /> </div>
+                    </div>
+
+                    <div className="col-span-1 mt-10">
+                        <BolinhaNum num={"3"} />
+                    </div>
+
                     <div className="col-span-2">
                         <img src={LinhaCima} alt="Linha curvada para cima" />
                     </div>
+
                     <div className="col-span-1 mt-10">
                         <BolinhaNum num={"4"} />
                     </div>
