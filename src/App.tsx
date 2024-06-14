@@ -1,6 +1,6 @@
 import "./global.css";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/header";
 import { useEffect } from "react";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       {location.pathname !== "/login" && <Header />}
-      <div className={location.pathname !== "/login" ? "pt-24" : ""}>
+      <div className={location.pathname !== "/login" ? "pt-24 bg-azulBackground" : ""}>
         <Outlet />
       </div>
     </div>

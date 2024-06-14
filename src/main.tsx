@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
 import LoginForm from './pages/Login'
+import AutoAvColab from './pages/AutoAvColab'
 
 const router = createBrowserRouter([{
   path: "/",
@@ -11,6 +12,7 @@ const router = createBrowserRouter([{
   children: [
     { path: "/", element: <Home /> },
     { path: "/login", element: <LoginForm /> },
+    { path: "/autoav-colab", element: <AutoAvColab /> },
   ]
 }])
 
