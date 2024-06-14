@@ -299,6 +299,11 @@ function Home() {
             </BarChart>
           </ResponsiveContainer>
         </div>
+        <div className="col-span-8">
+          <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
+            Histórico de Ciclos de Avaliações
+          </h1>
+        </div>
         <div className="col-span-8 bg-white rounded-2xl shadow-md relative h-[400px] mt-6">
           <DataTable columns={columns} data={datatable} />
         </div>
