@@ -21,6 +21,8 @@ import {
 } from "recharts";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
+import { DataTable } from "@/components/table/data-table";
+import { Payment, columns } from "@/components/table/columns";
 
 
 const data = [
@@ -68,9 +70,47 @@ const data = [
   },
 ];
 
+const datatable: Payment[] = [
+  {
+    id: "m5gr84i9",
+    startDate: "2021-10-10",
+    endDate: "2021-10-10",
+    status: "em andamento",
+    grade: 2,
+  },
+  {
+    id: "3u1reuv4",
+    startDate: "2021-10-10",
+    endDate: "2021-10-10",
+    status: "em andamento",
+    grade: 3,
+  },
+  {
+    id: "derv1ws0",
+    startDate: "2021-10-10",
+    endDate: "2021-10-10",
+    status: "finalizado",
+    grade: 2,
+  },
+  {
+    id: "5kma53ae",
+    startDate: "2021-10-10",
+    endDate: "2021-10-10",
+    status: "em andamento",
+    grade: 3,
+  },
+  {
+    id: "bhqecj4p",
+    startDate: "2021-10-10",
+    endDate: "2021-10-10",
+    status: "finalizado",
+    grade: 5,
+  },
+]
+
 function Home() {
   return (
-    <div className="h-screen bg-azulBackground">
+    <div className="h-full bg-azulBackground">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
         <div className="col-span-5 bg-white rounded-2xl shadow-md">
           <div className="grid gap-x-2 grid-cols-5 py-6 px-6">
@@ -258,6 +298,9 @@ function Home() {
               />
             </BarChart>
           </ResponsiveContainer>
+        </div>
+        <div className="col-span-8 bg-white rounded-2xl shadow-md relative h-[400px] mt-6">
+          <DataTable columns={columns} data={datatable} />
         </div>
       </div>
     </div>
