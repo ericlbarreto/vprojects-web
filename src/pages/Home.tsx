@@ -22,7 +22,7 @@ function Home() {
                 até <b>23/05/2024</b>! Inicie agora, sua colaboração é essencial
                 para o nosso progresso contínuo.
               </p>
-              <a href="autoav-colab"><StartButton className={"bg-roxoPrincipal w-48 h-9 rounded-md text-white font-semibold hover:bg-[#6929fe] mt-14"}/></a>
+              <a href="autoavaliacao"><StartButton className={"bg-roxoPrincipal w-48 h-9 rounded-md text-white font-semibold hover:bg-[#6929fe] mt-14"}/></a>
             </div>
             <div className="col-span-2 ml-12 flex justify-end">
               <img src={Assesment} className="w-64 h-64" alt="Assesment Icon" />
