@@ -31,7 +31,7 @@ function SubHeaderAv() {
             </div>
 
             <div className="m-8"><Stepper/></div>
-            <button className="m-8 h-12 w-36"> <img  src={SalvarRascunho} alt="Salvar rascunho" /></button>
+            <button className="bg-[#f1f7ff] w-36 h-12 m-8 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
     </div>
     )
 }

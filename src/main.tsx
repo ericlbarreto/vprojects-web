@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
 import LoginForm from './pages/Login'
-import AutoAvColab from './pages/AutoAvColab'
+import AutoAvColab from './pages/AutoAv'
 
 const router = createBrowserRouter([{
   path: "/",
