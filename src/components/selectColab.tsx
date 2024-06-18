@@ -3,8 +3,11 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { SelectCollabProps } from "@/interfaces/SelectCollabs";
 import { FaPlus } from "react-icons/fa6";
+import { CiSearch } from "react-icons/ci";
+
 
 const SelectColab = ({ collaborators }: SelectCollabProps) => {
     return (
@@ -14,15 +17,26 @@ const SelectColab = ({ collaborators }: SelectCollabProps) => {
                     <FaPlus /> <span className="ml-2">Adicionar</span>
                 </button>
             </PopoverTrigger>
-            <PopoverContent className="w-80 m-4">
-                <div>
-                    <p className="font-medium text-lg">Lista de Colaboradores</p>
-                    <ul>
-                        {collaborators.map((collaborator) => (
-                            <li key={collaborator.id}>{collaborator.name}</li>
-                        ))}
-                    </ul>
+            <PopoverContent className="max-h-72 m-4 overflow-auto space-y-2">
+                <p className="font-bold text-lg">Pesquise os colaboradores</p>
+                <p className="font-regular">Para que você consiga realizar a avaliação 360</p>
+                <div className="relative">
+                    <input type="text" className="w-full h-10 rounded-lg bg-buttonBlueBackground pl-4" placeholder="Pesquisar" />
+                    <CiSearch className="absolute right-3 top-3 text-gray-400 stroke-1" />
                 </div>
+                <ul>
+                    {collaborators.map((collaborator) => (
+                        <li key={collaborator.id} >
+                            <button className="flex items-center py-2 space-x-3 w-full rounded-sm hover:bg-gray-100">
+                                <Avatar>
+                                    <AvatarImage src="https://github.com/shadcn.png" />
+                                    <AvatarFallback>CN</AvatarFallback>
+                                </Avatar>
+                                <span>{collaborator.name}</span>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
             </PopoverContent>
         </Popover>
     );

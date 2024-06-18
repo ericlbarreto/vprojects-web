@@ -28,6 +28,7 @@ api.interceptors.response.use(
           break;
         case 401:
           alert('Sessão expirada. Por favor, faça login novamente.');
+          sessionStorage.setItem('accessToken', '')
           window.location.href = '/login';
           break;
         case 403:
