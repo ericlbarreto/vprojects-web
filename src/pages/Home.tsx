@@ -4,7 +4,7 @@ import Tutorial from "../assets/tutorial.svg";
 
 function Home() {
   return (
-    <div className="h-screen bg-azulBackground">
+    <div className="h-screen">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
         <div className="col-span-5 bg-white rounded-2xl shadow-md">
           <div className="grid gap-x-2 grid-cols-5 py-6 px-6">
