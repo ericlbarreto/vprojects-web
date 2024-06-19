@@ -1,9 +1,5 @@
+import { SidebarProps } from "@/interfaces/SideBarProps";
 import { Cross2Icon, HomeIcon, ReaderIcon, GearIcon, ExitIcon } from "@radix-ui/react-icons";
-
-interface SidebarProps {
-    isOpen: boolean;
-    toggleSidebar: () => void;
-}
 
 function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   return (
@@ -28,7 +24,7 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           <GearIcon className="w-5 h-5" />
           <span className="ml-3">Configurações</span>
         </a>
-        <a href="#" className="flex items-center p-2 mt-4 text-roxoPrincipal hover:bg-azulBackground">
+        <a href="#" onClick={() => {sessionStorage.setItem('accessToken', '')}} className="flex items-center p-2 mt-4 text-roxoPrincipal hover:bg-azulBackground">
           <ExitIcon className="w-5 h-5" />
           <span className="ml-3">Sair</span>
         </a>
