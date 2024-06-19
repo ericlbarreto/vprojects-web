@@ -2,7 +2,7 @@ import SubHeaderAv from "@/components/subHeaderAv";
 import Tutorial from "@/components/tutorial";
 import NotasJustif from "@/components/notasJustif";
 
-function AutoAv() {
+function AutoAvColab() {
     return (
         <div className="h-full bg-azulBackground ">
             <SubHeaderAv />
@@ -40,4 +40,4 @@ function AutoAv() {
     );
 }
 
-export default AutoAv;
+export default AutoAvColab;
