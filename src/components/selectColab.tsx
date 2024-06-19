@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import {
     Popover,
     PopoverContent,
@@ -10,10 +10,14 @@ import { FaPlus } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import { Collaborator } from "@/interfaces/Collaborator";
 
-const SelectColab = ({ collaborators, onSelect }: SelectCollabProps) => {
+const SelectCollab = ({ collaborators, onSelect }: SelectCollabProps) => {
     const [open, setOpen] = useState(false);
     const [input, setInput] = useState('');
     const [filteredCollaborators, setFilteredCollaborators] = useState(collaborators);
+
+    useEffect(() => {
+        setFilteredCollaborators(collaborators);
+    }, [collaborators]);
 
     const handleSelect = (collaborator: Collaborator) => {
         setOpen(false);
@@ -63,4 +67,4 @@ const SelectColab = ({ collaborators, onSelect }: SelectCollabProps) => {
     );
 };
 
-export default SelectColab;
+export default SelectCollab;

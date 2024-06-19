@@ -4,10 +4,12 @@ import Tutorial360 from "@/components/tutorial360";
 import { Collaborator } from "@/interfaces/Collaborator";
 import { useEffect, useState } from "react";
 import api from "@/services/axiosConfig";
+import Card360 from "@/components/card360";
 
 function Avaliacao360() {
     const [availableCollaborators, setAvailableCollaborators] = useState<Collaborator[]>([]);
     const [selectedCollaborators, setSelectedCollaborators] = useState<Collaborator[]>([]);
+    const [expandedCollaborators, setExpandedCollaborators] = useState<{ [key: number]: boolean }>({});
 
     useEffect(() => {
         const getCollabs = async () => {
@@ -32,6 +34,13 @@ function Avaliacao360() {
         setSelectedCollaborators(selectedCollaborators.filter(collab => collab.id !== collaborator.id));
     };
 
+    const toggleExpand = (id: number) => {
+        setExpandedCollaborators(prevState => ({
+            ...prevState,
+            [id]: !prevState[id]
+        }));
+    };
+
     return (
         <div className="h-screen">
             <SubHeaderAv />
@@ -45,12 +54,13 @@ function Avaliacao360() {
                 }
                 <div className="m-4">
                     {selectedCollaborators.map(collaborator => (
-                        <div key={collaborator.id} className="mb-2 p-4 border rounded-lg flex justify-between items-center">
-                            <span>{collaborator.name}</span>
-                            <button onClick={() => handleRemoveCollaborator(collaborator)} className="text-red-500">
-                                Excluir
-                            </button>
-                        </div>
+                        <Card360
+                            key={collaborator.id}
+                            collaborator={collaborator}
+                            onRemove={handleRemoveCollaborator}
+                            onExpandToggle={toggleExpand}
+                            isExpanded={expandedCollaborators[collaborator.id]}
+                        />
                     ))}
                 </div>
             </div>

@@ -27,8 +27,8 @@ api.interceptors.response.use(
           console.error('Requisição inválida:', error.response.data);
           break;
         case 401:
-          alert('Sessão expirada. Por favor, faça login novamente.');
           sessionStorage.removeItem('accessToken');
+          alert('Sessão expirada. Por favor, faça login novamente.');
           window.location.reload();
           break;
         case 403:

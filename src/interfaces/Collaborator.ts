@@ -3,4 +3,5 @@ export interface Collaborator {
     email: string;
     name: string;
     role: string;
+    position: string;
 }
