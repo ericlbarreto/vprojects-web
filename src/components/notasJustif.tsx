@@ -20,9 +20,9 @@ function NotasJustif({ text, textInfo }: NotaQuadradaProps) {
                 </div>
             </div>
             {condicionalInfo ?
-                        <div className="absolute w-80 bg-[#F6FAFF] border rounded-sm shadow text-roxoPrincipal text-center font-medium text-sm ml-20">
-                            {textInfo}
-                        </div> : ""}
+                <div className="absolute w-80 bg-[#F6FAFF] border rounded-sm shadow text-roxoPrincipal text-center font-medium text-sm ml-20">
+                    {textInfo}
+                </div> : ""}
             <div className="flex shadow rounded-sm w-80 h-10 pl-3 border text-sm">
                 <div className="pt-3 flex">
                     <div>Nota:</div>
@@ -30,7 +30,11 @@ function NotasJustif({ text, textInfo }: NotaQuadradaProps) {
                 </div>
                 <div className="text-roxoPrincipal pl-40 pt-1">*</div>
             </div>
-            <div className="shadow rounded-sm border h-40 mt-3 mr-12">Insira sua justificativa</div>
+            <div className="shadow rounded-sm border h-40 mt-3 mr-12 text-sm">
+                <form>
+                    <textarea className="w-full h-40 resize-none" name="" id="" maxLength={1000} placeholder="Insira sua justificativa"></textarea>
+                </form>
+            </div>
         </div>
     )
 }
