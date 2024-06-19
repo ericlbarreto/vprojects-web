@@ -20,7 +20,7 @@ function SubHeaderAv() {
     const currentPath = location.pathname;
 
     return (
-        <div className="fixed w-screen bg-[#FBFCFF] h-32 flex justify-between px-4 z-40">
+        <div className="fixed w-screen bg-[#FBFCFF] h-32 flex justify-between px-4 z-30">
             <div className="m-4 ml-6">
                     <Breadcrumb>
                         <BreadcrumbList>
