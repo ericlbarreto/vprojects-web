@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
     Popover,
     PopoverContent,
@@ -7,16 +8,27 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SelectCollabProps } from "@/interfaces/SelectCollabs";
 import { FaPlus } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
-import { useState } from "react";
 import { Collaborator } from "@/interfaces/Collaborator";
 
 const SelectColab = ({ collaborators, onSelect }: SelectCollabProps) => {
     const [open, setOpen] = useState(false);
+    const [input, setInput] = useState('');
+    const [filteredCollaborators, setFilteredCollaborators] = useState(collaborators);
 
     const handleSelect = (collaborator: Collaborator) => {
         setOpen(false);
         onSelect(collaborator);
     };
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const inputValue = event.target.value;
+        setInput(inputValue);
+
+        const filtered = collaborators.filter(collab =>
+            collab.name.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        setFilteredCollaborators(filtered);
+    }
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -29,11 +41,11 @@ const SelectColab = ({ collaborators, onSelect }: SelectCollabProps) => {
                 <p className="font-bold text-lg">Pesquise os colaboradores</p>
                 <p className="font-regular">Para que você consiga realizar a avaliação 360</p>
                 <div className="relative">
-                    <input type="text" className="w-full h-10 rounded-lg bg-buttonBlueBackground pl-4" placeholder="Pesquisar" />
+                    <input type="text" id="searchInput" name="searchInput" value={input} onChange={handleInputChange} className="w-full h-10 rounded-lg bg-buttonBlueBackground pl-4" placeholder="Pesquisar" />
                     <CiSearch className="absolute right-3 top-3 text-gray-400 stroke-1" />
                 </div>
                 <ul>
-                    {collaborators.map((collaborator) => (
+                    {filteredCollaborators.map((collaborator) => (
                         <li key={collaborator.id}>
                             <button onClick={() => handleSelect(collaborator)} className="flex items-center py-2 space-x-3 w-full rounded-sm hover:bg-gray-100">
                                 <Avatar>
