@@ -3,17 +3,25 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SelectCollabProps } from "@/interfaces/SelectCollabs";
 import { FaPlus } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
+import { useState } from "react";
+import { Collaborator } from "@/interfaces/Collaborator";
 
+const SelectColab = ({ collaborators, onSelect }: SelectCollabProps) => {
+    const [open, setOpen] = useState(false);
 
-const SelectColab = ({ collaborators }: SelectCollabProps) => {
+    const handleSelect = (collaborator: Collaborator) => {
+        setOpen(false);
+        onSelect(collaborator);
+    };
+
     return (
-        <Popover>
+        <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <button className="flex items-center justify-center text-white font-semibold mt-4 bg-roxoPrincipal hover:bg-blue-600 rounded-lg w-72 h-12">
+                <button onClick={() => setOpen(!open)} className="flex items-center justify-center text-white font-semibold mt-4 bg-roxoPrincipal hover:bg-blue-600 rounded-lg w-72 h-12">
                     <FaPlus /> <span className="ml-2">Adicionar</span>
                 </button>
             </PopoverTrigger>
@@ -26,8 +34,8 @@ const SelectColab = ({ collaborators }: SelectCollabProps) => {
                 </div>
                 <ul>
                     {collaborators.map((collaborator) => (
-                        <li key={collaborator.id} >
-                            <button className="flex items-center py-2 space-x-3 w-full rounded-sm hover:bg-gray-100">
+                        <li key={collaborator.id}>
+                            <button onClick={() => handleSelect(collaborator)} className="flex items-center py-2 space-x-3 w-full rounded-sm hover:bg-gray-100">
                                 <Avatar>
                                     <AvatarImage src="https://github.com/shadcn.png" />
                                     <AvatarFallback>CN</AvatarFallback>
