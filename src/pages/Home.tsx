@@ -4,7 +4,7 @@ import Tutorial from "../assets/tutorial.svg";
 
 function Home() {
   return (
-    <div className="h-screen bg-azulBackground">
+    <div className="h-screen">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
         <div className="col-span-5 bg-white rounded-2xl shadow-md">
           <div className="grid gap-x-2 grid-cols-5 py-6 px-6">
@@ -22,7 +22,7 @@ function Home() {
                 até <b>23/05/2024</b>! Inicie agora, sua colaboração é essencial
                 para o nosso progresso contínuo.
               </p>
-              <a href="autoav-colab"><StartButton className={"bg-roxoPrincipal w-48 h-9 rounded-md text-white font-semibold hover:bg-[#6929fe] mt-14"}/></a>
+              <a href="autoavaliacao"><StartButton className={"bg-roxoPrincipal w-48 h-9 rounded-md text-white font-semibold hover:bg-[#6929fe] mt-14"}/></a>
             </div>
             <div className="col-span-2 ml-12 flex justify-end">
               <img src={Assesment} className="w-64 h-64" alt="Assesment Icon" />
