@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       {location.pathname !== "/login" && <Header />}
-      <div className={location.pathname !== "/login" ? "pt-24 bg-azulBackground" : ""}>
+      <div className={location.pathname !== "/login" ? "pt-24" : ""}>
         <Outlet />
       </div>
     </div>

@@ -1,10 +1,9 @@
-
-interface BolinhaNumProps{
-    num:string
-}
-
-function BolinhaNum({num}:BolinhaNumProps) {
-  return <div className="text-roxoPrincipal font-bold rounded-full shadow m-4 w-8 h-8 text-center pt-1">{num}</div>
+function BolinhaNum({ num, className }: BolinhaNumProps) {
+  return (
+    <div className={`flex items-center justify-center text-roxoPrincipal font-bold rounded-full shadow w-12 h-12 text-center${className}`}>
+      <span>{num}</span>
+    </div>
+  )
 }
 
 export default BolinhaNum;
