@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
     Popover,
     PopoverContent,
@@ -18,9 +18,10 @@ const SelectColab = ({ collaborators, onSelect }: SelectCollabProps) => {
     const handleSelect = (collaborator: Collaborator) => {
         setOpen(false);
         onSelect(collaborator);
+        setFilteredCollaborators(filteredCollaborators.filter(collab => collab.id !== collaborator.id));
     };
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const inputValue = event.target.value;
         setInput(inputValue);
 
