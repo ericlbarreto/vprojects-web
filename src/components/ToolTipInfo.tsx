@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Info from "../assets/info.svg";
-import { ToolTipInfoProps } from "@/interfaces/TooltipInfoProps";
+import { ToolTipInfoProps } from "@/interfaces/ToolTipInfoProps";
 
 const ToolTipInfo = ({ text }: ToolTipInfoProps) => {
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
