@@ -3,6 +3,8 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectGroup,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -23,6 +25,7 @@ import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
 import { DataTable } from "@/components/table/data-table";
 import { Payment, columns } from "@/components/table/columns";
+import { Separator } from "@radix-ui/react-select";
 
 
 const data = [
@@ -260,16 +263,41 @@ function Home() {
                     className="text-roxoPrincipal bg-azulBackground"
                   />
                 </SelectTrigger>
-                <SelectContent className="bg-azulBackground">
-                  <SelectItem value="2024" className="text-roxoPrincipal">
-                    2024
-                  </SelectItem>
-                  <SelectItem value="2023" className="text-roxoPrincipal">
-                    2023
-                  </SelectItem>
-                  <SelectItem value="2022 " className="text-roxoPrincipal">
-                    2022
-                  </SelectItem>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Comportamentais</SelectLabel>
+                    <SelectItem value="2024" className="text-roxoPrincipal">
+                      Sentimento de Dono
+                    </SelectItem>
+                    <SelectItem value="2023" className="text-roxoPrincipal">
+                      Resiliência nas Adversidades
+                    </SelectItem>
+                    <SelectItem value="2022 " className="text-roxoPrincipal">
+                      Organização no Trabalho
+                    </SelectItem>
+                    <SelectItem value="2022 " className="text-roxoPrincipal">
+                      Capacidade de Aprender
+                    </SelectItem>
+                    <SelectItem value="2022 " className="text-roxoPrincipal">
+                      Ser “Team Player”
+                    </SelectItem>
+                  </SelectGroup>
+                  <Separator className="bg-cinza border-[0.7px]"/>
+                  <SelectGroup>
+                    <SelectLabel>Execução</SelectLabel>
+                    <SelectItem value="2024" className="text-roxoPrincipal">
+                      Entregar com Qualidade
+                    </SelectItem>
+                    <SelectItem value="2023" className="text-roxoPrincipal">
+                      Atender aos Prazos
+                    </SelectItem>
+                    <SelectItem value="2022 " className="text-roxoPrincipal">
+                      Fazer Mais com Menos
+                    </SelectItem>
+                    <SelectItem value="2022 " className="text-roxoPrincipal">
+                      Pensar Fora da Caixa
+                    </SelectItem>
+                  </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
