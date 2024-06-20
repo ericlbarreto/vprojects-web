@@ -30,7 +30,7 @@ export const columns: ColumnDef<Payment>[] = [
           </SelectTrigger>
           <SelectContent>
             {yearOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center">
+              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
                 {option}
               </SelectItem>
             ))}
@@ -55,7 +55,7 @@ export const columns: ColumnDef<Payment>[] = [
           </SelectTrigger>
           <SelectContent>
             {gradeOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center">
+              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
                 {option}
               </SelectItem>
             ))}
@@ -79,7 +79,7 @@ export const columns: ColumnDef<Payment>[] = [
           </SelectTrigger>
           <SelectContent>
             {yearOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center">
+              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
                 {option}
               </SelectItem>
             ))}
@@ -104,7 +104,7 @@ export const columns: ColumnDef<Payment>[] = [
           </SelectTrigger>
           <SelectContent>
             {statusOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center">
+              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
                 {option}
               </SelectItem>
             ))}
