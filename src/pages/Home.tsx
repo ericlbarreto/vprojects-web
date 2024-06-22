@@ -1,77 +1,20 @@
 import StartButton from "@/components/StartButton";
+import AreaGraphic from "@/components/graphics/areaGraphic";
+import BarGraphic from "@/components/graphics/barGraphic";
+import { Payment, columns } from "@/components/table/columns";
+import { DataTable } from "@/components/table/data-table";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectGroup,
+  SelectItem,
   SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  Rectangle,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Separator } from "@radix-ui/react-select";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
-import { DataTable } from "@/components/table/data-table";
-import { Payment, columns } from "@/components/table/columns";
-import { Separator } from "@radix-ui/react-select";
-
-
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 
 const datatable: Payment[] = [
   {
@@ -199,36 +142,7 @@ function Home() {
               </SelectContent>
             </Select>
           </div>
-          <ResponsiveContainer width="100%" height="85%">
-            <AreaChart
-              width={500}
-              height={400}
-              data={data}
-              margin={{
-                top: 10,
-                right: 30,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <defs>
-                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#570EFF" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Area
-                type="linear"
-                dataKey="uv"
-                stroke="#570EFF"
-                fill="url(#colorUv)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+          <AreaGraphic />
         </div>
         <div className="col-span-4 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
           <div className="flex justify-between items-center mb-4">
@@ -302,30 +216,7 @@ function Home() {
               </Select>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height="90%">
-            <BarChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar
-                dataKey="pv"
-                fill="#570EFF"
-                activeBar={<Rectangle fill="#570EFF" stroke="#570EFF" />}
-              />
-            </BarChart>
-          </ResponsiveContainer>
+          <BarGraphic />  
         </div>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
