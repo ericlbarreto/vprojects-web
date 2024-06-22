@@ -14,13 +14,15 @@ function Header() {
 
   return (
     <>
-      <div className="fixed w-full bg-branco flex justify-between shadow-md py-5 z-50">
+      <div className="fixed w-full bg-branco flex justify-between shadow-md py-5 z-40">
         <div className="flex items-center ml-8">
           <button onClick={toggleSidebar}>
             <img src={Menu} alt="Menu" />
           </button>
-          <div className="ml-2">
-            <img src={Logo} className="w-40 h-12" alt="Logo V-Projects" />
+          <div className="ml-4">
+            <a href="/">
+              <img src={Logo} className="w-36 h-12" alt="Logo V-Projects" />
+            </a>
           </div>
         </div>
         <div className="flex mr-10 space-x-6 items-center">
