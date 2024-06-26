@@ -6,10 +6,15 @@ import { useState } from "react";
 interface NotaQuadradaProps {
     text: string;
     textInfo: string;
+    justif : string;
+    funcaoJust : Function;
+    nota : number;
+    funcaoNota: Function;
+    //nota : number;
 }
 
 
-function NotasJustif({ text, textInfo }: NotaQuadradaProps) {
+function NotasJustif({ text, textInfo, justif, funcaoJust, nota, funcaoNota}: NotaQuadradaProps) {
     const [condicionalInfo, setCondicionalInfo] = useState(false)
     return (
         <div className="mt-10">
@@ -26,13 +31,13 @@ function NotasJustif({ text, textInfo }: NotaQuadradaProps) {
             <div className="flex shadow rounded-sm w-80 h-10 pl-3 border text-sm">
                 <div className="pt-3 flex">
                     <div>Nota:</div>
-                    <div className="pt-0.5 pl-3"><NotaQuadrada isStatic={0} /></div>
+                    <div className="pt-0.5 pl-3"><NotaQuadrada nota = {nota} funcaoNota={funcaoNota} isStatic={0} /></div>
                 </div>
                 <div className="text-roxoPrincipal pl-40 pt-1">*</div>
             </div>
             <div className="shadow rounded-sm border h-40 mt-3 mr-12 text-sm">
                 <form>
-                    <textarea className="w-full h-40 resize-none" name="" id="" maxLength={1000} placeholder="Insira sua justificativa"></textarea>
+                    <textarea onChange={(e) => funcaoJust(e.target.value)} className="w-full h-40 resize-none" name="" id="" maxLength={1000} placeholder="Insira sua justificativa"></textarea>
                 </form>
             </div>
         </div>
