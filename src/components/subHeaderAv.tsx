@@ -7,14 +7,19 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import SalvarRascunho from "../assets/salvarRascunho.svg";
 import Stepper from "./steps";
 import { useState } from "react";
 import XClose from "../assets/xclose.svg"
 import Check from "../assets/check.svg"
 
+interface SubHeaderAvProps{
+    currentStep:number
+    setAtencao:Function
+    atencao:boolean
+}
 
-function SubHeaderAv() {
+
+function SubHeaderAv({currentStep, setAtencao}:SubHeaderAvProps) {
     const [salvarRascunho, setSalvarRascunho] = useState(false)
     const location = useLocation();
     const currentPath = location.pathname;
@@ -25,7 +30,7 @@ function SubHeaderAv() {
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink className="underline" href="/">Menu Principal</BreadcrumbLink>
+                                <button onClick={()=>setAtencao(true)}><BreadcrumbLink className="underline">Menu Principal</BreadcrumbLink></button>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator  />
                         <BreadcrumbItem>
@@ -53,7 +58,7 @@ function SubHeaderAv() {
                 )}
             </div>
 
-            <div className="m-8"><Stepper /></div>
+            <div className="m-8"><Stepper stepNow={currentStep} /></div>
             <div className="">
                 <button onClick={() => setSalvarRascunho(true)} className="bg-[#f1f7ff] w-36 h-12 mt-8 mr-8 ml-8 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
                 {salvarRascunho ?

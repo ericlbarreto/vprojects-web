@@ -41,9 +41,11 @@ function Avaliacao360() {
         }));
     };
 
+    const [atencao, setAtencao] = useState(false);
+
     return (
         <div className="h-screen">
-            <SubHeaderAv />
+            <SubHeaderAv currentStep={2} atencao={atencao} setAtencao={setAtencao}/>
             <div className="pt-32">
                 <Tutorial360 />
                 {availableCollaborators.length > 0 &&
