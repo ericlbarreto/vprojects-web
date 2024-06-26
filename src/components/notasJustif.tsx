@@ -2,19 +2,10 @@
 import NotaQuadrada from "./notaQuadrada";
 import Info from "../assets/info.svg"
 import { useState } from "react";
-
-interface NotaQuadradaProps {
-    text: string;
-    textInfo: string;
-    justif : string;
-    funcaoJust : Function;
-    nota : number;
-    funcaoNota: Function;
-    //nota : number;
-}
+import { NotaQuadradaProps } from "@/interfaces/NotaQuadradaProps";
 
 
-function NotasJustif({ text, textInfo, justif, funcaoJust, nota, funcaoNota}: NotaQuadradaProps) {
+function NotasJustif({ text, textInfo, funcaoJust, nota, funcaoNota}: NotaQuadradaProps) {
     const [condicionalInfo, setCondicionalInfo] = useState(false)
     return (
         <div className="mt-10">
