@@ -15,6 +15,7 @@ import {
 import { Separator } from "@radix-ui/react-select";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
+import { useAuth } from "@/contexts/authContext";
 
 const datatable: Payment[] = [
   {
@@ -55,6 +56,8 @@ const datatable: Payment[] = [
 ]
 
 function Home() {
+  const { user } = useAuth();
+
   return (
     <div className="h-full bg-azulBackground">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
@@ -66,7 +69,7 @@ function Home() {
                   Boas vindas,
                 </span>{" "}
                 <span className="font-semibold text-[#2d2d2d]">
-                  Camila Fontes!
+                  {user?.name}!
                 </span>
               </p>
               <p className="text-justify text-textoCor">
