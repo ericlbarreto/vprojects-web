@@ -7,6 +7,7 @@ import Sidebar from "./sidebar";
 import { useAuth } from "@/contexts/authContext";
 import { Input } from "./ui/input";
 import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { getUserData } = useAuth();
@@ -26,9 +27,9 @@ function Header() {
             <img src={Menu} alt="Menu" />
           </button>
           <div className="ml-4">
-            <a href="/">
+            <Link to={user?.role === "SOCIO" ? "/homeSocio" : "/"}>
               <img src={Logo} className="w-36 h-12" alt="Logo V-Projects" />
-            </a>
+            </Link>
           </div>
         </div>
         {user?.role === "SOCIO" && (

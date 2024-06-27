@@ -1,16 +1,16 @@
 import StartButton from "@/components/StartButton";
+import CircularProgressWithDot from "@/components/graphics/circleChart";
 import MultipleBarGraphic from "@/components/graphics/multipleBarGraphic";
-import RadialGraphic from "@/components/graphics/radialGraphic";
 import { Payment, columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@radix-ui/react-select";
 import Assesment from "../assets/assesment.svg";
@@ -144,7 +144,7 @@ function HomeSocio() {
           </div>
           <MultipleBarGraphic />
         </div>
-        <div className="col-span-3 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
+        <div className="flex flex-col col-span-3 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
           <div className="flex justify-between items-center mb-4">
             <div>
               <p className="text-cinza">Estatística</p>
@@ -216,7 +216,9 @@ function HomeSocio() {
               </Select>
             </div>
           </div>
-          <RadialGraphic />  
+          <div className="flex items-center justify-center w-full h-full text-roxoPrincipal">
+            <CircularProgressWithDot value={40} />  
+          </div>
         </div>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">

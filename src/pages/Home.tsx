@@ -220,7 +220,9 @@ function Home() {
               </Select>
             </div>
           </div>
-          <BarGraphic />  
+          <div className="flex items-center justify-center">
+            <BarGraphic />   
+          </div>
         </div>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
