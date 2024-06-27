@@ -1,15 +1,17 @@
 import { SidebarProps } from "@/interfaces/SideBarProps";
 import { Cross2Icon, HomeIcon, ReaderIcon, GearIcon, ExitIcon } from "@radix-ui/react-icons";
+import { useAuth } from "@/contexts/authContext";
 
 function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+  const { logout } = useAuth();
 
   const handleExit = () => {
-    sessionStorage.removeItem('accessToken');
+    logout();
     window.location.reload();
   }
 
   return (
-    <div className={`fixed z-40 inset-y-0 left-0 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out bg-white shadow-lg w-64`}>
+    <div className={`fixed z-40 inset-y-0 left-0 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out bg-white shadow-lg w-64 z-50`}>
       <div className="p-4 border-b flex items-center justify-end">
         <button onClick={toggleSidebar} className="text-roxoPrincipal focus:outline-none">
           <Cross2Icon className="w-6 h-6" />

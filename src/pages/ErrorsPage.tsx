@@ -1,4 +1,3 @@
-import Logo from '../assets/v-projects_logo.svg'
 
 export function UnauthorizedPage() {
     return(

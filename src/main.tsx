@@ -16,21 +16,19 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { path: "/", element: <Home /> },
+      {
+        path: "/",
+        element: <ProtectedRoute element={<Home />} role="COLABORADOR" />,
+      },
       { path: "/login", element: <LoginForm /> },
       { path: "/unauthorized", element: <UnauthorizedPage /> },
       { path: "/autoavaliacao", element: <AutoAvColab /> },
       { path: "/autoavaliacao/avaliacao-360", element: <Avaliacao360 /> },
-      { 
-        path: "/homeSocio", 
-        element: (
-          <ProtectedRoute 
-            element={<HomeSocio />} 
-            role="SOCIO"
-          />
-        ) 
+      {
+        path: "/homeSocio",
+        element: <ProtectedRoute element={<HomeSocio />} role="SOCIO" />,
       },
-      { path: "*", element: <NotFoundPage />},
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);
