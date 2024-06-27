@@ -2,8 +2,10 @@ import { useState, useEffect, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/v-projects_logo.svg";
 import StartButton from "@/components/StartButton";
+import { useAuth } from "@/contexts/authContext";
 
 function LoginForm() {
+    const { login } = useAuth();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,10 +19,9 @@ function LoginForm() {
         }
     }, [navigate]);
 
-    // TODO: Criar login service usando axios
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
+    
         const serverUrl = "http://localhost:3000/api/auth/login";
 
         try {
@@ -31,10 +32,10 @@ function LoginForm() {
                 },
                 body: JSON.stringify({ email, password }),
             });
-
+    
             if (response.ok) {
                 const data = await response.json();
-                sessionStorage.setItem("accessToken", data.accessToken);
+                login(data.user, data.accessToken);
                 navigate("/");
             } else {
                 setHasError(true);
