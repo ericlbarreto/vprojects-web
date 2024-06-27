@@ -14,10 +14,12 @@ function App() {
     }
   }, [navigate]);
 
+  const withHeader = location.pathname !== "/login" && location.pathname !== "/unauthorized" && location.pathname !== "*";
+
   return (
     <div className="App">
-      {location.pathname !== "/login" && <Header />}
-      <div className={location.pathname !== "/login" ? "pt-24" : ""}>
+      {withHeader && <Header />}
+      <div className={withHeader ? "pt-24" : ""}>
         <Outlet />
       </div>
     </div>

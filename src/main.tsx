@@ -7,6 +7,9 @@ import Avaliacao360 from "./pages/Avaliacao360";
 import LoginForm from "./pages/Login";
 import HomeSocio from "./pages/HomeSocio";
 import { AuthProvider } from "./contexts/authContext";
+import ProtectedRoute from "./ProtectedRoute";
+import { UnauthorizedPage } from "./pages/ErrorsPage";
+import { NotFoundPage } from "./pages/ErrorsPage";
 
 const router = createBrowserRouter([
   {
@@ -15,9 +18,19 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/login", element: <LoginForm /> },
+      { path: "/unauthorized", element: <UnauthorizedPage /> },
       { path: "/autoavaliacao", element: <AutoAvColab /> },
       { path: "/autoavaliacao/avaliacao-360", element: <Avaliacao360 /> },
-      { path: "/homeSocio", element: <HomeSocio /> },
+      { 
+        path: "/homeSocio", 
+        element: (
+          <ProtectedRoute 
+            element={<HomeSocio />} 
+            role="SOCIO"
+          />
+        ) 
+      },
+      { path: "*", element: <NotFoundPage />},
     ],
   },
 ]);
