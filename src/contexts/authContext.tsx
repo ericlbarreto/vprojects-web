@@ -1,29 +1,33 @@
-import { createContext, useContext, useState, ReactNode, FC } from 'react';
 import { Collaborator } from '@/interfaces/Collaborator';
+import { FC, ReactNode, createContext, useContext } from 'react';
 
 interface AuthContextType {
-    user: Collaborator | null;
     login: (userData: Collaborator, token: string) => void;
     logout: () => void;
+    getUserData: () => Collaborator | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<Collaborator | null>(null);
 
     const login = (userData: Collaborator, token: string) => {
         sessionStorage.setItem("accessToken", token);
-        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
     };
 
     const logout = () => {
         sessionStorage.removeItem("accessToken");
-        setUser(null);
+        localStorage.removeItem('user');
     };
 
+    const getUserData = () => {
+        const user = localStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
+    }
+
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ getUserData, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

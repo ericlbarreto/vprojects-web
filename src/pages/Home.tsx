@@ -56,7 +56,8 @@ const datatable: Payment[] = [
 ]
 
 function Home() {
-  const { user } = useAuth();
+  const { getUserData } = useAuth();
+  const user = getUserData();
 
   return (
     <div className="h-full bg-azulBackground">
