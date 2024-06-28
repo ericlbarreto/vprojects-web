@@ -6,7 +6,7 @@ import { Card360Props } from "@/interfaces/Card360Props";
 import { Textarea } from "@/components/ui/textarea";
 import ToolTipInfo from "@/components/ToolTipInfo";
 import NotaQuadrada from "./notaQuadrada";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360FieldChange, av360Data }: Card360Props) => {
     const [toImproveCharsLeft, setToImproveCharsLeft] = useState(300);

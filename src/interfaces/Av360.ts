@@ -1,11 +1,12 @@
 export interface Av360 {
-    evaluatorId: number
-    evaluatedId: number
-    cycleId: number
+    evaluatorId: number;
+    evaluatedId: number;
+    cycleId: number;
     assessment: {
-        behavior: number
-        tecniques: number
-        toImprove: string
-        toPraise: string
+        idReview: null;
+        behavior: number;
+        tecniques: number;
+        toImprove: string;
+        toPraise: string;
     }
 }

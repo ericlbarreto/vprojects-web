@@ -1,11 +1,6 @@
+import { AuthContextType } from '@/interfaces/AuthContextType';
 import { Collaborator } from '@/interfaces/Collaborator';
 import { FC, ReactNode, createContext, useContext } from 'react';
-
-interface AuthContextType {
-    login: (userData: Collaborator, token: string) => void;
-    logout: () => void;
-    getUserData: () => Collaborator | null;
-}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
