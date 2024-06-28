@@ -6,25 +6,39 @@ import { useEffect, useState } from "react";
 import api from "@/services/axiosConfig";
 import Card360 from "@/components/card360";
 import { Av360 } from "@/interfaces/Av360";
+import { useAuth } from "@/contexts/authContext";
+import { getAllCollaborators, getCurrentCycle } from "@/services/restServices";
+import { CurrentCycle } from "@/interfaces/CurrentCycle";
 
 function Avaliacao360() {
     const [availableCollaborators, setAvailableCollaborators] = useState<Collaborator[]>([]);
     const [selectedCollaborators, setSelectedCollaborators] = useState<Collaborator[]>([]);
     const [expandedCollaborators, setExpandedCollaborators] = useState<{ [key: number]: boolean }>({});
     const [av360Data, setAv360Data] = useState<{ [key: number]: Av360 }>({});
+    const [currentCycle, setCurrentCycle] = useState<CurrentCycle>();
+
+    const { getUserData } = useAuth();
+    const user = getUserData();
 
     useEffect(() => {
-        const getCollabs = async () => {
-            try {
-                const response = await api.get('/api/user/all-collabs');
-                setAvailableCollaborators(response.data);
-            } catch (error) {
-                console.error('Erro ao buscar os colaboradores:', error);
-            }
+        const fetchCollaborators = async () => {
+            const collaborators = await getAllCollaborators();
+            const filteredCollaborators = collaborators.filter((collab: Collaborator) => collab.id !== user!.id);
+            setAvailableCollaborators(filteredCollaborators);
         };
 
-        getCollabs();
+        fetchCollaborators();
     }, []);
+
+    useEffect(() => {
+        const fetchCurrentCyle = async () => {
+            const currentCycle = await getCurrentCycle();
+            setCurrentCycle(currentCycle);
+        }
+
+        fetchCurrentCyle();
+    }, []);
+
 
     const handleSelectCollaborator = (collaborator: Collaborator) => {
         setSelectedCollaborators([...selectedCollaborators, collaborator]);
@@ -32,10 +46,11 @@ function Avaliacao360() {
         setAv360Data(prevState => ({
             ...prevState,
             [collaborator.id]: {
-                evaluatorId: 1,
+                evaluatorId: user!.id,
                 evaluatedId: collaborator.id,
-                cycleId: 1,
+                cycleId: currentCycle!.id,
                 assessment: {
+                    idReview: null,
                     behavior: 0,
                     tecniques: 0,
                     toImprove: "",
@@ -66,7 +81,7 @@ function Avaliacao360() {
         try {
             console.log('teste ', av360Data);
             const dataToSend = Object.values(av360Data);
-            await api.post('/api/avaliacao360', dataToSend);
+            await api.post('/api/peer-review/register/1/1', dataToSend);
             console.log('Dados enviados com sucesso:', dataToSend);
         } catch (error) {
             console.error('Erro ao enviar os dados:', error);
@@ -90,7 +105,7 @@ function Avaliacao360() {
 
     return (
         <div className="h-screen">
-            <SubHeaderAv currentStep={2} atencao={atencao} setAtencao={setAtencao}/>
+            <SubHeaderAv currentStep={2} atencao={atencao} setAtencao={setAtencao} />
             <div className="pt-32">
                 <Tutorial360 />
                 {availableCollaborators.length > 0 &&
