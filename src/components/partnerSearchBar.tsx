@@ -8,32 +8,40 @@ import {
   import { FaSearch } from "react-icons/fa";
   import { Input } from "./ui/input";
   import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+  import { useEffect } from "react";
+  import { Collaborator } from "@/interfaces/Collaborator";
+  import api from "@/services/axiosConfig";
   
   const PartnerSearchBar = () => {
     const [search, setSearch] = useState("");
-    const colaboradores = [
-      { name: "Catarina Leite", role: "UI/UX Designer", image: "url_to_image" },
-      { name: "Marina Barros", role: "Product Designer", image: "url_to_image" },
-      {
-        name: "Marina Maria Leite",
-        role: "Desenvolvedora",
-        image: "url_to_image",
-      },
-    ];
+    const [availableCollaborators, setAvailableCollaborators] = useState<Collaborator[]>([]);
+
+    useEffect(() => {
+      const getCollabs = async () => {
+          try {
+              const response = await api.get('/api/user/all-collabs');
+              setAvailableCollaborators(response.data);
+          } catch (error) {
+              console.error('Erro ao buscar os colaboradores:', error);
+          }
+      };
+
+      getCollabs();
+  }, []);
   
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(event.target.value);
     };
   
-    const handleItemClick = (colaborador: { name: string, role: string, image: string }) => {
-      console.log(colaborador);
+    const handleItemClick = (collaborator: Collaborator) => {
+      console.log(collaborator);
     };
   
-    const filteredColaboradores = search
-      ? colaboradores.filter((colaborador) =>
+    const filteredCollaborators = search
+      ? availableCollaborators.filter((colaborador) =>
           colaborador.name.toLowerCase().includes(search.toLowerCase())
         )
-      : colaboradores;
+      : availableCollaborators;
   
     return (
       <DropdownMenu>
@@ -52,19 +60,19 @@ import {
           </div>
   
           <DropdownMenuContent className="absolute mt-2 w-96 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
-            {filteredColaboradores.map((colaborador, index) => (
+            {filteredCollaborators.map((collaborator, index) => (
               <DropdownMenuItem
                 key={index}
                 className="flex items-center p-2 hover:bg-gray-100 cursor-pointer gap-4"
-                onClick={() => handleItemClick(colaborador)}
+                onClick={() => handleItemClick(collaborator)}
               >
                 <Avatar>
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div>
-                  <div className="font-medium">{colaborador.name}</div>
-                  <div className="text-sm text-gray-500">{colaborador.role}</div>
+                  <div className="font-medium">{collaborator.name}</div>
+                  <div className="text-sm text-gray-500">{collaborator.position}</div>
                 </div>
               </DropdownMenuItem>
             ))}
