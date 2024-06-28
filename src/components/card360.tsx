@@ -6,8 +6,32 @@ import { Card360Props } from "@/interfaces/Card360Props";
 import { Textarea } from "@/components/ui/textarea";
 import ToolTipInfo from "@/components/ToolTipInfo";
 import NotaQuadrada from "./notaQuadrada";
+import { useState } from "react";
 
-const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded }: Card360Props) => {
+const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360FieldChange, av360Data }: Card360Props) => {
+    const [toImproveCharsLeft, setToImproveCharsLeft] = useState(300);
+    const [toPraiseCharsLeft, setToPraiseCharsLeft] = useState(300);
+
+    const assessmentData = av360Data[collaborator.id]?.assessment || { toImprove: "", toPraise: "", behavior: 0, tecniques: 0 };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>, field: string) => {
+        const value = e.target.value;
+        const maxLength = 300;
+
+        if (value.length <= maxLength) {
+            onAv360FieldChange(collaborator.id, field, value);
+
+            if (field === 'toImprove') {
+                setToImproveCharsLeft(maxLength - value.length);
+            } else if (field === 'toPraise') {
+                setToPraiseCharsLeft(maxLength - value.length);
+            }
+        }
+    };
+
+    const handleNotaChange = (field: 'behavior' | 'tecniques', value: number) => {
+        onAv360FieldChange(collaborator.id, field, value);
+    };
 
     return (
         <div className="mb-8 p-4 border rounded-lg bg-white">
@@ -58,14 +82,26 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded }: Card360
                                 <p className="text-[#455468] font-semibold">Pontos a melhorar</p>
                                 <ToolTipInfo text="Áreas onde a pessoa pode se desenvolver, incluindo sugestões para aprimorar habilidades técnicas e comportamentais." />
                             </div>
-                            <Textarea className="h-28" placeholder="Digite os pontos a melhorar" />
+                            <Textarea
+                                className="h-28"
+                                placeholder="Digite os pontos a melhorar"
+                                value={assessmentData.toImprove}
+                                onChange={(e) => handleInputChange(e, 'toImprove')}
+                            />
+                            <p className="text-[#bfbfbf] text-xs text-right">{toImproveCharsLeft}/300</p>
                         </div>
                         <div className="col-span-4">
                             <div className="flex items-center">
                                 <p className="text-[#455468] font-semibold">Pontos a elogiar</p>
                                 <ToolTipInfo text="Reconhecer as áreas onde a pessoa se destaca. Inclui elogios sobre suas habilidades, realizações específicas, ou contribuições significativas." />
                             </div>
-                            <Textarea className="h-28" placeholder="Digite os pontos a elogiar" />
+                            <Textarea
+                                className="h-28"
+                                placeholder="Digite os pontos a elogiar"
+                                value={assessmentData.toPraise}
+                                onChange={(e) => handleInputChange(e, 'toPraise')}
+                            />
+                            <p className="text-[#bfbfbf] text-xs text-right">{toPraiseCharsLeft}/300</p>
                         </div>
                         <div className="col-span-4 space-y-11">
                             <div>
@@ -76,7 +112,11 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded }: Card360
 
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
-                                    <NotaQuadrada isStatic={0} />
+                                    <NotaQuadrada
+                                        isStatic={0}
+                                        nota={assessmentData.behavior}
+                                        funcaoNota={(value: number) => handleNotaChange('behavior', value)}
+                                    />
                                 </div>
                             </div>
 
@@ -88,19 +128,13 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded }: Card360
 
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
-                                    <NotaQuadrada isStatic={0} />
+                                    <NotaQuadrada
+                                        isStatic={0}
+                                        nota={assessmentData.tecniques}
+                                        funcaoNota={(value: number) => handleNotaChange('tecniques', value)}
+                                    />
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-12 gap-12 mb-6 px-10">
-                        <div className="col-span-4 justify-self-end">
-                            <p className="text-[#bfbfbf] text-xs">300/300</p>
-                        </div>
-
-                        <div className="col-span-4 justify-self-end">
-                            <p className="text-[#bfbfbf] text-xs">300/300</p>
                         </div>
                     </div>
                 </div>
