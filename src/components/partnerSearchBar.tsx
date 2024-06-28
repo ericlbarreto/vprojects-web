@@ -25,7 +25,7 @@ import {
       setSearch(event.target.value);
     };
   
-    const handleItemClick = (colaborador) => {
+    const handleItemClick = (colaborador: { name: string, role: string, image: string }) => {
       console.log(colaborador);
     };
   
