@@ -117,34 +117,6 @@ function HomeSocio() {
               <p className="text-cinza">Gráfico com notas finais</p>
               <h2 className="text-[#2D2D2D] font-bold">por setor</h2>
             </div>
-            <Select>
-              <SelectTrigger className="w-[100px]">
-                <SelectValue
-                  placeholder="Ano"
-                  className="text-roxoPrincipal bg-azulBackground"
-                />
-              </SelectTrigger>
-              <SelectContent className="bg-azulBackground">
-                <SelectItem value="2024" className="text-roxoPrincipal">
-                  2024
-                </SelectItem>
-                <SelectItem value="2023" className="text-roxoPrincipal">
-                  2023
-                </SelectItem>
-                <SelectItem value="2022 " className="text-roxoPrincipal">
-                  2022
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <MultipleBarGraphic />
-        </div>
-        <div className="flex flex-col col-span-3 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <p className="text-cinza">Estatística</p>
-              <h2 className="text-[#2D2D2D] font-bold">das equalizações já realizadas</h2>
-            </div>
             <div className="flex gap-2">
               <Select>
                 <SelectTrigger className="w-[100px]">
@@ -209,6 +181,15 @@ function HomeSocio() {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+          <MultipleBarGraphic />
+        </div>
+        <div className="flex flex-col col-span-3 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
+          <div className="flex justify-left items-center mb-4">
+            <div>
+              <p className="text-cinza">Estatística</p>
+              <h2 className="text-[#2D2D2D] font-bold">das equalizações já realizadas</h2>
             </div>
           </div>
           <div className="flex items-center justify-center w-full h-full text-roxoPrincipal">
