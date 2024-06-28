@@ -91,7 +91,7 @@ function Home() {
         </div>
         <div className="col-span-3 col-start-6 bg-white rounded-2xl shadow-md relative">
           <div className="grid gap-x-2 grid-cols-7">
-            <div className="col-span-4 py-6 px-6 space-y-11">
+            <div className="col-span-4 py-6 px-6 space-y-8">
               <p className="font-extrabold text-[#2d2d2d]">
                 Tutorial da Plataforma
               </p>
