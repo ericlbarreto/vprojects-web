@@ -1,8 +1,8 @@
 import StartButton from "@/components/StartButton";
 import AreaGraphic from "@/components/graphics/areaGraphic";
 import BarGraphic from "@/components/graphics/barGraphic";
-import { Payment, columns } from "@/components/table/columns";
-import { DataTable } from "@/components/table/data-table";
+import { Payment, columns } from "@/components/cycleTable/columns";
+import { CycleTable } from "@/components/cycleTable/data-table";
 import {
   Select,
   SelectContent,
@@ -220,7 +220,9 @@ function Home() {
               </Select>
             </div>
           </div>
-          <BarGraphic />  
+          <div className="flex items-center justify-center">
+            <BarGraphic />   
+          </div>
         </div>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
@@ -228,7 +230,7 @@ function Home() {
           </h1>
         </div>
         <div className="col-span-8 bg-white rounded-2xl shadow-md relative h-[400px] mt-6">
-          <DataTable columns={columns} data={datatable} />
+          <CycleTable columns={columns} data={datatable} />
         </div>
       </div>
     </div>

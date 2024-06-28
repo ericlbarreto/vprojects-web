@@ -1,10 +1,12 @@
 import { SidebarProps } from "@/interfaces/SideBarProps";
 import { Cross2Icon, HomeIcon, ReaderIcon, GearIcon, ExitIcon } from "@radix-ui/react-icons";
+import { useAuth } from "@/contexts/authContext";
 
 function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+  const { logout } = useAuth();
 
   const handleExit = () => {
-    sessionStorage.removeItem('accessToken');
+    logout();
     window.location.reload();
   }
 
