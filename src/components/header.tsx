@@ -1,13 +1,12 @@
-import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/contexts/authContext";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Menu from "../assets/menu.svg";
 import Sininho from "../assets/sininho.svg";
 import Logo from "../assets/v-projects_logo.svg";
+import PartnerSearchBar from "./partnerSearchBar";
 import Sidebar from "./sidebar";
-import { useAuth } from "@/contexts/authContext";
-import { Input } from "./ui/input";
-import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 function Header() {
   const { getUserData } = useAuth();
@@ -33,12 +32,8 @@ function Header() {
           </div>
         </div>
         {user?.role === "SOCIO" && (
-          <div className="flex items-center relative">
-            <Input
-              className="bg-azulBackground border-none w-[512px] focus:outline-none focus:border-roxoPrincipal "
-              placeholder="Pesquise o nome do colaborador"
-            />
-            <FaSearch className="text-cinza absolute right-4 cursor-pointer" />
+          <div className="flex items-center">
+            <PartnerSearchBar />
           </div>
         )}
         <div className="flex mr-10 space-x-6 items-center">

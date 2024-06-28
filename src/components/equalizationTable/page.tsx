@@ -1,5 +1,5 @@
 import { Payment, columns } from "./columns"
-import { DataTable } from "./data-table"
+import { EqualizationTable } from "./data-table"
 
 export default async function DemoPage() {
   const data: Payment[] = [
@@ -42,7 +42,7 @@ export default async function DemoPage() {
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+      <EqualizationTable columns={columns} data={data} />
     </div>
   )
 }

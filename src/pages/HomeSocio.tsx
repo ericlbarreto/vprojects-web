@@ -1,8 +1,8 @@
 import StartButton from "@/components/StartButton";
+import { Payment, columns } from "@/components/equalizationTable/columns";
+import { EqualizationTable } from "@/components/equalizationTable/data-table";
 import CircularProgressWithDot from "@/components/graphics/circleChart";
 import MultipleBarGraphic from "@/components/graphics/multipleBarGraphic";
-import { Payment, columns } from "@/components/table/columns";
-import { DataTable } from "@/components/table/data-table";
 import {
   Select,
   SelectContent,
@@ -21,36 +21,31 @@ const datatable: Payment[] = [
     id: "m5gr84i9",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 2,
+    status: "em andamento"
   },
   {
     id: "3u1reuv4",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 3,
+    status: "em andamento"
   },
   {
     id: "derv1ws0",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "finalizado",
-    grade: 2,
+    status: "finalizado"
   },
   {
     id: "5kma53ae",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 3,
+    status: "em andamento"
   },
   {
     id: "bhqecj4p",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "finalizado",
-    grade: 5,
+    status: "finalizado"
   },
 ]
 
@@ -222,11 +217,11 @@ function HomeSocio() {
         </div>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
-            Histórico de Ciclos de Avaliações
+            Histórico de Ciclos de Equalizações
           </h1>
         </div>
         <div className="col-span-8 bg-white rounded-2xl shadow-md relative h-[400px] mt-6">
-          <DataTable columns={columns} data={datatable} />
+          <EqualizationTable columns={columns} data={datatable} />
         </div>
       </div>
     </div>

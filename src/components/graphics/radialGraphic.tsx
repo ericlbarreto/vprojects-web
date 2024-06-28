@@ -1,9 +1,8 @@
 import {
-  Legend,
-  RadialBar,
-  RadialBarChart,
-  ResponsiveContainer,
-  Tooltip,
+    RadialBar,
+    RadialBarChart,
+    ResponsiveContainer,
+    Tooltip
 } from 'recharts';
 
 interface Data {
