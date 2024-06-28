@@ -1,9 +1,8 @@
 import {
-  Legend,
-  RadialBar,
-  RadialBarChart,
-  ResponsiveContainer,
-  Tooltip,
+    RadialBar,
+    RadialBarChart,
+    ResponsiveContainer,
+    Tooltip
 } from 'recharts';
 
 interface Data {
@@ -78,7 +77,7 @@ export default function RadialGraphic() {
     const endAngle = 90 + (360 * data[0].uv / 100); // Calculando o ângulo final com base no valor de UV
 
     return (
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={400} className='flex justify-center items-center'>
             <RadialBarChart
                 cx={200}
                 cy={200}
@@ -105,14 +104,14 @@ export default function RadialGraphic() {
                     endAngle: endAngle,
                     fill: '#4A3AFF'
                 })}
-                <Legend
+                {/* <Legend
                     iconSize={10}
                     width={120}
                     height={140}
                     layout="vertical"
                     verticalAlign="middle"
                     wrapperStyle={style}
-                />
+                /> */}
                 <Tooltip />
             </RadialBarChart>
         </ResponsiveContainer>

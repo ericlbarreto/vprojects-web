@@ -36,7 +36,12 @@ function LoginForm() {
             if (response.ok) {
                 const data = await response.json();
                 login(data.user, data.accessToken);
-                navigate("/");
+                if (data.user.role === "SOCIO") {
+                    navigate("/homeSocio");
+                } else {
+
+                    navigate("/");
+                }
             } else {
                 setHasError(true);
                 setError("E-mail ou senha incorreto(a)");

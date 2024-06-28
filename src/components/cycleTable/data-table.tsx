@@ -27,7 +27,7 @@ interface DataTableProps {
   data: Payment[];
 }
 
-export function DataTable({ columns = defaultColumns, data }: DataTableProps) {
+export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
