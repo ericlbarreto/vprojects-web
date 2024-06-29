@@ -64,6 +64,7 @@ module.exports = {
         alert: "#F2C94C",
         buttonBlueBackground: "#F1F7FF",
         cinza: "#BDBDBD",
+        'custom-blue': '#F1F7FF',
       },
       borderRadius: {
         lg: "16px",

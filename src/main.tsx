@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import AutoAvColab from './pages/AutoAvColab'
 import Avaliacao360 from './pages/Avaliacao360'
 import LoginForm from './pages/Login'
+import CycleControl from './pages/CycleControl'
 
 const router = createBrowserRouter([{
   path: "/",
@@ -14,6 +15,7 @@ const router = createBrowserRouter([{
     { path: "/login", element: <LoginForm /> },
     { path: "/autoavaliacao", element: <AutoAvColab /> },
     { path: "/autoavaliacao/avaliacao-360", element: <Avaliacao360 /> },
+    { path: "/home/controle-de-ciclo", element: <CycleControl /> },
   ]
 }])
 
