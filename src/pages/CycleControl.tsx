@@ -1,10 +1,11 @@
 import PartnerHeader from "@/components/partnerHeader";
+import SubHeaderCycleControl from "@/components/subHeaderCycleControl";
 
 function CycleControl() {
     return(
         <div className="h-full bg-azulBackground">
-            <PartnerHeader/>
-            aksjdhfbv
+            {/* <PartnerHeader/> */}
+            <SubHeaderCycleControl/>
         </div>
     );
 

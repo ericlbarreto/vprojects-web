@@ -27,11 +27,11 @@ function PartnerHeader() {
           </div>
         </div>
 
-        <div className="">
+        <div className="flex px-10 py-2.5 gap-x-2.5 rounded-lg bg-customBlue ">
             <input 
             type="search"
             placeholder="Pesquise o nome do colaborador"
-            className="py-3 rounded-lg border-none bg-custom-blue"/>
+            className="bg-transparent w-96 border-none"/>
             <button>
                 <img src={Lupa} alt="" />
             </button>
