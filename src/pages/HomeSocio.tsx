@@ -1,8 +1,8 @@
 import StartButton from "@/components/StartButton";
-import AreaGraphic from "@/components/graphics/areaGraphic";
-import BarGraphic from "@/components/graphics/barGraphic";
-import { Payment, columns } from "@/components/cycleTable/columns";
-import { CycleTable } from "@/components/cycleTable/data-table";
+import { Payment, columns } from "@/components/equalizationTable/columns";
+import { EqualizationTable } from "@/components/equalizationTable/data-table";
+import CircularProgressWithDot from "@/components/graphics/circleChart";
+import MultipleBarGraphic from "@/components/graphics/multipleBarGraphic";
 import {
   Select,
   SelectContent,
@@ -15,50 +15,41 @@ import {
 import { Separator } from "@radix-ui/react-select";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
-import { useAuth } from "@/contexts/authContext";
 
 const datatable: Payment[] = [
   {
     id: "m5gr84i9",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 2,
+    status: "em andamento"
   },
   {
     id: "3u1reuv4",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 3,
+    status: "em andamento"
   },
   {
     id: "derv1ws0",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "finalizado",
-    grade: 2,
+    status: "finalizado"
   },
   {
     id: "5kma53ae",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 3,
+    status: "em andamento"
   },
   {
     id: "bhqecj4p",
     startDate: "2021-10-10",
     endDate: "2021-10-10",
-    status: "finalizado",
-    grade: 5,
+    status: "finalizado"
   },
 ]
 
-function Home() {
-  const { getUserData } = useAuth();
-  const user = getUserData();
-
+function HomeSocio() {
   return (
     <div className="h-full bg-azulBackground">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
@@ -70,7 +61,7 @@ function Home() {
                   Boas vindas,
                 </span>{" "}
                 <span className="font-semibold text-[#2d2d2d]">
-                  {user?.name}!
+                  Camila Fontes!
                 </span>
               </p>
               <p className="text-justify text-textoCor">
@@ -78,11 +69,11 @@ function Home() {
                 até <b>23/05/2024</b>! Inicie agora, sua colaboração é essencial
                 para o nosso progresso contínuo.
               </p>
-              <div><a href="autoavaliacao"><StartButton
+              <StartButton
                 className={
                   "bg-roxoPrincipal w-48 h-9 rounded-md text-white font-semibold hover:bg-[#6929fe]"
                 }
-              /></a></div>
+              />
             </div>
             <div className="col-span-2 ml-12 flex justify-end">
               <img src={Assesment} className="w-64 h-64" alt="Assesment Icon" />
@@ -91,7 +82,7 @@ function Home() {
         </div>
         <div className="col-span-3 col-start-6 bg-white rounded-2xl shadow-md relative">
           <div className="grid gap-x-2 grid-cols-7">
-            <div className="col-span-4 py-6 px-6 space-y-8">
+            <div className="col-span-4 py-6 px-6 space-y-11">
               <p className="font-extrabold text-[#2d2d2d]">
                 Tutorial da Plataforma
               </p>
@@ -120,39 +111,11 @@ function Home() {
             Ciclos de avaliação
           </h1>
         </div>
-        <div className="col-span-4 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
+        <div className="col-span-5  bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <p className="text-cinza">Evolução</p>
-              <h2 className="text-[#2D2D2D] font-bold">nota final</h2>
-            </div>
-            <Select>
-              <SelectTrigger className="w-[100px]">
-                <SelectValue
-                  placeholder="Ano"
-                  className="text-roxoPrincipal bg-azulBackground"
-                />
-              </SelectTrigger>
-              <SelectContent className="bg-azulBackground">
-                <SelectItem value="2024" className="text-roxoPrincipal">
-                  2024
-                </SelectItem>
-                <SelectItem value="2023" className="text-roxoPrincipal">
-                  2023
-                </SelectItem>
-                <SelectItem value="2022 " className="text-roxoPrincipal">
-                  2022
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <AreaGraphic />
-        </div>
-        <div className="col-span-4 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <p className="text-cinza">Notas</p>
-              <h2 className="text-[#2D2D2D] font-bold">por critérios</h2>
+              <p className="text-cinza">Gráfico com notas finais</p>
+              <h2 className="text-[#2D2D2D] font-bold">por setor</h2>
             </div>
             <div className="flex gap-2">
               <Select>
@@ -220,21 +183,30 @@ function Home() {
               </Select>
             </div>
           </div>
-          <div className="flex items-center justify-center">
-            <BarGraphic />   
+          <MultipleBarGraphic />
+        </div>
+        <div className="flex flex-col col-span-3 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
+          <div className="flex justify-left items-center mb-4">
+            <div>
+              <p className="text-cinza">Estatística</p>
+              <h2 className="text-[#2D2D2D] font-bold">das equalizações já realizadas</h2>
+            </div>
+          </div>
+          <div className="flex items-center justify-center w-full h-full text-roxoPrincipal">
+            <CircularProgressWithDot value={40} />  
           </div>
         </div>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
-            Histórico de Ciclos de Avaliações
+            Histórico de Ciclos de Equalizações
           </h1>
         </div>
         <div className="col-span-8 bg-white rounded-2xl shadow-md relative h-[400px] mt-6">
-          <CycleTable columns={columns} data={datatable} />
+          <EqualizationTable columns={columns} data={datatable} />
         </div>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default HomeSocio;
