@@ -1,11 +1,11 @@
 import PartnerHeader from "@/components/partnerHeader";
-import SubHeaderCycleControl from "@/components/subHeaderCycleControl";
+import SubHeaderEqualization from "@/components/subHeaderCycleControl";
 
 function CycleControl() {
     return(
         <div className="h-full bg-azulBackground">
             {/* <PartnerHeader/> */}
-            <SubHeaderCycleControl/>
+            <SubHeaderEqualization/>
         </div>
     );
 

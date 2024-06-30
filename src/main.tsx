@@ -10,7 +10,8 @@ import { AuthProvider } from "./contexts/authContext";
 import ProtectedRoute from "./ProtectedRoute";
 import { UnauthorizedPage } from "./pages/ErrorsPage";
 import { NotFoundPage } from "./pages/ErrorsPage";
-import CycleControl from './pages/CycleControl'
+import CycleControl from './pages/CycleControl';
+import Equalization from "./pages/Equalization";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,8 @@ const router = createBrowserRouter([
       { path: "/unauthorized", element: <UnauthorizedPage /> },
       { path: "/autoavaliacao", element: <AutoAvColab /> },
       { path: "/autoavaliacao/avaliacao-360", element: <Avaliacao360 /> },
-      { path: "/home/controle-de-ciclo", element: <CycleControl /> },
+      { path: "/controle-de-ciclo", element: <CycleControl /> },
+      { path: "/equalizacao", element: <Equalization /> },
       {
         path: "/homeSocio",
         element: <ProtectedRoute element={<HomeSocio />} role="SOCIO" />,

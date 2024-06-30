@@ -27,12 +27,12 @@ function SubHeaderAv({currentStep, setAtencao}:SubHeaderAvProps) {
     return (
         <div className="fixed w-screen bg-[#FBFCFF] h-32 flex justify-between px-4 z-30">
             <div className="m-4 ml-6">
-                    <Breadcrumb>
-                        <BreadcrumbList>
-                            <BreadcrumbItem>
-                                <button onClick={()=>setAtencao(true)}><BreadcrumbLink className="underline">Menu Principal</BreadcrumbLink></button>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator  />
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <button onClick={()=>setAtencao(true)}><BreadcrumbLink className="underline">Menu Principal</BreadcrumbLink></button>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator  />    
                         <BreadcrumbItem>
                             {currentPath === '/autoavaliacao' ? (
                                 <BreadcrumbPage className='text-[#50556b] font-bold'>Autoavaliação</BreadcrumbPage>
@@ -43,13 +43,13 @@ function SubHeaderAv({currentStep, setAtencao}:SubHeaderAvProps) {
                         {currentPath === '/autoavaliacao/avaliacao-360' && (
                             <>
                                 <BreadcrumbSeparator />
-                                    <BreadcrumbItem>
-                                        <BreadcrumbPage className='text-[#50556b] font-bold'>Avaliação 360</BreadcrumbPage>
-                                    </BreadcrumbItem>
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage className='text-[#50556b] font-bold'>Avaliação 360</BreadcrumbPage>
+                                </BreadcrumbItem>
                             </>
                         )}
-                        </BreadcrumbList>
-                    </Breadcrumb>
+                    </BreadcrumbList>
+                </Breadcrumb>
 
                 {currentPath === '/autoavaliacao' ? (
                     <p className="font-bold pt-2 text-2xl font-extrabold">Autoavaliação</p>
