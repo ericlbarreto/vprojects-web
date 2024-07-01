@@ -60,7 +60,7 @@ function SubHeaderAv({currentStep, setAtencao}:SubHeaderAvProps) {
 
             <div className="m-8"><Stepper stepNow={currentStep} /></div>
             <div className="">
-                <button onClick={() => setSalvarRascunho(true)} className="bg-[#f1f7ff] w-36 h-12 mt-8 mr-8 ml-8 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
+                <button onClick={() => setSalvarRascunho(true)} className="bg-buttonBlueBackground w-36 h-12 mt-8 mr-8 ml-8 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
                 {salvarRascunho ?
                         <div className="absolute w-44 h-12 rounded-md shadow border flex bg-[#E4FFE4] text-xs"><img className="size-6" src={Check} alt="Check" />
                             Informações salvas com sucesso
