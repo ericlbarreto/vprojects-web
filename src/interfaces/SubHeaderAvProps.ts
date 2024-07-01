@@ -3,4 +3,5 @@ export interface SubHeaderAvProps{
     setAtencao:Function
     atencao:boolean
     funcaoSalvar:Function
+
 }
