@@ -11,6 +11,7 @@ import { useState } from "react";
 const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360FieldChange, av360Data }: Card360Props) => {
     const [toImproveCharsLeft, setToImproveCharsLeft] = useState(300);
     const [toPraiseCharsLeft, setToPraiseCharsLeft] = useState(300);
+    const [edit, setEdit] = useState(false);
 
     const assessmentData = av360Data[collaborator.id]?.assessment || { toImprove: "", toPraise: "", behavior: 0, tecniques: 0 };
 
@@ -55,8 +56,17 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                         </div>
                     </div>
 
+                    {edit && (
+                        <div className="flex items-center justify-center col-span-1 col-start-10 mr-6">
+                            <button className="font-semibold text-[#5702ff] bg-[#F1F7FF] w-32 h-10 rounded-md hover:bg-[#D9E7FF]">
+                                Salvar
+                            </button>
+                        </div>
+                    )}
+
+
                     <div className="flex items-center space-x-2 col-span-1 col-start-11">
-                        <button className="flex items-center text-[#5702ff]">
+                        <button onClick={() => setEdit(true)} className="flex items-center text-[#5702ff]">
                             <HiPencil className="text-[#5702ff] mr-2" />
                             Editar
                         </button>
@@ -69,7 +79,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                     </div>
                 </div>
 
-                <button onClick={() => onExpandToggle(collaborator.id)} className={`flex justify-center items-center bg-white shadow-xl w-10 h-10 overflow-visible rounded-full absolute ${isExpanded ? 'right-1/2 top-60' : 'right-1/2 top-11'}`}>
+                <button onClick={() => onExpandToggle(collaborator.id)} className={`flex justify-center items-center bg-white shadow-xl w-10 h-10 overflow-visible rounded-full absolute ${isExpanded ? 'right-1/2 top-52' : 'right-1/2 top-11'}`}>
                     <img className="h-4 w-4" src={isExpanded ? Up : DropDown} alt="Ícone indicando expansão para baixo" />
                 </button>
             </div>
