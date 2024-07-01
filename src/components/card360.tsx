@@ -76,7 +76,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded }: Card360
 
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
-                                    <NotaQuadrada isStatic={0} />
+                                    <NotaQuadrada isStatic={0} nota="" funcaoHandleNota={()=>{}}  notasObject={{}}/>
                                 </div>
                             </div>
 
@@ -88,7 +88,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded }: Card360
 
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
-                                    <NotaQuadrada isStatic={0} />
+                                    <NotaQuadrada isStatic={0} nota="" funcaoHandleNota={()=>{}}  notasObject={{}}/>
                                 </div>
                             </div>
                         </div>

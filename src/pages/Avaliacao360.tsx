@@ -45,7 +45,7 @@ function Avaliacao360() {
 
     return (
         <div className="h-screen">
-            <SubHeaderAv currentStep={2} atencao={atencao} setAtencao={setAtencao}/>
+            <SubHeaderAv funcaoSalvar={()=>{}} currentStep={2} atencao={atencao} setAtencao={setAtencao}/>
             <div className="pt-32">
                 <Tutorial360 />
                 {availableCollaborators.length > 0 &&
