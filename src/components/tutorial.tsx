@@ -24,7 +24,7 @@ function Tutorial() {
             {closed ? "" :
                 <div className="m-8">
                     <div className="flex justify-between mx-12">
-                        <div><BolinhaNum num={"1"} /></div>
+                        <div ><BolinhaNum num={"1"} /></div>
                         <div><img className="pb-7" src={LinhaCima} alt="Linha curvada para cima" /></div>
                         <div><BolinhaNum num={"2"} /></div>
                         <div><img className="pt-7" src={LinhaBaixo} alt="Linha curvada para cima" /></div>
