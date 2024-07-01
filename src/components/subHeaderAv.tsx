@@ -11,13 +11,9 @@ import Stepper from "./steps";
 import { useState } from "react";
 import XClose from "../assets/xclose.svg"
 import Check from "../assets/check.svg"
+import { SubHeaderAvProps } from '@/interfaces/SubHeaderAvProps';
 
-interface SubHeaderAvProps{
-    currentStep:number
-    setAtencao:Function
-    atencao:boolean
-    funcaoSalvar:Function
-}
+
 
 
 function SubHeaderAv({currentStep, setAtencao, funcaoSalvar}:SubHeaderAvProps) {

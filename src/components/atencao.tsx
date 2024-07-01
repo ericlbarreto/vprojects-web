@@ -1,4 +1,4 @@
-import { AtencaoModalProps } from "@/interfaces/AtencaoModal";
+import { AtencaoModalProps } from "@/interfaces/AtencaoModalProps";
 import Atencao from "../assets/atencao.svg"
 
 
