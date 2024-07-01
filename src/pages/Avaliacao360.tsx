@@ -9,6 +9,7 @@ import { useAuth } from "@/contexts/authContext";
 import { getAllCollaborators, getAv360Data, getCurrentCycle, postAv360 } from "@/services/restServices";
 import { CurrentCycle } from "@/interfaces/CurrentCycle";
 import { Oval } from "react-loader-spinner";
+import AtencaoModal from "@/components/atencao";
 
 function Avaliacao360() {
     const [availableCollaborators, setAvailableCollaborators] = useState<Collaborator[]>([]);
@@ -151,26 +152,29 @@ function Avaliacao360() {
         <div className="h-screen">
             <SubHeaderAv currentStep={2} atencao={atencao} setAtencao={setAtencao} />
             <div className="pt-32">
-                <Tutorial360 />
-                <div className="m-4">
-                    <p className="font-medium text-lg">Adicione aqui os colaboradores</p>
-                    <SelectColab collaborators={availableCollaborators} onSelect={handleSelectCollaborator} disableAddCollab={disableAddCollab} />
-                </div>
-                <div className="m-4">
-                    {selectedCollaborators.map(collaborator => (
-                        <Card360
-                            key={collaborator.id}
-                            collaborator={collaborator}
-                            onRemove={handleRemoveCollaborator}
-                            onExpandToggle={toggleExpand}
-                            isExpanded={expandedCollaborators[collaborator.id]}
-                            onAv360FieldChange={handleAv360FieldChange}
-                            av360Data={av360Data}
-                        />
-                    ))}
-                </div>
-                <div className="m-4">
-                    <button onClick={handleSubmit} className="p-2 bg-blue-500 text-white rounded">Enviar Avaliações</button>
+                <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path="/autoavaliacao" />)}</div>
+                <div className={atencao ? "opacity-50" : ""}>
+                    <Tutorial360 />
+                    <div className="m-4">
+                        <p className="font-medium text-lg">Adicione aqui os colaboradores</p>
+                        <SelectColab collaborators={availableCollaborators} onSelect={handleSelectCollaborator} disableAddCollab={disableAddCollab} />
+                    </div>
+                    <div className="m-4">
+                        {selectedCollaborators.map(collaborator => (
+                            <Card360
+                                key={collaborator.id}
+                                collaborator={collaborator}
+                                onRemove={handleRemoveCollaborator}
+                                onExpandToggle={toggleExpand}
+                                isExpanded={expandedCollaborators[collaborator.id]}
+                                onAv360FieldChange={handleAv360FieldChange}
+                                av360Data={av360Data}
+                            />
+                        ))}
+                    </div>
+                    <div className="m-4">
+                        <button onClick={handleSubmit} className="p-2 bg-blue-500 text-white rounded">Enviar Avaliações</button>
+                    </div>
                 </div>
             </div>
         </div>

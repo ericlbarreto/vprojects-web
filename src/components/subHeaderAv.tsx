@@ -37,7 +37,7 @@ function SubHeaderAv({currentStep, setAtencao}:SubHeaderAvProps) {
                             {currentPath === '/autoavaliacao' ? (
                                 <BreadcrumbPage className='text-[#50556b] font-bold'>Autoavaliação</BreadcrumbPage>
                             ) : (
-                                <BreadcrumbLink className="underline" href="/autoavaliacao">Autoavaliação</BreadcrumbLink>
+                                <button onClick={()=>setAtencao(true)}><BreadcrumbLink className="underline">Autoavaliação</BreadcrumbLink></button>
                             )}
                         </BreadcrumbItem>
                         {currentPath === '/autoavaliacao/avaliacao-360' && (

@@ -6,7 +6,7 @@ import { Card360Props } from "@/interfaces/Card360Props";
 import { Textarea } from "@/components/ui/textarea";
 import ToolTipInfo from "@/components/ToolTipInfo";
 import NotaQuadrada from "./notaQuadrada";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360FieldChange, av360Data }: Card360Props) => {
     const [toImproveCharsLeft, setToImproveCharsLeft] = useState(300);
@@ -15,18 +15,17 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
 
     const assessmentData = av360Data[collaborator.id]?.assessment || { toImprove: "", toPraise: "", behavior: 0, tecniques: 0 };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>, field: string) => {
+    useEffect(() => {
+        setToImproveCharsLeft(300 - (assessmentData.toImprove?.length || 0));
+        setToPraiseCharsLeft(300 - (assessmentData.toPraise?.length || 0));
+    }, [assessmentData.toImprove, assessmentData.toPraise]);
+
+    const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>, field: string) => {
         const value = e.target.value;
         const maxLength = 300;
 
         if (value.length <= maxLength) {
             onAv360FieldChange(collaborator.id, field, value);
-
-            if (field === 'toImprove') {
-                setToImproveCharsLeft(maxLength - value.length);
-            } else if (field === 'toPraise') {
-                setToPraiseCharsLeft(maxLength - value.length);
-            }
         }
     };
 
@@ -64,7 +63,6 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                         </div>
                     )}
 
-
                     <div className="flex items-center space-x-2 col-span-1 col-start-11">
                         <button onClick={() => setEdit(true)} className="flex items-center text-[#5702ff]">
                             <HiPencil className="text-[#5702ff] mr-2" />
@@ -96,7 +94,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                                 className="h-28"
                                 placeholder="Digite os pontos a melhorar"
                                 value={assessmentData.toImprove}
-                                onChange={(e) => handleInputChange(e, 'toImprove')}
+                                onChange={(e) => handleTextareaChange(e, 'toImprove')}
                             />
                             <p className="text-[#bfbfbf] text-xs text-right">{toImproveCharsLeft}/300</p>
                         </div>
@@ -109,7 +107,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                                 className="h-28"
                                 placeholder="Digite os pontos a elogiar"
                                 value={assessmentData.toPraise}
-                                onChange={(e) => handleInputChange(e, 'toPraise')}
+                                onChange={(e) => handleTextareaChange(e, 'toPraise')}
                             />
                             <p className="text-[#bfbfbf] text-xs text-right">{toPraiseCharsLeft}/300</p>
                         </div>
@@ -117,7 +115,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                             <div>
                                 <div className="flex items-center">
                                     <p className="text-[#455468] font-semibold">Aspectos comportamentais</p>
-                                    <ToolTipInfo text="Habilidades interpessoais que não são técnicas, como comunicação, trabalho em equipe, resolução de conflitos, adaptabilidade, entre outros. " />
+                                    <ToolTipInfo text="Habilidades interpessoais que não são técnicas, como comunicação, trabalho em equipe, resolução de conflitos, adaptabilidade, entre outros." />
                                 </div>
 
                                 <div className="flex items-center">
