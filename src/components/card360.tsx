@@ -5,8 +5,8 @@ import Up from "../assets/up.svg";
 import { Card360Props } from "@/interfaces/Card360Props";
 import { Textarea } from "@/components/ui/textarea";
 import ToolTipInfo from "@/components/ToolTipInfo";
-import NotaQuadrada from "./notaQuadrada";
 import { useState, useEffect } from "react";
+import Grade from "./grade";
 
 const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360FieldChange, av360Data }: Card360Props) => {
     const [toImproveCharsLeft, setToImproveCharsLeft] = useState(300);
@@ -129,7 +129,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
 
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
-                                    <NotaQuadrada
+                                    <Grade
                                         isStatic={0}
                                         nota={assessmentData.behavior}
                                         funcaoNota={(value: number) => handleNotaChange('behavior', value)}
@@ -145,7 +145,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
 
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
-                                    <NotaQuadrada
+                                    <Grade
                                         isStatic={0}
                                         nota={assessmentData.tecniques}
                                         funcaoNota={(value: number) => handleNotaChange('tecniques', value)}
