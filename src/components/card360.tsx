@@ -33,6 +33,11 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
         onAv360FieldChange(collaborator.id, field, value);
     };
 
+    const handleEditClick = () => {
+        setEdit(true);
+        onExpandToggle(collaborator.id);
+    };
+
     return (
         <div className="mb-8 p-4 border rounded-lg bg-white">
             <div className="flex justify-between items-center relative">
@@ -64,7 +69,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                     )}
 
                     <div className="flex items-center space-x-2 col-span-1 col-start-11">
-                        <button onClick={() => setEdit(true)} className="flex items-center text-[#5702ff]">
+                        <button onClick={handleEditClick} className="flex items-center text-[#5702ff]">
                             <HiPencil className="text-[#5702ff] mr-2" />
                             Editar
                         </button>
@@ -87,10 +92,12 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                     <div className="grid grid-cols-12 gap-12 mt-4 px-10">
                         <div className="col-span-4 relative">
                             <div className="flex items-center">
-                                <p className="text-[#455468] font-semibold">Pontos a melhorar</p>
+                                <label htmlFor={`toImprove-${collaborator.id}`} className="text-[#455468] font-semibold">Pontos a melhorar</label>
                                 <ToolTipInfo text="Áreas onde a pessoa pode se desenvolver, incluindo sugestões para aprimorar habilidades técnicas e comportamentais." />
                             </div>
                             <Textarea
+                                id={`toImprove-${collaborator.id}`}
+                                name={`toImprove-${collaborator.id}`}
                                 className="h-28"
                                 placeholder="Digite os pontos a melhorar"
                                 value={assessmentData.toImprove}
@@ -100,10 +107,12 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                         </div>
                         <div className="col-span-4">
                             <div className="flex items-center">
-                                <p className="text-[#455468] font-semibold">Pontos a elogiar</p>
+                                <label htmlFor={`toPraise-${collaborator.id}`} className="text-[#455468] font-semibold">Pontos a elogiar</label>
                                 <ToolTipInfo text="Reconhecer as áreas onde a pessoa se destaca. Inclui elogios sobre suas habilidades, realizações específicas, ou contribuições significativas." />
                             </div>
                             <Textarea
+                                id={`toPraise-${collaborator.id}`}
+                                name={`toPraise-${collaborator.id}`}
                                 className="h-28"
                                 placeholder="Digite os pontos a elogiar"
                                 value={assessmentData.toPraise}
