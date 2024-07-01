@@ -16,7 +16,6 @@ import SuccesToast from './succesToast';
 function SubHeaderAv({currentStep, setAtencao, funcaoSalvar}:SubHeaderAvProps) {
     const location = useLocation();
     const currentPath = location.pathname;
-    const [salvarRascunho, setSalvarRascunho] = useState(false);
 
 
     const notify = () => {
