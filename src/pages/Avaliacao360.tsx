@@ -150,7 +150,7 @@ function Avaliacao360() {
 
     return (
         <div className="h-screen">
-            <SubHeaderAv currentStep={2} atencao={atencao} setAtencao={setAtencao}/>
+            <SubHeaderAv funcaoSalvar={()=>{}} currentStep={2} atencao={atencao} setAtencao={setAtencao}/>
             <div className="pt-32">
                 <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path="/autoavaliacao" />)}</div>
                 <div className={atencao ? "opacity-50" : ""}>

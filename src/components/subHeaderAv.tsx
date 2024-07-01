@@ -13,9 +13,11 @@ import { toast } from 'react-toastify';
 import { SubHeaderAvProps } from '@/interfaces/SubHeaderAvProps';
 import SuccesToast from './succesToast';
 
-function SubHeaderAv({ currentStep, setAtencao }: SubHeaderAvProps) {
+function SubHeaderAv({currentStep, setAtencao, funcaoSalvar}:SubHeaderAvProps) {
     const location = useLocation();
     const currentPath = location.pathname;
+    const [salvarRascunho, setSalvarRascunho] = useState(false);
+
 
     const notify = () => {
         toast.success('Informações salvas com sucesso!', {
@@ -70,7 +72,7 @@ function SubHeaderAv({ currentStep, setAtencao }: SubHeaderAvProps) {
 
                 <div className='flex items-center justify-end space-x-4 mr-4'>
                     <div>
-                        <button onClick={() => notify()} className="bg-buttonBlueBackground w-36 h-12 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
+                        <button onClick={() => {notify(); funcaoSalvar(true)}} className="bg-buttonBlueBackground w-36 h-12 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
                     </div>
 
                     {currentPath === '/autoavaliacao/avaliacao-360' && (

@@ -1,5 +1,7 @@
-export interface SubHeaderAvProps {
-    currentStep: number
-    setAtencao: Function
-    atencao: boolean
+export interface SubHeaderAvProps{
+    currentStep:number
+    setAtencao:Function
+    atencao:boolean
+    funcaoSalvar:Function
+
 }

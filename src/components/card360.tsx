@@ -134,6 +134,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                                         nota={assessmentData.behavior}
                                         funcaoNota={(value: number) => handleNotaChange('behavior', value)}
                                     />
+
                                 </div>
                             </div>
 

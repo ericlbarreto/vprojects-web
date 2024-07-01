@@ -1,8 +1,6 @@
-export interface NotaQuadradaProps {
-    text: string;
-    textInfo: string;
-    justif : string;
-    funcaoJust : Function;
-    nota : number;
-    funcaoNota: Function;
+export interface NotaQuadradaProps{
+    isStatic: number;
+    nota : string;
+    funcaoHandleNota : Function;
+    notasObject:{ [key: string]: number };
 }
