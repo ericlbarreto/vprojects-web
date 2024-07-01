@@ -27,7 +27,7 @@ function SubHeaderAv({ currentStep, setAtencao }: SubHeaderAvProps) {
             draggable: true,
             progress: undefined,
             theme: "light",
-            style: { background: '#E4FFE4', width: '320px'},
+            style: { background: '#E4FFE4', width: '320px' },
         });
     };
 
@@ -67,8 +67,17 @@ function SubHeaderAv({ currentStep, setAtencao }: SubHeaderAvProps) {
                 </div>
 
                 <div className="m-8"><Stepper stepNow={currentStep} /></div>
-                <div className="">
-                    <button onClick={() => notify()} className="bg-buttonBlueBackground w-36 h-12 mt-8 mr-8 ml-8 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
+
+                <div className='flex items-center justify-end space-x-4 mr-4'>
+                    <div>
+                        <button onClick={() => notify()} className="bg-buttonBlueBackground w-36 h-12 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
+                    </div>
+
+                    {currentPath === '/autoavaliacao/avaliacao-360' && (
+                        <div>
+                            <button onClick={() => notify()} className="bg-roxoPrincipal w-36 h-12 rounded-md text-white text-sm font-semibold hover:bg-[#5C34FF]">Enviar ciclo</button>
+                        </div>
+                    )}
                 </div>
             </div>
             <SuccesToast />
