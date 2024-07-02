@@ -44,8 +44,11 @@ function Avaliacao360() {
     }, []);
 
     useEffect(() => {
-        setDisableAddCollab(availableCollaborators.length === 0);
+        if (availableCollaborators) {
+            setDisableAddCollab(availableCollaborators.length === 0);
+        }
     }, [availableCollaborators]);
+    
 
     useEffect(() => {
         const fetchAv360Data = async () => {
