@@ -1,8 +1,8 @@
 import StartButton from "@/components/StartButton";
+import { columns } from "@/components/cycleTable/columns";
+import { CycleTable } from "@/components/cycleTable/data-table";
 import AreaGraphic from "@/components/graphics/areaGraphic";
 import BarGraphic from "@/components/graphics/barGraphic";
-import { Payment, columns } from "@/components/cycleTable/columns";
-import { CycleTable } from "@/components/cycleTable/data-table";
 import {
   Select,
   SelectContent,
@@ -12,52 +12,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@/contexts/authContext";
+import api from "@/services/axiosConfig";
 import { Separator } from "@radix-ui/react-select";
+import { useEffect, useState } from "react";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
-import { useAuth } from "@/contexts/authContext";
-
-const datatable: Payment[] = [
-  {
-    id: "m5gr84i9",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 2,
-  },
-  {
-    id: "3u1reuv4",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 3,
-  },
-  {
-    id: "derv1ws0",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "finalizado",
-    grade: 2,
-  },
-  {
-    id: "5kma53ae",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "em andamento",
-    grade: 3,
-  },
-  {
-    id: "bhqecj4p",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "finalizado",
-    grade: 5,
-  },
-]
 
 function Home() {
+  const [cycles, setCycles] = useState([]);
   const { getUserData } = useAuth();
   const user = getUserData();
+
+  useEffect(() => {
+    const getCollabs = async () => {
+        try {
+            const response = await api.get('/api/cycles');
+            setCycles(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar os colaboradores:', error);
+        }
+    };
+
+    getCollabs();
+}, []);
 
   return (
     <div className="h-full bg-azulBackground">
@@ -220,9 +198,7 @@ function Home() {
               </Select>
             </div>
           </div>
-          <div className="flex items-center justify-center">
-            <BarGraphic />   
-          </div>
+          <BarGraphic />  
         </div>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
@@ -230,7 +206,7 @@ function Home() {
           </h1>
         </div>
         <div className="col-span-8 bg-white rounded-2xl shadow-md relative h-[400px] mt-6">
-          <CycleTable columns={columns} data={datatable} />
+          <CycleTable columns={columns} data={cycles} />
         </div>
       </div>
     </div>

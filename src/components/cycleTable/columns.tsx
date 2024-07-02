@@ -7,11 +7,12 @@ import {
 } from "../ui/select"; // Atualize para o caminho correto do seu componente Select
 
 export type Payment = {
-  id: string;
+  id: number;
+  name: string;
   startDate: string;
   endDate: string;
-  grade: number;
-  status: "em andamento" | "finalizado";
+  grade?: number;
+  status: boolean;
 };
 
 export const statusOptions = ["Todos", "em andamento", "finalizado"];

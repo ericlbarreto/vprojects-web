@@ -21,11 +21,16 @@ import {
   Payment,
   columns as defaultColumns,
 } from "./columns"; // Atualize para o caminho correto do seu arquivo columns
+import { format } from 'date-fns';
 
 interface DataTableProps {
   columns?: ColumnDef<Payment, any>[];
   data: Payment[];
 }
+
+const formatDate = (isoDate: string) => {
+  return format(new Date(isoDate), 'dd/MM/yyyy');
+};
 
 export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -70,15 +75,22 @@ export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => {
-                  const isStatusCell = cell.column.id === 'status';
+                  const columnId = cell.column.id;
+                  const isStatusCell = columnId === 'status';
                   const status = row.original.status;
-                  const isOngoing = status === "em andamento";
+                  const isOngoing = status === true;
+
+                  const isDateCell = columnId === 'startDate' || columnId === 'endDate';
+                  const formattedDate = isDateCell ? formatDate(row.original[columnId]) : null;
+
                   return (
                     <TableCell key={cell.id}>
                       {isStatusCell ? (
                         <span className={isOngoing ? 'bg-yellow-100 px-2 py-1 rounded' : 'bg-green-100 px-2 py-1 rounded'}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          {isOngoing ? 'Em andamento' : 'Finalizado'}
                         </span>
+                      ) : isDateCell ? (
+                        formattedDate
                       ) : (
                         flexRender(cell.column.columnDef.cell, cell.getContext())
                       )}
