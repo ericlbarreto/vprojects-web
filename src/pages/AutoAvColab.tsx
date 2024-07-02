@@ -203,12 +203,13 @@ function AutoAvColab() {
     }, []);
 
 
+    const [path, setPath] = useState("/")
     const [atencao, setAtencao] = useState(false);
     return (
         <div className={`h-full bg-azulBackground w-full ${atencao ? "fixed" : "relative"}`}>
             <SubHeaderAv currentStep={1} setAtencao={setAtencao} atencao={atencao} funcaoSalvar={prosseguirOuSalvarRascClick} />
             <div className="pt-32">
-                <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path="/" />)}</div>
+                <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path={path} />)}</div>
                 <div className={atencao ? "opacity-50" : ""}>
                     <Tutorial />
                     <div className="text-roxoPrincipal flex justify-end text-xs mr-4 mt-8">* Campos obrigatórios</div>

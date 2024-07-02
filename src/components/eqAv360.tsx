@@ -1,8 +1,6 @@
-
 function EqAv360(){
-    return (
-        <div>av360</div>
-    )
+
+   return <div>Av360</div>
 }
 
 export default EqAv360;
