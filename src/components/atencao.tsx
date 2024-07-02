@@ -1,10 +1,5 @@
+import { AtencaoModalProps } from "@/interfaces/AtencaoModalProps";
 import Atencao from "../assets/atencao.svg"
-
-interface AtencaoModalProps{
-    setAtencao:Function
-    atencao:boolean
-    path:string
-}
 
 const AtencaoModal = ({setAtencao, path}: AtencaoModalProps) => {
 
