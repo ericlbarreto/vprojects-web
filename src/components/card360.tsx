@@ -62,8 +62,8 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                 <div className="grid grid-cols-12 w-full">
                     <div className="flex items-center col-span-1 justify-center">
                         <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarImage src={collaborator?.profilePhoto} />
+                            <AvatarFallback>{collaborator?.name?.charAt(0) || 'U'}</AvatarFallback>
                         </Avatar>
                     </div>
 

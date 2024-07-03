@@ -173,7 +173,7 @@ function Avaliacao360() {
     };
 
     const handleSubmitCycle = async (submitted: boolean) => {
-        setDoneCycle(submitted);        
+        setDoneCycle(submitted);
     };
 
     if (loading) {
