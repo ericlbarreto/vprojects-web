@@ -2,13 +2,14 @@ import SubHeaderEqualization from "@/components/subHeaderCycleControl";
 import TutorialPartner from "@/components/tutorialPartner";
 
 function CycleControl() {
-    return(
+    return (
         <div className="h-full bg-azulBackground">
-            <SubHeaderEqualization/>
-            <TutorialPartner/>
+            <div className="h-36"> 
+                <SubHeaderEqualization />
+            </div>
+            <TutorialPartner />
         </div>
     );
-
 }
 
-export default CycleControl
+export default CycleControl;
