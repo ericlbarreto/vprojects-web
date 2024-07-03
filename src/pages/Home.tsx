@@ -71,8 +71,6 @@ function Home() {
     const doneToast = queryParams.get('doneToast');
 
     if (doneToast) {
-      console.log('mdss')
-
       toast.success('Enviado o ciclo de avaliações', {
         position: "top-right",
         autoClose: 5000,
