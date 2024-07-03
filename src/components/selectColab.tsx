@@ -10,7 +10,7 @@ import { FaPlus } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import { Collaborator } from "@/interfaces/Collaborator";
 
-const SelectCollab = ({ collaborators, onSelect }: SelectCollabProps) => {
+const SelectCollab = ({ collaborators, onSelect, disableAddCollab }: SelectCollabProps) => {
     const [open, setOpen] = useState(false);
     const [input, setInput] = useState('');
     const [filteredCollaborators, setFilteredCollaborators] = useState(collaborators);
@@ -38,7 +38,11 @@ const SelectCollab = ({ collaborators, onSelect }: SelectCollabProps) => {
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <button onClick={() => setOpen(!open)} className="flex items-center justify-center text-white font-semibold mt-4 bg-roxoPrincipal hover:bg-blue-600 rounded-lg w-72 h-12">
+                <button
+                    onClick={() => setOpen(!open)}
+                    disabled={disableAddCollab}
+                    className={`flex items-center justify-center text-white font-semibold mt-4 rounded-lg w-72 h-12 ${disableAddCollab ? 'bg-gray-400 cursor-not-allowed' : 'bg-roxoPrincipal hover:bg-blue-600'}`}
+                >
                     <FaPlus /> <span className="ml-2">Adicionar</span>
                 </button>
             </PopoverTrigger>

@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { NotaQuadradaProps } from "@/interfaces/NotaQuadradaProps";
 
-
-interface NotaQuadradaProps{
-    isStatic: number;
-}
-
-function NotaQuadrada({isStatic}: NotaQuadradaProps) {
-    const [selected, setSelected] = useState(0);
+function NotaQuadrada({ isStatic, nota, funcaoHandleNota, notasObject }: NotaQuadradaProps) {
   return (
-    <div className="flex">
-        <button onClick={()=>setSelected(1)} className={` ${isStatic >0?"border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal": (selected>0)? "border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal" : "border-[#C6C6C6] text-[#9F9F9F]"} border rounded w-4 text-center h-4 text-xs`}>1</button>
-        <button onClick={()=>setSelected(2)} className={` ${isStatic >1?"border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal": (selected>1 && isStatic===0)? "border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal" : "border-[#C6C6C6] text-[#9F9F9F]"} border rounded w-4 text-center h-4 text-xs`}>2</button>
-        <button onClick={()=>setSelected(3)} className={` ${isStatic >2?"border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal": (selected>2 && isStatic===0)? "border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal" : "border-[#C6C6C6] text-[#9F9F9F]"} border rounded w-4 text-center h-4 text-xs`}>3</button>
-        <button onClick={()=>setSelected(4)} className={` ${isStatic >3?"border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal": (selected>3 && isStatic===0)? "border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal" : "border-[#C6C6C6] text-[#9F9F9F]"} border rounded w-4 text-center h-4 text-xs`}>4</button>
-        <button onClick={()=>setSelected(5)} className={` ${isStatic >4?"border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal": (selected>4 && isStatic===0)? "border-roxoPrincipal bg-[#E7F1FF] text-roxoPrincipal" : "border-[#C6C6C6] text-[#9F9F9F]"} border rounded w-4 text-center h-4 text-xs`}>5</button>
+    <div>
+      {isStatic === 0 ?
+        <div className="flex">
+          <button onClick={() => funcaoHandleNota(nota, 1)} className={`border rounded w-4 text-center h-4 text-xs ${notasObject[nota]===1?"border-[#CD0000] text-[#CD0000] bg-[#FFE4E4]": notasObject[nota]===2?"border-[#FC945B] text-[#FC945B] bg-[#FFEADE]": notasObject[nota]===3?"border-[#DFBC04] text-[#DFBC04] bg-[#FEFFC5]":notasObject[nota]===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": notasObject[nota]===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>1</button>
+          <button onClick={() => funcaoHandleNota(nota, 2)} className={`border rounded w-4 text-center h-4 text-xs ${notasObject[nota]===2?"border-[#FC945B] text-[#FC945B] bg-[#FFEADE]": notasObject[nota]===3?"border-[#DFBC04] text-[#DFBC04] bg-[#FEFFC5]":notasObject[nota]===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": notasObject[nota]===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>2</button>
+          <button onClick={() => funcaoHandleNota(nota, 3)} className={`border rounded w-4 text-center h-4 text-xs ${notasObject[nota]===3?"border-[#DFBC04] text-[#DFBC04] bg-[#FEFFC5]":notasObject[nota]===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": notasObject[nota]===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>3</button>
+          <button onClick={() => funcaoHandleNota(nota, 4)} className={`border rounded w-4 text-center h-4 text-xs ${notasObject[nota]===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": notasObject[nota]===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>4</button>
+          <button onClick={() => funcaoHandleNota(nota, 5)} className={`border rounded w-4 text-center h-4 text-xs ${notasObject[nota]===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>5</button>
+        </div> :
+        <div className="flex">
+          <button className={`border rounded w-4 text-center h-4 text-xs ${isStatic===1? "border-[#CD0000] text-[#CD0000] bg-[#FFE4E4]": isStatic===2?"border-[#FC945B] text-[#FC945B] bg-[#FFEADE]": isStatic===3?"border-[#DFBC04] text-[#DFBC04] bg-[#FEFFC5]":isStatic===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": isStatic===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>1</button>
+          <button className={`border rounded w-4 text-center h-4 text-xs ${isStatic===2?"border-[#FC945B] text-[#FC945B] bg-[#FFEADE]": isStatic===3?"border-[#DFBC04] text-[#DFBC04] bg-[#FEFFC5]":isStatic===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": isStatic===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>2</button>
+          <button className={`border rounded w-4 text-center h-4 text-xs ${isStatic===3?"border-[#DFBC04] text-[#DFBC04] bg-[#FEFFC5]":isStatic===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": isStatic===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>3</button>
+          <button className={`border rounded w-4 text-center h-4 text-xs ${isStatic===4?"border-[#8FE225] text-[#8FE225] bg-[#F1FFD3]": isStatic===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>4</button>
+          <button className={`border rounded w-4 text-center h-4 text-xs ${isStatic===5?"border-[#11D400] text-[#11D400] bg-[#DFFFDD]":"text-[#9F9F9F] border-[#C6C6C6]"}`}>5</button>
+        </div>}
+
     </div>
   )
 }
