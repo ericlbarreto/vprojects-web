@@ -124,7 +124,7 @@ function Home() {
               </SelectContent>
             </Select>
           </div>
-          <AreaGraphic />
+          <AreaGraphic cycles={cycles}/>
         </div>
         <div className="col-span-4 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
           <div className="flex justify-between items-center mb-4">

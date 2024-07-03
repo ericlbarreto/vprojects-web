@@ -7,59 +7,32 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Cycle } from "@/interfaces/Cycle";
+import { formatDate } from "@/common/formatDate";
 
-const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    const cycle = payload[0].payload;
+    return (
+      <div className="bg-white border-azulBackground border-2 border-lg p-4">
+        <p className="text-roxoPrincipal">{cycle.name}</p>
+        <p className="text-preto">Início: {formatDate(cycle.startDate)}</p>
+        <p className="text-preto">Fim: {formatDate(cycle.endDate)}</p>
+        <p className="label">{`Nota final: ${payload[0].value}`}</p>
+      </div>
+    );
+  }
 
-export default function AreaGraphic() {
+  return null;
+};
+
+export default function AreaGraphic({ cycles }: { cycles: Cycle[] }) {
   return (
     <ResponsiveContainer width="100%" height="85%">
       <AreaChart
         width={500}
         height={400}
-        data={data}
+        data={cycles}
         margin={{
           top: 10,
           right: 30,
@@ -74,12 +47,12 @@ export default function AreaGraphic() {
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
+        <XAxis dataKey="endDate" tickFormatter={formatDate} />
+        <YAxis ticks={[1, 2, 3, 4, 5]} domain={[0, 5]} />
+        <Tooltip content={<CustomTooltip />} />
         <Area
           type="linear"
-          dataKey="uv"
+          dataKey="finalGrade"
           stroke="#570EFF"
           fill="url(#colorUv)"
         />

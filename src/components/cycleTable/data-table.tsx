@@ -8,6 +8,7 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import { Pencil1Icon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { Cycle } from "@/interfaces/Cycle";
 import { useState } from "react";
 import {
   Table,
@@ -18,19 +19,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  Payment,
   columns as defaultColumns,
-} from "./columns"; // Atualize para o caminho correto do seu arquivo columns
-import { format } from 'date-fns';
+} from "./columns";
+import { formatDate } from "@/common/formatDate";
 
 interface DataTableProps {
-  columns?: ColumnDef<Payment, any>[];
-  data: Payment[];
+  columns?: ColumnDef<Cycle, any>[];
+  data: Cycle[];
 }
-
-const formatDate = (isoDate: string) => {
-  return format(new Date(isoDate), 'dd/MM/yyyy');
-};
 
 export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -78,7 +74,9 @@ export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
                   const columnId = cell.column.id;
                   const isStatusCell = columnId === 'status';
                   const status = row.original.status;
+                  console.log(status)
                   const isOngoing = status === true;
+                  console.log(isOngoing)
 
                   const isDateCell = columnId === 'startDate' || columnId === 'endDate';
                   const formattedDate = isDateCell ? formatDate(row.original[columnId]) : null;

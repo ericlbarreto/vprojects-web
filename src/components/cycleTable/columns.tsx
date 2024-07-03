@@ -5,22 +5,14 @@ import {
   SelectContent,
   SelectItem,
 } from "../ui/select"; // Atualize para o caminho correto do seu componente Select
-
-export type Payment = {
-  id: number;
-  name: string;
-  startDate: string;
-  endDate: string;
-  grade?: number;
-  status: boolean;
-};
+import { Cycle } from "@/interfaces/Cycle";
 
 export const statusOptions = ["Todos", "em andamento", "finalizado"];
 export const yearOptions = ["Todos", "2024", "2023", "2022", "2021"];
 export const gradeOptions = ["Todas", "5", "4", "3", "2", "1"];
 // export const dateOrderOptions = ["Todas", "Mais recente", "Mais antiga"];
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Cycle>[] = [
   {
     accessorKey: "startDate",
     header: ({ column }) => (
@@ -47,7 +39,7 @@ export const columns: ColumnDef<Payment>[] = [
     },
   },
   {
-    accessorKey: "grade",
+    accessorKey: "finalGrade",
     header: ({ column }) => (
       <div className="flex items-center gap-2 justify-center">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todas" ? undefined : value)}>
