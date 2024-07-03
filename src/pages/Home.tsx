@@ -16,6 +16,11 @@ import { Separator } from "@radix-ui/react-select";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
 import { useAuth } from "@/contexts/authContext";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import SuccesToast from "@/components/succesToast";
 
 const datatable: Payment[] = [
   {
@@ -58,6 +63,29 @@ const datatable: Payment[] = [
 function Home() {
   const { getUserData } = useAuth();
   const user = getUserData();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const doneToast = queryParams.get('doneToast');
+
+    if (doneToast) {
+      console.log('mdss')
+
+      toast.success('Enviado o ciclo de avaliações', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        style: { background: '#E4FFE4', width: '320px' },
+    });
+    }
+  }, [location.search]);
 
   return (
     <div className="h-full bg-azulBackground">
@@ -200,7 +228,7 @@ function Home() {
                       Ser “Team Player”
                     </SelectItem>
                   </SelectGroup>
-                  <Separator className="bg-cinza border-[0.7px]"/>
+                  <Separator className="bg-cinza border-[0.7px]" />
                   <SelectGroup>
                     <SelectLabel>Execução</SelectLabel>
                     <SelectItem value="2024" className="text-roxoPrincipal">
@@ -221,7 +249,7 @@ function Home() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <BarGraphic />   
+            <BarGraphic />
           </div>
         </div>
         <div className="col-span-8">
@@ -233,6 +261,7 @@ function Home() {
           <CycleTable columns={columns} data={datatable} />
         </div>
       </div>
+      <SuccesToast />
     </div>
   );
 }
