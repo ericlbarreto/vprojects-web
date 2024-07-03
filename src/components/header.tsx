@@ -5,8 +5,19 @@ import { Link } from "react-router-dom";
 import Menu from "../assets/menu.svg";
 import Sininho from "../assets/sininho.svg";
 import Logo from "../assets/v-projects_logo.svg";
+import DropDown from "../assets/dropdown.svg";
 import PartnerSearchBar from "./partnerSearchBar";
 import Sidebar from "./sidebar";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 
 function Header() {
   const { getUserData } = useAuth();
@@ -36,17 +47,33 @@ function Header() {
             <PartnerSearchBar />
           </div>
         )}
-        <div className="flex mr-10 space-x-6 items-center">
-          <button>
+        <div className="flex mr-10 items-center">
+          <button className="mr-6">
             <img src={Sininho} alt="Sininho de notificações" />
           </button>
-          <div className="h-14 border-l border-slate-200 mr-2"></div>
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <div className="h-14 border-l border-slate-200 mr-6"></div>
+          <div className="mr-6">
+            <Avatar>
+              <AvatarImage src={user?.profilePhoto} />
+              <AvatarFallback>{user?.name?.charAt(0) || 'U'}</AvatarFallback>
+            </Avatar>
+          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="-ml-4">
+              <img className="h-4 w-4" src={DropDown} alt="Drop down" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
+
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
     </>
   );

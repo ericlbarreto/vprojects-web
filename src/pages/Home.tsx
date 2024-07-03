@@ -3,6 +3,7 @@ import { columns } from "@/components/cycleTable/columns";
 import { CycleTable } from "@/components/cycleTable/data-table";
 import AreaGraphic from "@/components/graphics/areaGraphic";
 import BarGraphic from "@/components/graphics/barGraphic";
+import SuccesToast from "@/components/succesToast";
 import {
   Select,
   SelectContent,
@@ -16,6 +17,9 @@ import { useAuth } from "@/contexts/authContext";
 import api from "@/services/axiosConfig";
 import { Separator } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
 
@@ -23,6 +27,27 @@ function Home() {
   const [cycles, setCycles] = useState([]);
   const { getUserData } = useAuth();
   const user = getUserData();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const doneToast = queryParams.get('doneToast');
+
+    if (doneToast) {
+      toast.success('Enviado o ciclo de avaliações', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        style: { background: '#E4FFE4', width: '320px' },
+    });
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const getCollabs = async () => {
@@ -178,7 +203,7 @@ function Home() {
                       Ser “Team Player”
                     </SelectItem>
                   </SelectGroup>
-                  <Separator className="bg-cinza border-[0.7px]"/>
+                  <Separator className="bg-cinza border-[0.7px]" />
                   <SelectGroup>
                     <SelectLabel>Execução</SelectLabel>
                     <SelectItem value="2024" className="text-roxoPrincipal">
@@ -209,6 +234,7 @@ function Home() {
           <CycleTable columns={columns} data={cycles} />
         </div>
       </div>
+      <SuccesToast />
     </div>
   );
 }

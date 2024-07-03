@@ -1,6 +1,6 @@
 import { CheckIcon } from "@radix-ui/react-icons";
-import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { useLocation } from 'react-router-dom';
 
 interface StepProps {
   step: number;
@@ -37,13 +37,15 @@ const Step = ({ step, currentStep, completed }: StepProps) => {
 };
 
 const Stepper = ({stepNow}:StepperProps) => {
+  const currentPath = location.pathname;
+  
   return (
     <div className="flex items-center">
       <div className="flex flex-col items-center gap-2">
         <Step step={1} currentStep={stepNow} completed={stepNow > 1} />
         <span className="font-medium">Autoavaliação</span>
       </div>
-      <Separator orientation="horizontal" className="bg-cinza w-40 h-[2px]" />
+      <Separator orientation="horizontal" className={`w-40 h-[2px] ${currentPath === '/autoavaliacao/avaliacao-360' ? "bg-success" : "bg-cinza"}`} />
       <div className="flex flex-col items-center gap-2">
         <Step step={2} currentStep={stepNow} completed={stepNow > 2} />
         <span className="font-medium">Avaliação 360</span>
