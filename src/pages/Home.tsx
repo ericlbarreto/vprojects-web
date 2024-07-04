@@ -54,7 +54,9 @@ function Home() {
     getCycles();
   }, []);
 
-  const sentSelfAssessment = cycles[0].SelfAssessments.some(
+  console.log(cycles)
+
+  const sentSelfAssessment = cycles.length > 0 && cycles[0]?.SelfAssessments?.some(
     (item) => item.id === user?.id
   );
 
@@ -75,7 +77,7 @@ function Home() {
               {sentSelfAssessment ? (
                 <>
                   <p className="text-justify text-textoCor">
-                    O seu ciclo de avaliação com data de finalização <b>{formatDate(cycles[0].endDate)} </b>
+                    O seu ciclo de avaliação com data de finalização <b>{cycles.length > 0 && formatDate(cycles[0].endDate)} </b>
                     foi enviado! A sua colaboração é essencial para o nosso
                     progresso contínuo.
                   </p>
@@ -84,7 +86,7 @@ function Home() {
                 <>
                   <p className="text-justify text-textoCor">
                     Você tem uma autoavaliação pendente que precisa ser
-                    concluída até <b>{formatDate(cycles[0].endDate)}</b>! Inicie agora, sua
+                    concluída até <b>{cycles.length > 0 && formatDate(cycles[0].endDate)}</b>! Inicie agora, sua
                     colaboração é essencial para o nosso progresso contínuo.
                   </p>
                 </>
