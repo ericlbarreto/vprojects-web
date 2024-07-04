@@ -1,5 +1,5 @@
 import StartButton from "@/components/StartButton";
-import { Payment, columns } from "@/components/equalizationTable/columns";
+import { columns } from "@/components/equalizationTable/columns";
 import { EqualizationTable } from "@/components/equalizationTable/data-table";
 import CircularProgressWithDot from "@/components/graphics/circleChart";
 import MultipleBarGraphic from "@/components/graphics/multipleBarGraphic";
@@ -12,44 +12,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import api from "@/services/axiosConfig";
 import { Separator } from "@radix-ui/react-select";
+import { useEffect, useState } from "react";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
 
-const datatable: Payment[] = [
-  {
-    id: "m5gr84i9",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "em andamento"
-  },
-  {
-    id: "3u1reuv4",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "em andamento"
-  },
-  {
-    id: "derv1ws0",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "finalizado"
-  },
-  {
-    id: "5kma53ae",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "em andamento"
-  },
-  {
-    id: "bhqecj4p",
-    startDate: "2021-10-10",
-    endDate: "2021-10-10",
-    status: "finalizado"
-  },
-]
-
 function HomeSocio() {
+  const [equalizationCycles, setEqualizationCycles] = useState([]);
+
+  useEffect(() => {
+    const getEqualizationCycles = async () => {
+      try {
+        const response = await api.get("/api/cycles-equalization/all");
+        setEqualizationCycles(response.data.reverse());
+      } catch (error) {
+        console.error("Erro ao buscar os ciclos de equalização:", error);
+      }
+    };
+  
+    getEqualizationCycles();
+  }, []);
+
   return (
     <div className="h-full bg-azulBackground">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
@@ -202,7 +186,7 @@ function HomeSocio() {
           </h1>
         </div>
         <div className="col-span-8 bg-white rounded-2xl shadow-md relative h-[400px] mt-6">
-          <EqualizationTable columns={columns} data={datatable} />
+          <EqualizationTable columns={columns} data={equalizationCycles} />
         </div>
       </div>
     </div>

@@ -5,20 +5,14 @@ import {
   SelectContent,
   SelectItem,
 } from "../ui/select"; // Atualize para o caminho correto do seu componente Select
-
-export type Payment = {
-  id: string;
-  startDate: string;
-  endDate: string;
-  status: "em andamento" | "finalizado";
-};
+import { EqualizationCycle } from "@/interfaces/EqualizationCycle";
 
 export const statusOptions = ["Todos", "em andamento", "finalizado"];
 export const yearOptions = ["Todos", "2024", "2023", "2022", "2021"];
 export const gradeOptions = ["Todas", "5", "4", "3", "2", "1"];
 // export const dateOrderOptions = ["Todas", "Mais recente", "Mais antiga"];
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<EqualizationCycle>[] = [
   {
     accessorKey: "startDate",
     header: ({ column }) => (
