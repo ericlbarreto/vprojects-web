@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<Equalization />} role="SOCIO" />,
       },
       {
-        path: "/homeSocio",
+        path: "/home-socio",
         element: <ProtectedRoute element={<HomeSocio />} role="SOCIO" />,
       },
       { path: "*", element: <NotFoundPage /> },
