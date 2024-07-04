@@ -27,7 +27,7 @@ function NotasJustif({ text, textInfo,justif, funcaoJust, nota, funcaoHandleNota
             </div>
             <div className="shadow rounded-sm border h-40 mt-3 mr-12 text-sm">
                 <form>
-                    <textarea onChange={(e) => funcaoJust(justif, e.target.value)} className="w-full h-40 resize-none" name="" id="" value={justifObject[justif]} maxLength={1000} placeholder="Insira sua justificativa"></textarea>
+                    <textarea onChange={(e) => funcaoJust(justif, e.target.value)} className="w-full h-40 resize-none p-4" name="" id="" value={justifObject[justif]} maxLength={1000} placeholder="Insira sua justificativa"></textarea>
                 </form>
             </div>
         </div>
