@@ -12,11 +12,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import { SubHeaderAvProps } from '@/interfaces/SubHeaderAvProps';
 import SuccesToast from './succesToast';
+import { postAv360 } from '@/services/restServices';
+import { CurrentCycle } from '@/interfaces/CurrentCycle';
+import { Collaborator } from '@/interfaces/Collaborator';
+import { Av360 } from '@/interfaces/Av360';
 
-function SubHeaderAv({currentStep, setAtencao, funcaoSalvar}:SubHeaderAvProps) {
+function SubHeaderAv({ currentStep, setAtencao, funcaoSalvar, allFieldsFilled, currentCycle, user, av360Data, onSubmitCycle }: SubHeaderAvProps & { currentCycle?: CurrentCycle, user?: Collaborator, av360Data?: { [key: number]: Av360 } }) {
     const location = useLocation();
     const currentPath = location.pathname;
-
 
     const notify = () => {
         toast.success('Informações salvas com sucesso!', {
@@ -30,6 +33,28 @@ function SubHeaderAv({currentStep, setAtencao, funcaoSalvar}:SubHeaderAvProps) {
             theme: "light",
             style: { background: '#E4FFE4', width: '320px' },
         });
+    };
+
+    const handleSave = async () => {
+        const succes = await postAv360(av360Data, user!.id, currentCycle!.id);
+
+        if (succes) {
+            toast.success('Informações salvas com sucesso!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                style: { background: '#E4FFE4', width: '320px' },
+            });
+        }
+    };
+
+    const handleSubmit = () => {
+        onSubmitCycle!(true);
     };
 
     return (
@@ -70,13 +95,22 @@ function SubHeaderAv({currentStep, setAtencao, funcaoSalvar}:SubHeaderAvProps) {
                 <div className="m-8"><Stepper stepNow={currentStep} /></div>
 
                 <div className='flex items-center justify-end space-x-4 mr-4'>
-                    <div>
-                        <button onClick={() => {notify(); funcaoSalvar(true)}} className="bg-buttonBlueBackground w-36 h-12 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
-                    </div>
+
+                    {currentPath === '/autoavaliacao' && (
+                        <div>
+                            <button onClick={() => { notify(); funcaoSalvar!(true) }} className="bg-buttonBlueBackground w-36 h-12 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
+                        </div>
+                    )}
 
                     {currentPath === '/autoavaliacao/avaliacao-360' && (
                         <div>
-                            <button onClick={() => notify()} className="bg-roxoPrincipal w-36 h-12 rounded-md text-white text-sm font-semibold hover:bg-[#5C34FF]">Enviar ciclo</button>
+                            <button onClick={() => { handleSave() }} className="bg-buttonBlueBackground w-36 h-12 rounded-md text-roxoPrincipal text-sm font-semibold hover:bg-[#e7edf5]">Salvar Rascunho</button>
+                        </div>
+                    )}
+
+                    {currentPath === '/autoavaliacao/avaliacao-360' && allFieldsFilled && (
+                        <div>
+                            <button onClick={() => handleSubmit()} className="bg-roxoPrincipal w-36 h-12 rounded-md text-white text-sm font-semibold hover:bg-[#5C34FF]">Enviar ciclo</button>
                         </div>
                     )}
                 </div>

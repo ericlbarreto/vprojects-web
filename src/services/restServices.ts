@@ -1,6 +1,7 @@
 import api from '@/services/axiosConfig';
 import { Collaborator } from '@/interfaces/Collaborator';
 import { CurrentCycle } from '@/interfaces/CurrentCycle';
+import { toast } from 'react-toastify';
 
 export const getAllCollaborators = async (userId: number): Promise<Collaborator[]> => {
     try {
@@ -21,8 +22,11 @@ export const postAv360 = async (av360Data: any, evaluatorId: number, cycleId: nu
     try {
         const dataToSend = Object.values(av360Data);
         await api.post(`/api/peer-review/register/${evaluatorId}/${cycleId}`, dataToSend);
+
+        return true;
     } catch (error) {
         console.error('Error submitting data:', error);
+        toast.error('Erro ao enviar os dados. Por favor, tente novamente.');
     }
 }
 

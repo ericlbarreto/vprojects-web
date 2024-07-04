@@ -1,5 +1,5 @@
-export interface GradeProps{
-    isStatic: number;
-    nota : number;
-    funcaoNota : Function;
+export interface GradeProps {
+    nota: number;
+    funcaoNota: (value: number) => void;
+    edit: boolean;
 }

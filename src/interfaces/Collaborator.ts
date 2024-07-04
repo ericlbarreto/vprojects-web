@@ -6,5 +6,6 @@ export interface Collaborator {
     name: string;
     role: string;
     position: string;
+    profilePhoto: string;
     address: Address;
 }

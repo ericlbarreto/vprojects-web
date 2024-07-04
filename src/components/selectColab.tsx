@@ -58,8 +58,8 @@ const SelectCollab = ({ collaborators, onSelect, disableAddCollab }: SelectColla
                         <li key={collaborator.id}>
                             <button onClick={() => handleSelect(collaborator)} className="flex items-center py-2 space-x-3 w-full rounded-sm hover:bg-gray-100">
                                 <Avatar>
-                                    <AvatarImage src="https://github.com/shadcn.png" />
-                                    <AvatarFallback>CN</AvatarFallback>
+                                    <AvatarImage src={collaborator?.profilePhoto} />
+                                    <AvatarFallback>{collaborator?.name?.charAt(0) || 'U'}</AvatarFallback>
                                 </Avatar>
                                 <span>{collaborator.name}</span>
                             </button>
