@@ -8,15 +8,8 @@ import Logo from "../assets/v-projects_logo.svg";
 import DropDown from "../assets/dropdown.svg";
 import PartnerSearchBar from "./partnerSearchBar";
 import Sidebar from "./sidebar";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { format } from 'date-fns';
+import Dropdown from "./dropdown";
 
 
 function Header() {
@@ -24,10 +17,17 @@ function Header() {
   const user = getUserData();
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+
+  const closeDropdown = () => {
+    setDropdown(false);
+  };
+
+  const formattedBirthDate = user?.birthDate ? format(new Date(user.birthDate), 'dd/MM/yyyy') : '';
 
   return (
     <>
@@ -58,19 +58,12 @@ function Header() {
               <AvatarFallback>{user?.name?.charAt(0) || 'U'}</AvatarFallback>
             </Avatar>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="-ml-4">
+          <div className="relative">
+            <button onClick={() => setDropdown(!dropdown)} className="-ml-4">
               <img className="h-4 w-4" src={DropDown} alt="Drop down" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </button>
+            {dropdown && <Dropdown user={user!} formattedBirthDate={formattedBirthDate} closeDropdown={closeDropdown} />}
+          </div>
         </div>
       </div>
 
