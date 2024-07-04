@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Card360 from "@/components/card360";
 import { Av360 } from "@/interfaces/Av360";
 import { useAuth } from "@/contexts/authContext";
-import { getAllCollaborators, getAv360Data, getCurrentCycle, postAv360 } from "@/services/restServices";
+import { getAllCollaboratorsByUserId, getAv360Data, getCurrentCycle, postAv360 } from "@/services/restServices";
 import { CurrentCycle } from "@/interfaces/CurrentCycle";
 import { Oval } from "react-loader-spinner";
 import AtencaoModal from "@/components/atencao";
@@ -28,7 +28,7 @@ function Avaliacao360() {
 
     useEffect(() => {
         const fetchCollaborators = async () => {
-            const collaborators = await getAllCollaborators(user!.id);
+            const collaborators = await getAllCollaboratorsByUserId(user!.id);
             setAvailableCollaborators(collaborators);
         };
 
@@ -58,7 +58,7 @@ function Avaliacao360() {
             setLoading(true);
             try {
                 const response = await getAv360Data(user!.id, currentCycle!.id);
-                const av360DataMap = response.reduce((acc: { [key: number]: Av360 }, item: any) => {
+                const av360DataMap = response!.reduce((acc: { [key: number]: Av360 }, item: any) => {
                     acc[item.evaluatedId] = {
                         evaluatorId: item.evaluatorId,
                         evaluatedId: item.evaluatedId,

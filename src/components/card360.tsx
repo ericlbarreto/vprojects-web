@@ -151,8 +151,8 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
                                     <Grade
-                                        nota={assessmentData.behavior}
-                                        funcaoNota={(value: number) => handleNotaChange('behavior', value)}
+                                        grade={assessmentData.behavior}
+                                        editFunction={(value: number) => handleNotaChange('behavior', value)}
                                         edit={edit}
                                     />
 
@@ -168,8 +168,8 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                                 <div className="flex items-center">
                                     <p className="mr-2">Nota:</p>
                                     <Grade
-                                        nota={assessmentData.tecniques}
-                                        funcaoNota={(value: number) => handleNotaChange('tecniques', value)}
+                                        grade={assessmentData.tecniques}
+                                        editFunction={(value: number) => handleNotaChange('tecniques', value)}
                                         edit={edit}
                                     />
 
