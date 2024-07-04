@@ -27,7 +27,10 @@ const router = createBrowserRouter([
       { path: "/autoavaliacao", element: <AutoAvColab /> },
       { path: "/autoavaliacao/avaliacao-360", element: <Avaliacao360 /> },
       { path: "/controle-de-ciclo", element: <CycleControl /> },
-      { path: "/equalizacao", element: <Equalization /> },
+      {
+        path: "/equalizacao",
+        element: <ProtectedRoute element={<Equalization />} role="SOCIO" />,
+      },
       {
         path: "/homeSocio",
         element: <ProtectedRoute element={<HomeSocio />} role="SOCIO" />,
