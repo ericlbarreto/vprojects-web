@@ -12,6 +12,8 @@ import { UnauthorizedPage } from "./pages/ErrorsPage";
 import { NotFoundPage } from "./pages/ErrorsPage";
 import CycleControl from './pages/CycleControl';
 import Equalization from "./pages/Equalization";
+import ControleColaborador from './pages/ControleColaborador'
+
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<HomeSocio />} role="SOCIO" />,
       },
       { path: "*", element: <NotFoundPage /> },
+      { path: "/homeSocio/controleColaborador", element: <ControleColaborador />},
     ],
   },
 ]);
