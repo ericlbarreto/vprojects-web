@@ -6,14 +6,8 @@ import { useNavigate } from "react-router-dom";
 import AtencaoModal from "@/components/atencao";
 import { useAuth } from "@/contexts/authContext";
 import api from "@/services/axiosConfig";
+import { SelfAssessmentScore } from "@/interfaces/SelfAssessmentScore";
 
-interface SelfAssessmentScore {
-    id: number;
-    selfAssessmentId: number;
-    criterionId: number;
-    grade: number;
-    justification: string;
-}
 
 
 function AutoAvColab() {
