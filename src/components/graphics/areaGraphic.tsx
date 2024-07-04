@@ -37,19 +37,31 @@ const CustomTooltip = ({ active, payload }: any) => {
 
 export default function AreaGraphic() {
   const [cycles, setCycles] = useState<Cycle[]>([]);
+  const [filteredCycles, setFilteredCycles] = useState<Cycle[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string>('all');
 
   useEffect(() => {
     const getCycles = async () => {
-        try {
-            const response = await api.get('/api/cycles');
-            setCycles(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar os colaboradores:', error);
-        }
+      try {
+        const response = await api.get('/api/cycles');
+        setCycles(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar os ciclos:', error);
+      }
     };
 
     getCycles();
-}, []);
+  }, []);
+
+  useEffect(() => {
+    const filtered = selectedYear === 'all'
+      ? cycles
+      : cycles.filter(cycle => {
+          const endDate = new Date(cycle.endDate);
+          return endDate.getFullYear() === parseInt(selectedYear);
+        });
+    setFilteredCycles(filtered);
+  }, [cycles, selectedYear]);
 
   return (
     <div className="col-span-4 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
@@ -58,7 +70,7 @@ export default function AreaGraphic() {
           <p className="text-cinza">Evolução</p>
           <h2 className="text-[#2D2D2D] font-bold">nota final</h2>
         </div>
-        <Select>
+        <Select onValueChange={setSelectedYear}>
           <SelectTrigger className="w-[100px]">
             <SelectValue
               placeholder="Ano"
@@ -66,14 +78,20 @@ export default function AreaGraphic() {
             />
           </SelectTrigger>
           <SelectContent className="bg-azulBackground">
+            <SelectItem value="all" className="text-roxoPrincipal">
+              Todos
+            </SelectItem>
             <SelectItem value="2024" className="text-roxoPrincipal">
               2024
             </SelectItem>
             <SelectItem value="2023" className="text-roxoPrincipal">
               2023
             </SelectItem>
-            <SelectItem value="2022 " className="text-roxoPrincipal">
+            <SelectItem value="2022" className="text-roxoPrincipal">
               2022
+            </SelectItem>
+            <SelectItem value="2021" className="text-roxoPrincipal">
+              2021
             </SelectItem>
           </SelectContent>
         </Select>
@@ -82,7 +100,7 @@ export default function AreaGraphic() {
         <AreaChart
           width={500}
           height={400}
-          data={cycles}
+          data={filteredCycles}
           margin={{
             top: 10,
             right: 30,
