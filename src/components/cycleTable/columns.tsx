@@ -59,7 +59,19 @@ export const columns: ColumnDef<Cycle>[] = [
     cell: ({ cell }) => cell.getValue(),
     filterFn: (row, columnId, filterValue) => {
       if (!filterValue) return true;
-      return String(row.getValue(columnId)) === filterValue;
+  
+      const cellValue = row.getValue(columnId);
+  
+      // Verifica se cellValue é do tipo string antes de tentar converter para número
+      const numericValue = typeof cellValue === 'string' ? parseFloat(cellValue) : cellValue;
+  
+      if (isNaN(numericValue as number)) {
+        return false; // Se não for um número válido, não filtra
+      }
+  
+      const firstDigit = Math.floor(numericValue as number); // Arredonda para o primeiro dígito
+  
+      return String(firstDigit) === filterValue;
     },
   },
   {
