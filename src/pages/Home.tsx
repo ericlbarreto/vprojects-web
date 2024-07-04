@@ -4,18 +4,8 @@ import { CycleTable } from "@/components/cycleTable/data-table";
 import AreaGraphic from "@/components/graphics/areaGraphic";
 import BarGraphic from "@/components/graphics/barGraphic";
 import SuccesToast from "@/components/succesToast";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useAuth } from "@/contexts/authContext";
 import api from "@/services/axiosConfig";
-import { Separator } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
@@ -50,7 +40,7 @@ function Home() {
   }, [location.search]);
 
   useEffect(() => {
-    const getCollabs = async () => {
+    const getCycles = async () => {
         try {
             const response = await api.get('/api/cycles');
             setCycles(response.data);
@@ -59,7 +49,7 @@ function Home() {
         }
     };
 
-    getCollabs();
+    getCycles();
 }, []);
 
   return (
@@ -123,108 +113,8 @@ function Home() {
             Ciclos de avaliação
           </h1>
         </div>
-        <div className="col-span-4 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <p className="text-cinza">Evolução</p>
-              <h2 className="text-[#2D2D2D] font-bold">nota final</h2>
-            </div>
-            <Select>
-              <SelectTrigger className="w-[100px]">
-                <SelectValue
-                  placeholder="Ano"
-                  className="text-roxoPrincipal bg-azulBackground"
-                />
-              </SelectTrigger>
-              <SelectContent className="bg-azulBackground">
-                <SelectItem value="2024" className="text-roxoPrincipal">
-                  2024
-                </SelectItem>
-                <SelectItem value="2023" className="text-roxoPrincipal">
-                  2023
-                </SelectItem>
-                <SelectItem value="2022 " className="text-roxoPrincipal">
-                  2022
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <AreaGraphic cycles={cycles}/>
-        </div>
-        <div className="col-span-4 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <p className="text-cinza">Notas</p>
-              <h2 className="text-[#2D2D2D] font-bold">por critérios</h2>
-            </div>
-            <div className="flex gap-2">
-              <Select>
-                <SelectTrigger className="w-[100px]">
-                  <SelectValue
-                    placeholder="Ano"
-                    className="text-roxoPrincipal bg-azulBackground"
-                  />
-                </SelectTrigger>
-                <SelectContent className="bg-azulBackground">
-                  <SelectItem value="2024" className="text-roxoPrincipal">
-                    2024
-                  </SelectItem>
-                  <SelectItem value="2023" className="text-roxoPrincipal">
-                    2023
-                  </SelectItem>
-                  <SelectItem value="2022 " className="text-roxoPrincipal">
-                    2022
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <Select>
-                <SelectTrigger className="w-[120px]">
-                  <SelectValue
-                    placeholder="Critérios"
-                    className="text-roxoPrincipal bg-azulBackground"
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Comportamentais</SelectLabel>
-                    <SelectItem value="2024" className="text-roxoPrincipal">
-                      Sentimento de Dono
-                    </SelectItem>
-                    <SelectItem value="2023" className="text-roxoPrincipal">
-                      Resiliência nas Adversidades
-                    </SelectItem>
-                    <SelectItem value="2022 " className="text-roxoPrincipal">
-                      Organização no Trabalho
-                    </SelectItem>
-                    <SelectItem value="2022 " className="text-roxoPrincipal">
-                      Capacidade de Aprender
-                    </SelectItem>
-                    <SelectItem value="2022 " className="text-roxoPrincipal">
-                      Ser “Team Player”
-                    </SelectItem>
-                  </SelectGroup>
-                  <Separator className="bg-cinza border-[0.7px]" />
-                  <SelectGroup>
-                    <SelectLabel>Execução</SelectLabel>
-                    <SelectItem value="2024" className="text-roxoPrincipal">
-                      Entregar com Qualidade
-                    </SelectItem>
-                    <SelectItem value="2023" className="text-roxoPrincipal">
-                      Atender aos Prazos
-                    </SelectItem>
-                    <SelectItem value="2022 " className="text-roxoPrincipal">
-                      Fazer Mais com Menos
-                    </SelectItem>
-                    <SelectItem value="2022 " className="text-roxoPrincipal">
-                      Pensar Fora da Caixa
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <BarGraphic />  
-        </div>
+        <AreaGraphic />
+        <BarGraphic userId={user?.id}/>
         <div className="col-span-8">
           <h1 className="font-extrabold text-[#2D2D2D] text-2xl mb-2 mt-6">
             Histórico de Ciclos de Avaliações
