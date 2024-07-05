@@ -1,5 +1,5 @@
 import { Av360 } from "./Av360";
-import { Collaborator } from "./Collaborator";
+import { User } from "./User";
 import { CurrentCycle } from "./CurrentCycle";
 
 export interface SubHeaderAvProps {
@@ -8,7 +8,7 @@ export interface SubHeaderAvProps {
     atencao: boolean;
     allFieldsFilled?: boolean;
     currentCycle?: CurrentCycle;
-    user?: Collaborator;
+    user?: User;
     funcaoSalvar?: (submitted: boolean) => void;
     av360Data?: { [key: number]: Av360 };
     onSubmitCycle?: (submitted: boolean) => void;

@@ -79,11 +79,11 @@ function AutoAvColab() {
     const isFinishedParam = queryParams.get("isFinished");
 
 
-    const prosseguirOuSalvarRascClick = async (salvarOuSeguir:boolean) => {
+    const prosseguirOuSalvarRascClick = async (salvarOuSeguir: boolean) => {
         if (complete() || salvarOuSeguir) {
 
-            
-            const cycleId = idCycleParam? idCycleParam : (await api.get("/api/cycles/current")).data.id;
+
+            const cycleId = idCycleParam ? idCycleParam : (await api.get("/api/cycles/current")).data.id;
             const autoAvId = (await api.get(`/api/self-assesment/user/${user?.id}`)).data;
 
             if (autoAvId) {
@@ -124,11 +124,13 @@ function AutoAvColab() {
                 }
             }
             if (!salvarOuSeguir) {
-                if (isFinishedParam === "true"){
+                if (isFinishedParam === "true") {
                     navigate(`/autoavaliacao/avaliacao-360?cycleId=${cycleId}&isFinished=${isFinishedParam}`);
-                }else{
+                } else {
                     navigate("/autoavaliacao/avaliacao-360");
                 }
+
+
             }
 
         }
@@ -144,7 +146,7 @@ function AutoAvColab() {
             if (autoAvId) {
                 const response = await api.get(`/api/self-assesment/${autoAvId}`);
                 const selfAssessment = response.data;
-                
+
                 const newNotas: Record<string, number> = {
                     "notaSentimentoDono": 0,
                     "notaResiliencia": 0,
@@ -156,7 +158,7 @@ function AutoAvColab() {
                     "notaMaiscomMenos": 0,
                     "notaForadaCaixa": 0
                 };
-    
+
                 const newJustif: Record<string, string> = {
                     "justSentimentoDono": "",
                     "justResiliencia": "",
@@ -205,7 +207,7 @@ function AutoAvColab() {
 
 
 
-    
+
     return (
         <div className={`h-full bg-azulBackground w-full ${atencao ? "fixed" : "relative"}`}>
             <SubHeaderAv currentStep={1} setAtencao={setAtencao} atencao={atencao} funcaoSalvar={prosseguirOuSalvarRascClick} />
@@ -217,28 +219,28 @@ function AutoAvColab() {
                     <div>
                         <div className="bg-[#F9FAFB] shadow mx-4 h-14 font-extrabold text-roxoPrincipal mt-1 pt-4 pl-12 rounded-sm">Critérios Comportamentais</div>
                         <div className="mx-4 bg-branco rounded-sm pl-12 shadow border">
-                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaSentimentoDono"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justSentimentoDono"} funcaoJust={updateJust} justifObject={justif} text="Sentimento de dono" textInfo="Demonstrar comprometimento e responsabilidade como se fosse dono do negócio." />
-                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaResiliencia"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justResiliencia"} funcaoJust={updateJust} justifObject={justif} text="Resiliência nas Adversidades" textInfo="Manter-se firme e adaptável frente aos desafios e obstáculos do cotidiano profissional." />
-                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaOrganizacao"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justOrganizacao"} funcaoJust={updateJust} justifObject={justif} text="Organização no Trabalho" textInfo="Manter o espaço de trabalho organizado para otimizar a produtividade e eficiência." />
-                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaAprender"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justAprender"} funcaoJust={updateJust} justifObject={justif} text="Capacidade de Aprender" textInfo="Estar aberto ao aprendizado contínuo e à absorção de novos conhecimentos e habilidades." />
+                            <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaSentimentoDono"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justSentimentoDono"} funcaoJust={updateJust} justifObject={justif} text="Sentimento de dono" textInfo="Demonstrar comprometimento e responsabilidade como se fosse dono do negócio." />
+                            <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaResiliencia"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justResiliencia"} funcaoJust={updateJust} justifObject={justif} text="Resiliência nas Adversidades" textInfo="Manter-se firme e adaptável frente aos desafios e obstáculos do cotidiano profissional." />
+                            <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaOrganizacao"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justOrganizacao"} funcaoJust={updateJust} justifObject={justif} text="Organização no Trabalho" textInfo="Manter o espaço de trabalho organizado para otimizar a produtividade e eficiência." />
+                            <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaAprender"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justAprender"} funcaoJust={updateJust} justifObject={justif} text="Capacidade de Aprender" textInfo="Estar aberto ao aprendizado contínuo e à absorção de novos conhecimentos e habilidades." />
                             <div className="mb-6">
-                                <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaTeamPlayer"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justTeamPlayer"} funcaoJust={updateJust} justifObject={justif} text='Ser "Team Player"' textInfo="Colaborar e apoiar os colegas de equipe para alcançar objetivos comuns." />
+                                <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaTeamPlayer"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justTeamPlayer"} funcaoJust={updateJust} justifObject={justif} text='Ser "Team Player"' textInfo="Colaborar e apoiar os colegas de equipe para alcançar objetivos comuns." />
                             </div>
                         </div>
                     </div>
                     <div className="mt-6">
                         <div className="bg-[#F9FAFB] shadow mx-4 h-14 font-extrabold text-roxoPrincipal mt-1 pt-4 pl-12 rounded-sm">Critérios de Execução</div>
                         <div className="mx-4 bg-branco rounded-sm pl-12 shadow border">
-                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaQualidade"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justQualidade"} funcaoJust={updateJust} justifObject={justif} text="Entregar com Qualidade" textInfo="Garantir que o trabalho seja realizado com alto padrão de qualidade e excelência." />
-                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaPrazo"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justPrazo"} funcaoJust={updateJust} justifObject={justif} text="Atender aos Prazos" textInfo="Cumprir os prazos estabelecidos de forma consistente e confiável." />
-                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaMaiscomMenos"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justMaiscomMenos"} funcaoJust={updateJust} justifObject={justif} text="Fazer Mais com Menos" textInfo="Buscar maneiras criativas e eficientes de alcançar resultados com recursos limitados." />
+                            <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaQualidade"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justQualidade"} funcaoJust={updateJust} justifObject={justif} text="Entregar com Qualidade" textInfo="Garantir que o trabalho seja realizado com alto padrão de qualidade e excelência." />
+                            <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaPrazo"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justPrazo"} funcaoJust={updateJust} justifObject={justif} text="Atender aos Prazos" textInfo="Cumprir os prazos estabelecidos de forma consistente e confiável." />
+                            <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaMaiscomMenos"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justMaiscomMenos"} funcaoJust={updateJust} justifObject={justif} text="Fazer Mais com Menos" textInfo="Buscar maneiras criativas e eficientes de alcançar resultados com recursos limitados." />
                             <div className="mb-6">
-                                <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaForadaCaixa"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justForadaCaixa"} funcaoJust={updateJust} justifObject={justif} text="Pensar Fora da Caixa" textInfo="Desenvolver soluções inovadoras e fora do convencional para resolver problemas e impulsionar o progresso da empresa." />
+                                <NotasJustif isFinished={isFinishedParam === "true" ? true : false} nota={"notaForadaCaixa"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justForadaCaixa"} funcaoJust={updateJust} justifObject={justif} text="Pensar Fora da Caixa" textInfo="Desenvolver soluções inovadoras e fora do convencional para resolver problemas e impulsionar o progresso da empresa." />
                             </div>
                         </div>
                     </div>
                     <div className="flex justify-end mr-4">
-                        <button onClick={()=>prosseguirOuSalvarRascClick(false)} className="bg-roxoPrincipal w-48 h-9 rounded-md font-semibold hover:bg-[#6929fe] text-branco mt-12 mb-60">Prosseguir</button>
+                        <button onClick={() => prosseguirOuSalvarRascClick(false)} className="bg-roxoPrincipal w-48 h-9 rounded-md font-semibold hover:bg-[#6929fe] text-branco mt-12 mb-60">Prosseguir</button>
                     </div>
                 </div>
             </div>

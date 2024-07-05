@@ -12,6 +12,7 @@ interface EqAutoAvProps{
 
 function EqAutoAv({notasSocio, updateNota, isFinished, colabId}:EqAutoAvProps) {
 
+
     const [notasColab, setNotasColab] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
         "notaResiliencia": 0,
