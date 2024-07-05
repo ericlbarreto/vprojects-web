@@ -3,11 +3,12 @@ import TutorialPartner from "@/components/tutorialPartner";
 import { CycleControlTable } from "@/components/cycleControlTable/data-table";
 import { Payment, columns } from "@/components/cycleControlTable/columns";
 import { Collaborator } from "@/interfaces/Collaborator";
-import { Cycle } from "@/interfaces/Cycle";
+import { EqCycle } from "@/interfaces/EqCycle";
 import { useEffect, useState } from "react";
 import api from "@/services/axiosConfig";
 import AtencaoModal from "@/components/atencao";
 import FinishEqualization from "@/components/finishEqualization";
+import { useNavigate } from "react-router-dom";
 
 const datatable: Payment[] = [
     // {
@@ -47,7 +48,7 @@ const datatable: Payment[] = [
 function CycleControl() {
 
     const [Colab, setColab] = useState<Collaborator[]>([]);
-    const [currentCycle, setCurrentCycle] = useState<Cycle>()
+    const [currentCycle, setCurrentCycle] = useState<EqCycle | undefined>(undefined);
 
     useEffect(() => {
         const getCollaborator = async () => {
@@ -69,17 +70,16 @@ function CycleControl() {
                 const cycleEqualizationIdResponse = await api.get("/api/cycles-equalization");
                 const cycleEqualizationId = cycleEqualizationIdResponse.data;
 
-                console.log(cycleEqualizationId)
+                // console.log(cycleEqualizationId)
     
                 const cycleEqualizationsResponse = await api.get("/api/cycles-equalization/all");
                 const cycleEqualizations = cycleEqualizationsResponse.data;
 
-                console.log(cycleEqualizations)
+                // console.log(cycleEqualizations)
     
-                // Encontrar o ciclo com o ID específico
                 const currentCycle = cycleEqualizations.find((cycle: any) => cycle.id === cycleEqualizationId);
                 
-                console.log(currentCycle)
+                // console.log(currentCycle)
 
                 if (currentCycle) {
                     setCurrentCycle(currentCycle);
@@ -95,12 +95,17 @@ function CycleControl() {
     }, []);
     
 
-    console.log(Colab)
+    // console.log(Colab)
 
     const [path, setPath] = useState("/home-socio")
     const [atencao, setAtencao] = useState(false);
     const [elementVisible, setElementVisible] = useState(false);
 
+    const queryParams = new URLSearchParams(location.search);
+    const idCycleEqParam = queryParams.get("cycleIdEq");
+    const isFinishedParam = queryParams.get("isFinished");
+
+    
 
     return (
         <div className="h-full bg-azulBackground">
@@ -113,7 +118,9 @@ function CycleControl() {
             <div className={atencao ? "opacity-50" : ""}></div>
             <TutorialPartner />
             <div className="mt-14 bg-white rounded-2xl shadow-md mx-16">
-                <CycleControlTable columns={columns} data={Colab} />
+            {currentCycle && (
+                <CycleControlTable columns={columns} data={Colab} idCycleEqParam = {idCycleEqParam ? idCycleEqParam : currentCycle.id} isFinishedParam = {isFinishedParam ? isFinishedParam : false}/>
+            )}
             </div>
         </div>
     );

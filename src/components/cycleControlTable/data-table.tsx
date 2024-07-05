@@ -9,7 +9,7 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import { Pencil1Icon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -26,14 +26,23 @@ import { Input } from "../ui/input";
 import lupa from "src/assets/lupe.svg"
 import { Button } from "../ui/button";
 import { Collaborator } from "@/interfaces/Collaborator";
+import api from "@/services/axiosConfig";
+import { EqCycle } from "@/interfaces/EqCycle";
+import { useNavigate } from "react-router-dom";
 
 interface DataTableProps {
   columns?: ColumnDef<Collaborator, any>[];
   data: Collaborator[];
+  idCycleEqParam: string | number; 
+  isFinishedParam: string | boolean;
+
 }
 
-export function CycleControlTable({ columns = defaultColumns, data }: DataTableProps) {
+export function CycleControlTable({ columns = defaultColumns, data, idCycleEqParam, isFinishedParam }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
+
+  const navigate = useNavigate()
+
 
   const table = useReactTable({
     data,
@@ -47,6 +56,19 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
       sorting
     },
   });
+
+  // useEffect(() => {
+  //   const getCollaborator = async () => {
+  //     try {
+  //       const response = await api.get("/api/user/all-collabs");
+  //       setColab(response.data);
+  //     } catch (error) {
+  //       console.error("Erro ao buscar os colaboradores:", error);
+  //     }
+  //   };
+
+  //   getCollaborator();
+  // }, []);
 
   return (
     <div className="rounded-md">
@@ -95,6 +117,7 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
                   // const status = row.original.status;
                   // const grade = row.original.grade
                   const sector = row.original.sector
+                  const idColab = row.original.id
                   const position = row.original.position
                   const profile = row.original.name
                   const profilePhoto = row.original.profilePhoto
@@ -125,7 +148,7 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
 
                         </div>
                       )}
-                      <ChevronRightIcon className="absolute right-12 text-roxoPrincipal mt-4 mr-10 top-5 cursor-pointer size-7"/>
+                      <ChevronRightIcon onClick={() => navigate(`/equalizacao?idCycleEqParam=${idCycleEqParam}&isFinishedParam=${isFinished}&colabId=${idColab}`)} className="absolute right-12 text-roxoPrincipal mt-4 mr-10 top-5 cursor-pointer size-7"/>
                     </TableCell>
                   );
                 })}
