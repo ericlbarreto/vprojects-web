@@ -37,7 +37,7 @@ function Header() {
             <img src={Menu} alt="Menu" />
           </button>
           <div className="ml-4">
-            <Link to={user?.role === "SOCIO" ? "/homeSocio" : "/"}>
+            <Link to={user?.role === "SOCIO" ? "/home-socio" : "/"}>
               <img src={Logo} className="w-36 h-12" alt="Logo V-Projects" />
             </Link>
           </div>
