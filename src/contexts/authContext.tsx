@@ -1,12 +1,12 @@
 import { AuthContextType } from '@/interfaces/AuthContextType';
-import { Collaborator } from '@/interfaces/Collaborator';
+import { User } from '@/interfaces/User';
 import { FC, ReactNode, createContext, useContext } from 'react';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
-    const login = (userData: Collaborator, token: string) => {
+    const login = (userData: User, token: string) => {
         sessionStorage.setItem("accessToken", token);
         localStorage.setItem('user', JSON.stringify(userData));
     };

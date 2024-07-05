@@ -1,3 +1,4 @@
+import { formatDate } from "@/common/formatDate";
 import StartButton from "@/components/StartButton";
 import { columns } from "@/components/equalizationTable/columns";
 import { EqualizationTable } from "@/components/equalizationTable/data-table";
@@ -12,13 +13,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Cycle } from "@/interfaces/AvaliationCycle";
+import { EqualizationCycle } from "@/interfaces/EqualizationCycle";
 import api from "@/services/axiosConfig";
 import { Separator } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
-import { Cycle } from "@/interfaces/AvaliationCycle";
-import { EqualizationCycle } from "@/interfaces/EqualizationCycle";
 
 function HomeSocio() {
   const [equalizationCycles, setEqualizationCycles] = useState<
@@ -33,7 +34,6 @@ function HomeSocio() {
           "/api/cycles-equalization/all"
         );
         const currentCycle = await api.get("/api/cycles/current");
-        console.log(currentCycle.data);
         setEqualizationCycles(equalizationsResponse.data.reverse());
         setCurrentCycle(currentCycle.data);
       } catch (error) {
@@ -43,6 +43,12 @@ function HomeSocio() {
 
     getEqualizationAndCycles();
   }, []);
+
+  const hasPendingSelfAssessments =
+    equalizationCycles.length > 0 &&
+    currentCycle.SelfAssessments &&
+    equalizationCycles[0].Equalizations.length <
+      currentCycle.SelfAssessments.length;
 
   return (
     <div className="h-full bg-azulBackground">
@@ -58,11 +64,32 @@ function HomeSocio() {
                   Camila Fontes!
                 </span>
               </p>
-              <p className="text-justify text-textoCor">
-                Você tem uma autoavaliação pendente que precisa ser concluída
-                até <b>23/05/2024</b>! Inicie agora, sua colaboração é essencial
-                para o nosso progresso contínuo.
-              </p>
+              {hasPendingSelfAssessments ? (
+                <>
+                  <p className="text-justify text-textoCor">
+                    Você tem uma autoavaliação pendente que precisa ser
+                    concluída até{" "}
+                    <b>
+                      {equalizationCycles.length > 0 &&
+                        formatDate(equalizationCycles[0].endDate)}
+                    </b>
+                    ! Inicie agora, sua colaboração é essencial para o nosso
+                    progresso contínuo.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-justify text-textoCor">
+                    O seu ciclo de avaliação com data de finalização{" "}
+                    <b>
+                      {equalizationCycles.length > 0 &&
+                        formatDate(equalizationCycles[0].endDate)}
+                    </b>{" "}
+                    foi enviado! A sua colaboração é essencial para o nosso
+                    progresso contínuo.
+                  </p>
+                </>
+              )}
               <div>
                 <a href="controle-de-ciclo">
                   <StartButton
@@ -181,7 +208,7 @@ function HomeSocio() {
               </Select>
             </div>
           </div>
-          <MultipleBarGraphic />
+          <MultipleBarGraphic data={equalizationCycles}/>
         </div>
         <div className="flex flex-col col-span-3 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
           <div className="flex justify-left items-center mb-4">

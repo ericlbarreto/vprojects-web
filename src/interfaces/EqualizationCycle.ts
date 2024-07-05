@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface EqualizationCycle {
   id: number;
   name: string;
@@ -10,14 +12,16 @@ export interface EqualizationCycle {
 
 export interface Equalization {
   id: number;
+  evaluator: User;
   evaluatorId: number;
+  evaluated: User;
   evaluatedId: number;
   cycleId: number;
   cycleEqualizationId: number;
-  date: string;
+  date: Date;
   status: boolean;
   finalGrade: number;
-  equalizationScores: EqualizationScore[];
+  EqualizationScores: EqualizationScore[];
 }
 
 export interface EqualizationScore {

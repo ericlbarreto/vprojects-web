@@ -89,7 +89,6 @@ function Home() {
                   </p>
                 </>
               )}
-
               <div>
                 <a href="autoavaliacao">
                   <StartButton
