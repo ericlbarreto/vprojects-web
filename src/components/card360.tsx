@@ -67,7 +67,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                         </Avatar>
                     </div>
 
-                    <div className="col-span-1 col-start-2">
+                    <div className="col-span-1 col-start-2 text-nowrap">
                         <p className="font-medium text-[#455468]">{collaborator.name}</p>
                         <p className="font-regular text-[#5e718d]">{collaborator.position}</p>
                     </div>
