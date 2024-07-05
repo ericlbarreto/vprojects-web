@@ -11,10 +11,16 @@ import {
   import { useEffect } from "react";
   import { Collaborator } from "@/interfaces/Collaborator";
   import api from "@/services/axiosConfig";
+  import { useNavigate } from "react-router-dom";
+
+
+
+  
   
   const PartnerSearchBar = () => {
     const [search, setSearch] = useState("");
     const [availableCollaborators, setAvailableCollaborators] = useState<Collaborator[]>([]);
+    
 
     useEffect(() => {
       const getCollabs = async () => {
@@ -32,8 +38,10 @@ import {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(event.target.value);
     };
-  
+
+    const navigate = useNavigate();
     const handleItemClick = (collaborator: Collaborator) => {
+      navigate(`/home-socio/controleColaborador?id=${collaborator.id}`);
       console.log(collaborator);
     };
   

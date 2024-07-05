@@ -121,8 +121,8 @@ function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar}:SubHeaderEq
 
             {(currentPath == "/equalizacao") && (
                 <div className="flex flex-row justify-center gap-y-2.5 gap-x-6 mt-6 ">
-                    <button onClick={()=>funcaoSalvarOuFinalizar(true)} className="px-6 py-3 gap-y-2.5 rounded-xl bg-customBlue text-roxoPrincipal w- h-11 ml-auto">Salvar rascunho</button>
-                    <button onClick={()=>funcaoSalvarOuFinalizar(false)} className="px-6 py-3 gap-y-2.5 rounded-xl  bg-roxoPrincipal text-white w- h-11 ml-auto">Concluir equalização</button>
+                    <button onClick={()=>funcaoSalvarOuFinalizar!(true)} className="px-6 py-3 gap-y-2.5 rounded-xl bg-customBlue text-roxoPrincipal w- h-11 ml-auto">Salvar rascunho</button>
+                    <button onClick={()=>funcaoSalvarOuFinalizar!(false)} className="px-6 py-3 gap-y-2.5 rounded-xl  bg-roxoPrincipal text-white w- h-11 ml-auto">Concluir equalização</button>
                 </div>
             )}
 

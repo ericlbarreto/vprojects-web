@@ -70,7 +70,7 @@ function EqAutoAv({notasSocio, updateNota}:EqAutoAvProps) {
 
                 selfAssessment.SelfAssessmentScores.forEach((score: SelfAssessmentScore) => {
                     const criterionId = score.criterionId;
-                    const criterionName = getCriterionNameById(criterionId); // Função para mapear criterionId para nome
+                    const criterionName = getCriterionNameById(criterionId);
                     newNotas[`nota${criterionName}`] = score.grade;
                     newJustif[`just${criterionName}`] = score.justification;
                 });
