@@ -7,10 +7,11 @@ interface EqAutoAvProps{
     notasSocio: { [key: string]: number };
     updateNota:Function;
     isFinished:boolean;
-    colabId: string;
+    colabId:string;
 }
 
-function EqAutoAv({notasSocio, updateNota, isFinished, colabId }:EqAutoAvProps) {
+function EqAutoAv({notasSocio, updateNota, isFinished, colabId}:EqAutoAvProps) {
+
 
     const [notasColab, setNotasColab] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
