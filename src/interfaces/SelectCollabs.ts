@@ -1,7 +1,7 @@
-import { Collaborator } from "./Collaborator";
+import { User } from "./User";
 
 export interface SelectCollabProps {
-    collaborators: Collaborator[];
+    collaborators: User[];
     disableAddCollab: boolean;
-    onSelect: (collaborator: Collaborator) => void;
+    onSelect: (collaborator: User) => void;
 }

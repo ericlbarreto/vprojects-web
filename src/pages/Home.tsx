@@ -54,8 +54,6 @@ function Home() {
     getCycles();
   }, []);
 
-  console.log(cycles)
-
   const sentSelfAssessment = cycles.length > 0 && cycles[0]?.SelfAssessments?.some(
     (item) => item.id === user?.id
   );
@@ -91,7 +89,6 @@ function Home() {
                   </p>
                 </>
               )}
-
               <div>
                 <a href="autoavaliacao">
                   <StartButton

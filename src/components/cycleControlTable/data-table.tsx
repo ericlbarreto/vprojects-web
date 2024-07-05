@@ -1,16 +1,4 @@
 import {
-  ColumnDef,
-  SortingState,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-  getFilteredRowModel,
-  getPaginationRowModel,
-} from "@tanstack/react-table";
-import { Pencil1Icon, ChevronRightIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
-import {
   Table,
   TableBody,
   TableCell,
@@ -18,18 +6,27 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { User } from "@/interfaces/User";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 import {
-  Payment,
-  columns as defaultColumns,
-} from "./columns"; // Atualize para o caminho correto do seu arquivo columns
+  ColumnDef,
+  SortingState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { useState } from "react";
 import { Input } from "../ui/input";
-import lupa from "src/assets/lupe.svg"
-import { Button } from "../ui/button";
-import { Collaborator } from "@/interfaces/Collaborator";
+import {
+  columns as defaultColumns
+} from "./columns"; // Atualize para o caminho correto do seu arquivo columns
 
 interface DataTableProps {
-  columns?: ColumnDef<Collaborator, any>[];
-  data: Collaborator[];
+  columns?: ColumnDef<User, any>[];
+  data: User[];
 }
 
 export function CycleControlTable({ columns = defaultColumns, data }: DataTableProps) {

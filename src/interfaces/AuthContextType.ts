@@ -1,7 +1,7 @@
-import { Collaborator } from "./Collaborator";
+import { User } from "./User";
 
 export interface AuthContextType {
-    login: (userData: Collaborator, token: string) => void;
+    login: (userData: User, token: string) => void;
     logout: () => void;
-    getUserData: () => Collaborator | null;
+    getUserData: () => User | null;
 }

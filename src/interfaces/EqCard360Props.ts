@@ -1,5 +1,5 @@
 import { Av360 } from "./Av360";
-import { Collaborator } from "./Collaborator";
+import { Collaborator } from "./User";
 
 export interface EqCard360Props {
     evaluator: Collaborator;

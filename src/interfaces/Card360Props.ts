@@ -1,4 +1,4 @@
-import { Collaborator } from "./Collaborator";
+import { Collaborator } from "./User";
 import { Av360 } from "./Av360"; 
 export interface Card360Props {
     collaborator: Collaborator;
