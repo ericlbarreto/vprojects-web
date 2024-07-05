@@ -74,9 +74,7 @@ export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
                   const columnId = cell.column.id;
                   const isStatusCell = columnId === 'status';
                   const status = row.original.status;
-                  console.log(status)
                   const isOngoing = status === true;
-                  console.log(isOngoing)
 
                   const isDateCell = columnId === 'startDate' || columnId === 'endDate';
                   const formattedDate = isDateCell ? formatDate(row.original[columnId]) : null;

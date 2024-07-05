@@ -17,21 +17,31 @@ import { Separator } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
+import { Cycle } from "@/interfaces/AvaliationCycle";
+import { EqualizationCycle } from "@/interfaces/EqualizationCycle";
 
 function HomeSocio() {
-  const [equalizationCycles, setEqualizationCycles] = useState([]);
+  const [equalizationCycles, setEqualizationCycles] = useState<
+    EqualizationCycle[]
+  >([]);
+  const [currentCycle, setCurrentCycle] = useState<Cycle>(() => ({} as Cycle));
 
   useEffect(() => {
-    const getEqualizationCycles = async () => {
+    const getEqualizationAndCycles = async () => {
       try {
-        const response = await api.get("/api/cycles-equalization/all");
-        setEqualizationCycles(response.data.reverse());
+        const equalizationsResponse = await api.get(
+          "/api/cycles-equalization/all"
+        );
+        const currentCycle = await api.get("/api/cycles/current");
+        console.log(currentCycle.data);
+        setEqualizationCycles(equalizationsResponse.data.reverse());
+        setCurrentCycle(currentCycle.data);
       } catch (error) {
         console.error("Erro ao buscar os ciclos de equalização:", error);
       }
     };
-  
-    getEqualizationCycles();
+
+    getEqualizationAndCycles();
   }, []);
 
   return (
@@ -53,11 +63,15 @@ function HomeSocio() {
                 até <b>23/05/2024</b>! Inicie agora, sua colaboração é essencial
                 para o nosso progresso contínuo.
               </p>
-              <div><a href="controle-de-ciclo"><StartButton
-                className={
-                  "bg-roxoPrincipal w-48 h-9 rounded-md text-white font-semibold hover:bg-[#6929fe]"
-                }
-              /></a></div>
+              <div>
+                <a href="controle-de-ciclo">
+                  <StartButton
+                    className={
+                      "bg-roxoPrincipal w-48 h-9 rounded-md text-white font-semibold hover:bg-[#6929fe]"
+                    }
+                  />
+                </a>
+              </div>
             </div>
             <div className="col-span-2 ml-12 flex justify-end">
               <img src={Assesment} className="w-64 h-64" alt="Assesment Icon" />
@@ -124,7 +138,7 @@ function HomeSocio() {
               <Select>
                 <SelectTrigger className="w-[120px]">
                   <SelectValue
-                    placeholder="Critérios"
+                    placeholder="Setores"
                     className="text-roxoPrincipal bg-azulBackground"
                   />
                 </SelectTrigger>
@@ -147,7 +161,7 @@ function HomeSocio() {
                       Ser “Team Player”
                     </SelectItem>
                   </SelectGroup>
-                  <Separator className="bg-cinza border-[0.7px]"/>
+                  <Separator className="bg-cinza border-[0.7px]" />
                   <SelectGroup>
                     <SelectLabel>Execução</SelectLabel>
                     <SelectItem value="2024" className="text-roxoPrincipal">
@@ -173,11 +187,21 @@ function HomeSocio() {
           <div className="flex justify-left items-center mb-4">
             <div>
               <p className="text-cinza">Estatística</p>
-              <h2 className="text-[#2D2D2D] font-bold">das equalizações já realizadas</h2>
+              <h2 className="text-[#2D2D2D] font-bold">
+                das equalizações já realizadas
+              </h2>
             </div>
           </div>
           <div className="flex items-center justify-center w-full h-full text-roxoPrincipal">
-            <CircularProgressWithDot value={40} />  
+            <CircularProgressWithDot
+              value={
+                equalizationCycles?.[0]?.Equalizations?.length &&
+                currentCycle?.SelfAssessments?.length
+                  ? equalizationCycles[0].Equalizations.length /
+                    currentCycle.SelfAssessments.length
+                  : 0
+              }
+            />
           </div>
         </div>
         <div className="col-span-8">
