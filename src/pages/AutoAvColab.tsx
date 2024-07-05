@@ -100,7 +100,6 @@ function AutoAvColab() {
                         "cycleId": cycleId,
                         "status": !salvarOuSeguir,
                         "scores": scores
-
                     });
                     console.log(`patch feito:${scores}`)
                 } catch (error) {
@@ -120,12 +119,10 @@ function AutoAvColab() {
                         "cycleId": cycleId,
                         "status": !salvarOuSeguir,
                         "scores": scores
-
                     });
                 } catch (error) {
                     console.error('Erro no post. Ocorreu um erro ao fazer a requisição:', error);
                 }
-
             }
             if (!salvarOuSeguir) {
                 if (isFinishedParam === "true"){

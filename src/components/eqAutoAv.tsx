@@ -6,10 +6,10 @@ import { SelfAssessmentScore } from "@/interfaces/SelfAssessmentScore";
 interface EqAutoAvProps{
     notasSocio: { [key: string]: number };
     updateNota:Function;
+    isFinished:boolean;
 }
 
-function EqAutoAv({notasSocio, updateNota}:EqAutoAvProps) {
-    
+function EqAutoAv({notasSocio, updateNota, isFinished}:EqAutoAvProps) {
 
     const [notasColab, setNotasColab] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
@@ -35,8 +35,8 @@ function EqAutoAv({notasSocio, updateNota}:EqAutoAvProps) {
         "justForadaCaixa": ""
     })
 
-    
 
+    
     const dadosAtt = async () => {
         try {
             const autoAvId = (await api.get(`/api/self-assesment/user/${1}`)).data;//idDoColabEscolhido
@@ -98,10 +98,11 @@ function EqAutoAv({notasSocio, updateNota}:EqAutoAvProps) {
         return criteriaMap[criterionId] || "Unknown";
     };
 
+
+
     useEffect(() => {
         dadosAtt();
     }, []);
-
 
 
     return (
@@ -110,23 +111,23 @@ function EqAutoAv({notasSocio, updateNota}:EqAutoAvProps) {
             <div>
                 <div className="bg-[#F9FAFB] shadow mx-4 h-14 font-extrabold text-roxoPrincipal mt-1 pt-4 pl-12 rounded-sm">Critérios Comportamentais</div>
                 <div className="mx-4 bg-branco rounded-sm pl-12 shadow border">
-                    <NotasJustifEq nota={"notaSentimentoDono"} setNota={updateNota} notasObject={notasSocio} text="Sentimento de dono" textInfo="Demonstrar comprometimento e responsabilidade como se fosse dono do negócio." justifiq={justifColab["justSentimentoDono"]} notaColab={notasColab} />
-                    <NotasJustifEq nota={"notaResiliencia"} setNota={updateNota} notasObject={notasSocio} text="Resiliência nas Adversidades" textInfo="Manter-se firme e adaptável frente aos desafios e obstáculos do cotidiano profissional." justifiq={justifColab["justResiliencia"]} notaColab={notasColab} />
-                    <NotasJustifEq nota={"notaOrganizacao"} setNota={updateNota} notasObject={notasSocio} text="Organização no Trabalho" textInfo="Manter o espaço de trabalho organizado para otimizar a produtividade e eficiência." justifiq={justifColab["justOrganizacao"]} notaColab={notasColab} />
-                    <NotasJustifEq nota={"notaAprender"} setNota={updateNota} notasObject={notasSocio} text="Capacidade de Aprender" textInfo="Estar aberto ao aprendizado contínuo e à absorção de novos conhecimentos e habilidades." justifiq={justifColab["justAprender"]} notaColab={notasColab} />
+                    <NotasJustifEq isFinished={isFinished} nota={"notaSentimentoDono"} setNota={updateNota} notasObject={notasSocio} text="Sentimento de dono" textInfo="Demonstrar comprometimento e responsabilidade como se fosse dono do negócio." justifiq={justifColab["justSentimentoDono"]} notaColab={notasColab} />
+                    <NotasJustifEq isFinished={isFinished} nota={"notaResiliencia"} setNota={updateNota} notasObject={notasSocio} text="Resiliência nas Adversidades" textInfo="Manter-se firme e adaptável frente aos desafios e obstáculos do cotidiano profissional." justifiq={justifColab["justResiliencia"]} notaColab={notasColab} />
+                    <NotasJustifEq isFinished={isFinished} nota={"notaOrganizacao"} setNota={updateNota} notasObject={notasSocio} text="Organização no Trabalho" textInfo="Manter o espaço de trabalho organizado para otimizar a produtividade e eficiência." justifiq={justifColab["justOrganizacao"]} notaColab={notasColab} />
+                    <NotasJustifEq isFinished={isFinished} nota={"notaAprender"} setNota={updateNota} notasObject={notasSocio} text="Capacidade de Aprender" textInfo="Estar aberto ao aprendizado contínuo e à absorção de novos conhecimentos e habilidades." justifiq={justifColab["justAprender"]} notaColab={notasColab} />
                     <div className="mb-6">
-                        <NotasJustifEq nota={"notaTeamPlayer"} setNota={updateNota} notasObject={notasSocio} text='Ser "Team Player"' textInfo="Colaborar e apoiar os colegas de equipe para alcançar objetivos comuns." justifiq={justifColab["justTeamPlayer"]} notaColab={notasColab} />
+                        <NotasJustifEq isFinished={isFinished} nota={"notaTeamPlayer"} setNota={updateNota} notasObject={notasSocio} text='Ser "Team Player"' textInfo="Colaborar e apoiar os colegas de equipe para alcançar objetivos comuns." justifiq={justifColab["justTeamPlayer"]} notaColab={notasColab} />
                     </div>
                 </div>
             </div>
             <div className="mt-6">
                 <div className="bg-[#F9FAFB] shadow mx-4 h-14 font-extrabold text-roxoPrincipal mt-1 pt-4 pl-12 rounded-sm">Critérios de Execução</div>
                 <div className="mx-4 bg-branco rounded-sm pl-12 shadow border">
-                    <NotasJustifEq nota={"notaQualidade"} setNota={updateNota} notasObject={notasSocio} text="Entregar com Qualidade" textInfo="Garantir que o trabalho seja realizado com alto padrão de qualidade e excelência." justifiq={justifColab["justQualidade"]} notaColab={notasColab} />
-                    <NotasJustifEq nota={"notaPrazo"} setNota={updateNota} notasObject={notasSocio} text="Atender aos Prazos" textInfo="Cumprir os prazos estabelecidos de forma consistente e confiável." justifiq={justifColab["justPrazo"]} notaColab={notasColab} />
-                    <NotasJustifEq nota={"notaMaiscomMenos"} setNota={updateNota} notasObject={notasSocio} text="Fazer Mais com Menos" textInfo="Buscar maneiras criativas e eficientes de alcançar resultados com recursos limitados." justifiq={justifColab["justMaiscomMenos"]} notaColab={notasColab} />
+                    <NotasJustifEq isFinished={isFinished} nota={"notaQualidade"} setNota={updateNota} notasObject={notasSocio} text="Entregar com Qualidade" textInfo="Garantir que o trabalho seja realizado com alto padrão de qualidade e excelência." justifiq={justifColab["justQualidade"]} notaColab={notasColab} />
+                    <NotasJustifEq isFinished={isFinished} nota={"notaPrazo"} setNota={updateNota} notasObject={notasSocio} text="Atender aos Prazos" textInfo="Cumprir os prazos estabelecidos de forma consistente e confiável." justifiq={justifColab["justPrazo"]} notaColab={notasColab} />
+                    <NotasJustifEq isFinished={isFinished} nota={"notaMaiscomMenos"} setNota={updateNota} notasObject={notasSocio} text="Fazer Mais com Menos" textInfo="Buscar maneiras criativas e eficientes de alcançar resultados com recursos limitados." justifiq={justifColab["justMaiscomMenos"]} notaColab={notasColab} />
                     <div className="mb-6">
-                        <NotasJustifEq nota={"notaForadaCaixa"} setNota={updateNota} notasObject={notasSocio} text="Pensar Fora da Caixa" textInfo="Desenvolver soluções inovadoras e fora do convencional para resolver problemas e impulsionar o progresso da empresa." justifiq={justifColab["justForadaCaixa"]} notaColab={notasColab} />
+                        <NotasJustifEq isFinished={isFinished} nota={"notaForadaCaixa"} setNota={updateNota} notasObject={notasSocio} text="Pensar Fora da Caixa" textInfo="Desenvolver soluções inovadoras e fora do convencional para resolver problemas e impulsionar o progresso da empresa." justifiq={justifColab["justForadaCaixa"]} notaColab={notasColab} />
                     </div>
                 </div>
             </div>

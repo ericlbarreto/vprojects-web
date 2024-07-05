@@ -15,6 +15,10 @@ import {
 import { Separator } from "@radix-ui/react-select";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import SuccesToast from "@/components/succesToast";
+
 
 const datatable: Payment[] = [
   {
@@ -50,6 +54,27 @@ const datatable: Payment[] = [
 ]
 
 function HomeSocio() {
+
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const doneToast = queryParams.get("doneToast");
+
+    if (doneToast) {
+      toast.success("Enviado o ciclo de avaliações", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        style: { background: "#E4FFE4", width: "320px" },
+      });
+    }
+  }, [location.search]);
+
   return (
     <div className="h-full bg-azulBackground">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
@@ -205,6 +230,7 @@ function HomeSocio() {
           <EqualizationTable columns={columns} data={datatable} />
         </div>
       </div>
+      <SuccesToast/>
     </div>
   );
 }
