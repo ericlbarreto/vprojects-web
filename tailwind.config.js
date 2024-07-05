@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      spacing:{
+        "32rem":"32rem"
+      },
       colors: {
         // Existing colors
         border: "hsl(var(--border))",

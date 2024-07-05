@@ -46,7 +46,7 @@ function Equalization() {
 
     const prosseguirOuSalvarRascClick = async (isSaving: boolean) => {
         if (complete() || isSaving) {
-            const cycleEqualizationId = idCycleEqParam? idCycleEqParam : (await api.get("/api/cycles-equalization")).data.id;
+            const cycleEqualizationId = idCycleEqParam? idCycleEqParam : (await api.get("/api/cycles-equalization")).data;//colocar .id?
             const eqId = (await api.get(`/api/equalization/user/${user?.id}`)).data;
             const autoAvId = (await api.get(`/api/self-assesment/user/${1}`)).data; //colocar id do colab
             const cycleId = (await api.get(`/api/self-assesment/${autoAvId}`)).data[0].cycleId;

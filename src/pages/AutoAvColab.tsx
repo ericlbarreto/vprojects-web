@@ -11,9 +11,8 @@ import { SelfAssessmentScore } from "@/interfaces/SelfAssessmentScore";
 
 
 function AutoAvColab() {
-
-
-
+    const [path, setPath] = useState("/")
+    const [atencao, setAtencao] = useState(false);
     const [notas, setNotas] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
         "notaResiliencia": 0,
@@ -205,8 +204,7 @@ function AutoAvColab() {
 
 
 
-    const [path, setPath] = useState("/")
-    const [atencao, setAtencao] = useState(false);
+    
     return (
         <div className={`h-full bg-azulBackground w-full ${atencao ? "fixed" : "relative"}`}>
             <SubHeaderAv currentStep={1} setAtencao={setAtencao} atencao={atencao} funcaoSalvar={prosseguirOuSalvarRascClick} />
