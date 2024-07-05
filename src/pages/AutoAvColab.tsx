@@ -12,8 +12,6 @@ import { SelfAssessmentScore } from "@/interfaces/SelfAssessmentScore";
 
 function AutoAvColab() {
 
-
-
     const [notas, setNotas] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
         "notaResiliencia": 0,
