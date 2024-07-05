@@ -9,7 +9,7 @@ import {
   import { Input } from "./ui/input";
   import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
   import { useEffect } from "react";
-  import { Collaborator } from "@/interfaces/Collaborator";
+import { User } from "@/interfaces/User";
   import api from "@/services/axiosConfig";
   import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ import {
   
   const PartnerSearchBar = () => {
     const [search, setSearch] = useState("");
-    const [availableCollaborators, setAvailableCollaborators] = useState<Collaborator[]>([]);
+    const [availableCollaborators, setAvailableCollaborators] = useState<User[]>([]);
     
 
     useEffect(() => {
@@ -40,14 +40,14 @@ import {
     };
 
     const navigate = useNavigate();
-    const handleItemClick = (collaborator: Collaborator) => {
-      navigate(`/home-socio/controleColaborador?id=${collaborator.id}`);
+    const handleItemClick = (collaborator: User) => {
+      navigate(`/home-socio/collaborator-control?id=${collaborator.id}`);
       console.log(collaborator);
     };
   
     const filteredCollaborators = search
       ? availableCollaborators.filter((colaborador) =>
-          colaborador.name.toLowerCase().includes(search.toLowerCase())
+          colaborador.name?.toLowerCase().includes(search.toLowerCase())
         )
       : availableCollaborators;
   

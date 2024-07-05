@@ -26,7 +26,6 @@ function HomeSocio() {
         const currentCycle = await api.get("/api/cycles/");
         setEqualizationCycles(equalizationsResponse.data.reverse());
         setCurrentCycle(currentCycle.data[1]);
-        console.log(currentCycle.data)
       } catch (error) {
         console.error("Erro ao buscar os ciclos de equalização:", error);
       }
