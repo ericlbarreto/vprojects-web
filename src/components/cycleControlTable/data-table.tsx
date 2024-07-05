@@ -22,6 +22,9 @@ import {
   Payment,
   columns as defaultColumns,
 } from "./columns"; // Atualize para o caminho correto do seu arquivo columns
+import { Input } from "../ui/input";
+import lupa from "src/assets/lupe.svg"
+import { Button } from "../ui/button";
 
 interface DataTableProps {
   columns?: ColumnDef<Payment, any>[];
@@ -46,6 +49,20 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
 
   return (
     <div className="rounded-md">
+      <div className="flex justify-between py-4">
+        <h1 className="text-cinzaAlt font-semibold text-xl pl-12 pt-3">Selecione o colaborador</h1>
+        <div className="flex">
+          <Input
+            placeholder="Pesquise o nome do colaborador"
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="bg-azulBackground border-none w-[512px] focus:outline-none focus:border-roxoPrincipal mr-28"
+          />
+        </div>
+      </div>
+      
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -84,20 +101,20 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
                   return (
                     <TableCell key={cell.id}>
                       {isStatusCell ? (
-                        <span className={isFinished ? 'bg-red-50 text-red-800 px-2 py-1 rounded mr-6' : 'bg-finished text-verde px-2 py-1 rounded mr-6'}>
+                        <span className={isFinished ? 'bg-red-50 text-red-800 px-2 py-1 rounded mr-6 w-44 flex justify-center' : 'bg-finished text-verde px-2 py-1 rounded mr-6 w-28 flex justify-center w-44'}>
                             {isFinished ? 'Não iniciado' : 'Finalizado'}
                         </span>
                       ) : (columnId == "grade") ? (
 
-                        <span className="text-cinzaClaro text-sm">{grade}</span>
+                        <span className="text-cinzaClaro text-sm mr-14">{grade}</span>
                         
                       ) : (columnId == "sector") ? (
-                        <span className="text-cinzaClaro text-sm">{sector}</span>
+                        <span className="text-cinzaClaro text-sm w-72 ml-2 flex">{sector}</span>
                       ) : (columnId == "role") ? (
-                        <span className="text-cinzaClaro text-sm">{role}</span>
+                        <span className="text-cinzaClaro text-sm w-64 flex">{role}</span>
                       ) : (
                         // flexRender(cell.column.columnDef.cell, cell.getContext())
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 w-80 py-5 pl-6">
                           <img src="src/assets/fotoTeste.svg" alt="Foto de perfil" />
                           <div className="flex flex-col justify-center">
                             <p>{profile}</p>
@@ -105,7 +122,7 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
 
                         </div>
                       )}
-                      <ChevronRightIcon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer"/>
+                      <ChevronRightIcon className="absolute right-12 text-roxoPrincipal mt-4 mr-10 top-5 cursor-pointer size-7"/>
                     </TableCell>
                   );
                 })}

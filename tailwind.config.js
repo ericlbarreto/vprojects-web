@@ -68,6 +68,7 @@ module.exports = {
         customBlue: '#F1F7FF',
         cinzaClaro: '#5E718D',
         cinzaMtEscuro: "#262626", 
+        cinzaAlt: "#455468",
         verde: "#11A75C", 
 
       },

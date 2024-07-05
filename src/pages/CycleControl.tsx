@@ -8,7 +8,7 @@ const datatable: Payment[] = [
       id: "m5gr84i9",
       name: "Marina da Silva Brito", 
       grade: 5, 
-      sector: "Executivos e Liderança", 
+      sector: "Produto e Gestão de Projetos", 
       role: "UI/UX Design", 
       status: "Finalizado",
     },

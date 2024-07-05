@@ -26,7 +26,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <div className="flex justify-start pt-4 pb-3 pl-6">
+      <div className="flex justify-start pt-4 pb-3 pl-6 w-80">
 
         <p className="text-base">Colaborador</p>
         {/* <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
@@ -53,7 +53,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "grade",
     header: ({ column }) => (
-      <div className="flex items-center gap-2 justify-center">
+      <div className="flex items-center gap-2 justify-end w-36 ">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todas" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
             <a><span className="text-cinzaMtEscuro">Nota final</span></a>
@@ -77,7 +77,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "sector",
     header: ({ column }) => (
-      <div className="flex items-center gap-2 justify-center">
+      <div className="flex items-center gap-2 justify-start w-72">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
             <a><span className="text-cinzaMtEscuro">Setor</span></a>
@@ -102,7 +102,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "role",
     header: ({ column }) => (
-      <div className="flex items-center gap-2 justify-center">
+      <div className="flex items-center gap-2 justify-start w-64">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
             <a><span className="text-cinzaMtEscuro">Cargo</span></a>
@@ -126,7 +126,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => (
-      <div className="flex items-center gap-2 justify-center">
+      <div className="flex items-center gap-2 justify-center w-28 mr-52 ">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
             <a><span className="text-cinzaMtEscuro">Status</span></a>
@@ -146,5 +146,6 @@ export const columns: ColumnDef<Payment>[] = [
       if (!filterValue) return true;
       return row.getValue(columnId) === filterValue;
     },
-  }
+  }, 
+  
 ];
