@@ -105,7 +105,7 @@ function CycleControl() {
     return (
         <div className="h-full bg-azulBackground">
             <div className="h-36"> 
-                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle} elementVisible = {elementVisible} setElementVisible = {setElementVisible}/>
+                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle}/>
             </div>
             <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path={path} />)}</div>
             <div className={atencao ? "opacity-50" : ""}></div>

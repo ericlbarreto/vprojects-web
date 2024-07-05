@@ -111,7 +111,7 @@ function Equalization() {
 
     return (
         <div className={`h-full bg-azulBackground w-full ${atencao ? "fixed" : "relative"}`}>
-            <SubHeaderEqualization isSelfAval={isSelfAval} funcaoSalvarOuFinalizar={prosseguirOuSalvarRascClick} />
+            <SubHeaderEqualization isSelfAval={isSelfAval} funcaoSalvarOuFinalizar={prosseguirOuSalvarRascClick} setAtencao={setAtencao} atencao = {atencao}/>
             <div className={`pt-48 {atencao ? "opacity-50" : ""`}>
                 <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path={path} />)}</div>
                 <TutorialEqAv />

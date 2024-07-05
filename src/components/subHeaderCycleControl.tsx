@@ -23,8 +23,8 @@ interface SubHeaderEqualizationProps{
     isSelfAval?: boolean
     setAtencao: (value: boolean) => void;
     atencao: boolean;
-    elementVisible: boolean; 
-    setElementVisible: (value: boolean) => void;
+    // elementVisible: boolean; 
+    // setElementVisible: (value: boolean) => void;
     currentCycle?: Cycle;
     funcaoSalvarOuFinalizar?: Function;
 
