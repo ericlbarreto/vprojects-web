@@ -25,10 +25,11 @@ import {
 import { Input } from "../ui/input";
 import lupa from "src/assets/lupe.svg"
 import { Button } from "../ui/button";
+import { Collaborator } from "@/interfaces/Collaborator";
 
 interface DataTableProps {
-  columns?: ColumnDef<Payment, any>[];
-  data: Payment[];
+  columns?: ColumnDef<Collaborator, any>[];
+  data: Collaborator[];
 }
 
 export function CycleControlTable({ columns = defaultColumns, data }: DataTableProps) {
@@ -91,13 +92,15 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
                 {row.getVisibleCells().map((cell) => {
                   const columnId = cell.column.id;
                   const isStatusCell = cell.column.id === 'status';
-                  const status = row.original.status;
-                  const grade = row.original.grade
+                  // const status = row.original.status;
+                  // const grade = row.original.grade
                   const sector = row.original.sector
-                  const role = row.original.role
+                  const position = row.original.position
                   const profile = row.original.name
-                  console.log(status)
-                  const isFinished = status === "Não iniciado";
+                  const profilePhoto = row.original.profilePhoto
+                  // console.log(status)
+                  // const isFinished = status === "Não iniciado";
+                  const isFinished = true; 
                   return (
                     <TableCell key={cell.id}>
                       {isStatusCell ? (
@@ -106,16 +109,16 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
                         </span>
                       ) : (columnId == "grade") ? (
 
-                        <span className="text-cinzaClaro text-sm mr-14">{grade}</span>
+                        <span className="text-cinzaClaro text-sm mr-14"></span>
                         
                       ) : (columnId == "sector") ? (
                         <span className="text-cinzaClaro text-sm w-72 ml-2 flex">{sector}</span>
                       ) : (columnId == "role") ? (
-                        <span className="text-cinzaClaro text-sm w-64 flex">{role}</span>
+                        <span className="text-cinzaClaro text-sm w-64 flex">{position}</span>
                       ) : (
                         // flexRender(cell.column.columnDef.cell, cell.getContext())
                         <div className="flex gap-2 w-80 py-5 pl-6">
-                          <img src="src/assets/fotoTeste.svg" alt="Foto de perfil" />
+                          <img src={profilePhoto} alt="Foto de perfil" className="w-12 h-12 rounded-full" />
                           <div className="flex flex-col justify-center">
                             <p>{profile}</p>
                           </div>
