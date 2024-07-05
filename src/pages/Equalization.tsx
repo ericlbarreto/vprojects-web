@@ -7,6 +7,8 @@ import AtencaoModal from "@/components/atencao";
 import api from "@/services/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/authContext";
+import DoneCycle from "@/components/doneCycleEq";
+import { format } from 'date-fns';
 
 
 
@@ -40,9 +42,13 @@ function Equalization() {
         });
     }
 
+    const [doneCycle, setDoneCycle] = useState(false);
+
+
     const queryParams = new URLSearchParams(location.search);
     const idCycleEqParam = queryParams.get("cycleIdEq");
     const isFinishedParam = queryParams.get("isFinished");
+    const colabId = queryParams.get("colabId");
 
     const prosseguirOuSalvarRascClick = async (isSaving: boolean) => {
         if (complete() || isSaving) {
@@ -95,8 +101,17 @@ function Equalization() {
 
             }
             if (!isSaving) {
-                //colocartoast
-                navigate("/home-socio?doneToast=true");
+                const cycleEqualizationsResponse = await api.get("/api/cycles-equalization/all");
+                const cycleEqualizations = cycleEqualizationsResponse.data;
+                const currentCycle = cycleEqualizations.find((cycle: any) => cycle.id === cycleEqualizationId);
+                const formattedEndDate = format(new Date(currentCycle.endDate), 'dd/MM/yyyy');
+                const collaboratorResponse = (await api.get(`/api/user/${colabId}`)).data.name;
+
+
+                if(currentCycle){
+                    <DoneCycle setDoneCycle={setDoneCycle} endDate ={formattedEndDate} name={collaboratorResponse}  />
+                }
+                
             }
 
         }
