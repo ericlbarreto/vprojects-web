@@ -2,7 +2,7 @@ import SubHeaderEqualization from "@/components/subHeaderCycleControl";
 import TutorialPartner from "@/components/tutorialPartner";
 import { CycleControlTable } from "@/components/cycleControlTable/data-table";
 import { Payment, columns } from "@/components/cycleControlTable/columns";
-import { Collaborator } from "@/interfaces/Collaborator";
+import { User } from "@/interfaces/User";
 import { Cycle } from "@/interfaces/Cycle";
 import { useEffect, useState } from "react";
 import api from "@/services/axiosConfig";
@@ -67,7 +67,7 @@ function CycleControl() {
         }
     }, [location.search]);
 
-    const [Colab, setColab] = useState<Collaborator[]>([]);
+    const [Colab, setColab] = useState<User[]>([]);
     const [currentCycle, setCurrentCycle] = useState<Cycle>()
 
     useEffect(() => {

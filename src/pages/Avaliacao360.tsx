@@ -1,7 +1,7 @@
 import SelectColab from "@/components/selectColab";
 import SubHeaderAv from "@/components/subHeaderAv";
 import Tutorial360 from "@/components/tutorial360";
-import { Collaborator } from "@/interfaces/Collaborator";
+import { User } from "@/interfaces/User";
 import { useEffect, useState } from "react";
 import Card360 from "@/components/card360";
 import { Av360 } from "@/interfaces/Av360";
@@ -13,8 +13,8 @@ import AtencaoModal from "@/components/atencao";
 import DoneCycle from "@/components/doneCycleModal";
 
 function Avaliacao360() {
-    const [availableCollaborators, setAvailableCollaborators] = useState<Collaborator[]>([]);
-    const [selectedCollaborators, setSelectedCollaborators] = useState<Collaborator[]>([]);
+    const [availableCollaborators, setAvailableCollaborators] = useState<User[]>([]);
+    const [selectedCollaborators, setSelectedCollaborators] = useState<User[]>([]);
     const [expandedCollaborators, setExpandedCollaborators] = useState<{ [key: number]: boolean }>({});
     const [av360Data, setAv360Data] = useState<{ [key: number]: Av360 }>({});
     const [currentCycle, setCurrentCycle] = useState<CurrentCycle>();
@@ -98,7 +98,7 @@ function Avaliacao360() {
     }, [user?.id, currentCycle?.id]);
 
 
-    const handleSelectCollaborator = (collaborator: Collaborator) => {
+    const handleSelectCollaborator = (collaborator: User) => {
         setSelectedCollaborators([...selectedCollaborators, collaborator]);
         setAvailableCollaborators(prev => prev.filter(collab => collab.id !== collaborator.id));
         setAv360Data(prevState => ({
@@ -119,7 +119,7 @@ function Avaliacao360() {
         }));
     };
 
-    const handleRemoveCollaborator = (collaborator: Collaborator) => {
+    const handleRemoveCollaborator = (collaborator: User) => {
         setAvailableCollaborators(prev => [...prev, collaborator]);
         setSelectedCollaborators(prev => prev.filter(collab => collab.id !== collaborator.id));
         setAv360Data(prevState => {

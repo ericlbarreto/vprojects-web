@@ -6,7 +6,7 @@ import {
   SelectItem,
 } from "../ui/select"; // Atualize para o caminho correto do seu componente Select
 
-import { Collaborator } from "@/interfaces/Collaborator";
+import { User } from "@/interfaces/User";
 
 export type Payment = {
     id: string;
@@ -24,7 +24,7 @@ export const yearOptions = ["Todos", "2024", "2023", "2022", "2021"];
 export const gradeOptions = ["Todas", "5", "4", "3", "2", "1"];
 // export const dateOrderOptions = ["Todas", "Mais recente", "Mais antiga"];
 
-export const columns: ColumnDef<Collaborator>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
