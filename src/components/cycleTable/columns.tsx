@@ -104,7 +104,7 @@ export const columns: ColumnDef<Cycle>[] = [
     header: ({ column }) => (
       <div className="flex items-center gap-2 justify-center">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
-          <SelectTrigger className="w-auto bg-transparent shadow-none text-textoCor">
+          <SelectTrigger className="w-auto bg-transparent shadow-none">
             <a><span>Status</span></a>
           </SelectTrigger>
           <SelectContent>
