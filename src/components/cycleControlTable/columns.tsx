@@ -15,7 +15,9 @@ export type Payment = {
     status: "Não iniciado" | "Finalizado",
 }
 
-export const statusOptions = ["Todos", "em andamento", "finalizado"];
+export const statusOptions = ["Todos", "Não iniciado", "Finalizado"];
+export const roleOptions = ["administrador de sistemas", "Desenvolvedor Front-end", "Data Scientist", "Product Manager"];
+export const sectorOption = ["Executivos e Liderança", "Desenvolvimento de Software", "Infraestrutura e Operações", "Ciência de Dados e Análise", "Produto e Gestão de Projetos"];
 export const yearOptions = ["Todos", "2024", "2023", "2022", "2021"];
 export const gradeOptions = ["Todas", "5", "4", "3", "2", "1"];
 // export const dateOrderOptions = ["Todas", "Mais recente", "Mais antiga"];
@@ -54,11 +56,11 @@ export const columns: ColumnDef<Payment>[] = [
       <div className="flex items-center gap-2 justify-center">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todas" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
-            <a><span className="">Nota final</span></a>
+            <a><span className="text-cinzaMtEscuro">Nota final</span></a>
           </SelectTrigger>
           <SelectContent>
             {gradeOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
+              <SelectItem key={option} value={option} className="text-center text-cinzaMtEscuro">
                 {option}
               </SelectItem>
             ))}
@@ -78,12 +80,12 @@ export const columns: ColumnDef<Payment>[] = [
       <div className="flex items-center gap-2 justify-center">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
-            <a><span>Setor</span></a>
+            <a><span className="text-cinzaMtEscuro">Setor</span></a>
           </SelectTrigger>
           <SelectContent>
-            {yearOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
-                {option}
+            {sectorOption.map((sector) => (
+              <SelectItem key={sector} value={sector} className="text-center text-cinzaMtEscuro">
+                {sector}
               </SelectItem>
             ))}
           </SelectContent>
@@ -103,12 +105,12 @@ export const columns: ColumnDef<Payment>[] = [
       <div className="flex items-center gap-2 justify-center">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
-            <a><span>Cargo</span></a>
+            <a><span className="text-cinzaMtEscuro">Cargo</span></a>
           </SelectTrigger>
           <SelectContent>
-            {statusOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
-                {option}
+            {roleOptions.map((role) => (
+              <SelectItem key={role} value={role} className="text-center text-cinzaMtEscuro">
+                {role}
               </SelectItem>
             ))}
           </SelectContent>
@@ -127,11 +129,11 @@ export const columns: ColumnDef<Payment>[] = [
       <div className="flex items-center gap-2 justify-center">
         <Select onValueChange={(value) => column.setFilterValue(value === "Todos" ? undefined : value)}>
           <SelectTrigger className="w-auto bg-transparent shadow-none">
-            <a><span>Status</span></a>
+            <a><span className="text-cinzaMtEscuro">Status</span></a>
           </SelectTrigger>
           <SelectContent>
             {statusOptions.map((option) => (
-              <SelectItem key={option} value={option} className="text-center text-roxoPrincipal">
+              <SelectItem key={option} value={option} className="text-center text-cinzaMtEscuro">
                 {option}
               </SelectItem>
             ))}

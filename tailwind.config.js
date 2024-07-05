@@ -67,6 +67,8 @@ module.exports = {
         cinzaAlt: "#515151",
         customBlue: '#F1F7FF',
         cinzaClaro: '#5E718D',
+        cinzaMtEscuro: "#262626", 
+        verde: "#11A75C", 
 
       },
       borderRadius: {

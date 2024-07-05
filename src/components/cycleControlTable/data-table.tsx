@@ -6,6 +6,7 @@ import {
   getSortedRowModel,
   useReactTable,
   getFilteredRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { Pencil1Icon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
@@ -36,6 +37,7 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     state: {
       sorting
@@ -70,25 +72,40 @@ export function CycleControlTable({ columns = defaultColumns, data }: DataTableP
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => {
+                  const columnId = cell.column.id;
                   const isStatusCell = cell.column.id === 'status';
                   const status = row.original.status;
-                  const isOngoing = status === "Não iniciado";
+                  const grade = row.original.grade
+                  const sector = row.original.sector
+                  const role = row.original.role
+                  const profile = row.original.name
+                  console.log(status)
+                  const isFinished = status === "Não iniciado";
                   return (
                     <TableCell key={cell.id}>
                       {isStatusCell ? (
-                        <span className={isOngoing ? 'bg-yellow-100 px-2 py-1 rounded' : 'bg-green-100 px-2 py-1 rounded'}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        <span className={isFinished ? 'bg-red-50 text-red-800 px-2 py-1 rounded mr-6' : 'bg-finished text-verde px-2 py-1 rounded mr-6'}>
+                            {isFinished ? 'Não iniciado' : 'Finalizado'}
                         </span>
+                      ) : (columnId == "grade") ? (
+
+                        <span className="text-cinzaClaro text-sm">{grade}</span>
+                        
+                      ) : (columnId == "sector") ? (
+                        <span className="text-cinzaClaro text-sm">{sector}</span>
+                      ) : (columnId == "role") ? (
+                        <span className="text-cinzaClaro text-sm">{role}</span>
                       ) : (
-                        flexRender(cell.column.columnDef.cell, cell.getContext())
+                        // flexRender(cell.column.columnDef.cell, cell.getContext())
+                        <div className="flex gap-2">
+                          <img src="src/assets/fotoTeste.svg" alt="Foto de perfil" />
+                          <div className="flex flex-col justify-center">
+                            <p>{profile}</p>
+                          </div>
+
+                        </div>
                       )}
-                      {isStatusCell && (
-                        isOngoing ? (
-                          <Pencil1Icon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer "/>
-                        ) : (
-                          <ChevronRightIcon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer"/>
-                        )
-                      )}
+                      <ChevronRightIcon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer"/>
                     </TableCell>
                   );
                 })}
