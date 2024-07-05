@@ -125,9 +125,12 @@ function AutoAvColab() {
             }
             if (!salvarOuSeguir) {
                 if (isFinishedParam === "true"){
-                    navigate(`/autoavaliacao/avaliacao-360?cycleId=${cycleId}&isFinished${isFinishedParam}`);
+                    console.log('passou')
+                    navigate(`/autoavaliacao/avaliacao-360?cycleId=${cycleId}&isFinished=${isFinishedParam}`);
+                } else {
+                    navigate("/autoavaliacao/avaliacao-360");
                 }
-                navigate("/autoavaliacao/avaliacao-360");
+               
             }
 
         }

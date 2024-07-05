@@ -117,10 +117,20 @@ export const columns: ColumnDef<Cycle>[] = [
         </Select>
       </div>
     ),
-    cell: ({ cell }) => cell.getValue(),
+    cell: ({ cell }) => {
+      const status = cell.getValue() as boolean;
+      return (
+        <span className={status ? 'bg-yellow-100 px-2 py-1 rounded' : 'bg-green-100 px-2 py-1 rounded'}>
+          {status ? 'Em andamento' : 'Finalizado'}
+        </span>
+      );
+    },
     filterFn: (row, columnId, filterValue) => {
       if (!filterValue) return true;
-      return row.getValue(columnId) === filterValue;
+      const status = row.getValue(columnId) as boolean;
+      if (filterValue === "em andamento") return status === true;
+      if (filterValue === "finalizado") return status === false;
+      return true;
     },
   },
 ];
