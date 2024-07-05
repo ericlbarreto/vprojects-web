@@ -54,7 +54,7 @@ function Equalization() {
         if (complete() || isSaving) {
             const cycleEqualizationId = idCycleEqParam? idCycleEqParam : (await api.get("/api/cycles-equalization")).data;//colocar .id?
             const eqId = (await api.get(`/api/equalization/user/${user?.id}`)).data;
-            const autoAvId = (await api.get(`/api/self-assesment/user/${1}`)).data; //colocar id do colab
+            const autoAvId = (await api.get(`/api/self-assesment/user/${colabId}`)).data; //colocar id do colab
             const cycleId = (await api.get(`/api/self-assesment/${autoAvId}`)).data[0].cycleId;
 
             if (eqId) {
@@ -88,7 +88,7 @@ function Equalization() {
 
                     await api.post(`/api/self-assesment`, {
                         "evaluatorId": user?.id,
-                        "evaluatedId": 1,//colocar id do colab
+                        "evaluatedId": colabId,
                         "cycleId": cycleId,
                         "cycleEqualizationId": cycleEqualizationId,
                         "status": !isSaving,
@@ -139,7 +139,7 @@ function Equalization() {
                 <div className="flex"><button className={`p-3 ml-2 h-12 ${!isSelfAval ? "" : "rounded-md font-semibold bg-[#F1F7FF] text-roxoPrincipal"}`} onClick={() => setisSelfAval(true)}>Autoavaliação</button></div>
                 <div className="flex"><button className={`p-3 mr-2 h-12 ${isSelfAval ? "" : "rounded-md font-semibold bg-[#F1F7FF] text-roxoPrincipal"}`} onClick={() => setisSelfAval(false)}>Avaliação 360</button></div>
             </div>
-            {isSelfAval ? <EqAutoAv notasSocio={notasSocio} updateNota={updateNota} isFinished={isFinishedParam === "true"? true:false} /> : <EqAv360 />}
+            {isSelfAval ? <EqAutoAv colabId={colabId? colabId : "1"} notasSocio={notasSocio} updateNota={updateNota} isFinished={isFinishedParam === "true"? true:false} /> : <EqAv360 />}
         </div>
     );
 

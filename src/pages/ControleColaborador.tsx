@@ -82,7 +82,7 @@ function ControleColaborador() {
                     profilePhoto: collaboratorResponse.data.profilePhoto
                 });
 
-                const equalizationResponse = (await api.get(`/api/equalization/${user?.id}/${collaboratorId}`)).data;//colocar id do colaborador
+                const equalizationResponse = (await api.get(`/api/equalization/${user?.id}/${collaboratorId}`)).data;
                 if (equalizationResponse === 0) {
                     setEqualization({ status: "Não iniciado" });
                 }
