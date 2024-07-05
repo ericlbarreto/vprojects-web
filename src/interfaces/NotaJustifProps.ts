@@ -7,5 +7,5 @@ export interface NotaJustifProps {
     funcaoHandleNota: Function;
     notasObject: { [key: string]: number }
     justifObject: { [key: string]: string }
-
+    isFinished: boolean;
 }
