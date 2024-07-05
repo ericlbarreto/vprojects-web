@@ -16,6 +16,8 @@ import { Separator } from "@radix-ui/react-select";
 import Assesment from "../assets/assesment.svg";
 import Tutorial from "../assets/tutorial.svg";
 
+
+
 const datatable: Payment[] = [
   {
     id: "m5gr84i9",
@@ -50,6 +52,7 @@ const datatable: Payment[] = [
 ]
 
 function HomeSocio() {
+
   return (
     <div className="h-full bg-azulBackground">
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">

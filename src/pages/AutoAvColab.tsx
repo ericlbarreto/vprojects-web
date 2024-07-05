@@ -11,7 +11,8 @@ import { SelfAssessmentScore } from "@/interfaces/SelfAssessmentScore";
 
 
 function AutoAvColab() {
-
+    const [path, setPath] = useState("/")
+    const [atencao, setAtencao] = useState(false);
     const [notas, setNotas] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
         "notaResiliencia": 0,
@@ -98,7 +99,6 @@ function AutoAvColab() {
                         "cycleId": cycleId,
                         "status": !salvarOuSeguir,
                         "scores": scores
-
                     });
                     console.log(`patch feito:${scores}`)
                 } catch (error) {
@@ -118,12 +118,10 @@ function AutoAvColab() {
                         "cycleId": cycleId,
                         "status": !salvarOuSeguir,
                         "scores": scores
-
                     });
                 } catch (error) {
                     console.error('Erro no post. Ocorreu um erro ao fazer a requisição:', error);
                 }
-
             }
             if (!salvarOuSeguir) {
                 if (isFinishedParam === "true"){
@@ -206,8 +204,7 @@ function AutoAvColab() {
 
 
 
-    const [path, setPath] = useState("/")
-    const [atencao, setAtencao] = useState(false);
+    
     return (
         <div className={`h-full bg-azulBackground w-full ${atencao ? "fixed" : "relative"}`}>
             <SubHeaderAv currentStep={1} setAtencao={setAtencao} atencao={atencao} funcaoSalvar={prosseguirOuSalvarRascClick} />

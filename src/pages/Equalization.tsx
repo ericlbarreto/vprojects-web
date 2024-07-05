@@ -7,6 +7,8 @@ import AtencaoModal from "@/components/atencao";
 import api from "@/services/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/authContext";
+import DoneCycle from "@/components/doneCycleEq";
+import { format } from 'date-fns';
 
 
 
@@ -40,13 +42,20 @@ function Equalization() {
         });
     }
 
+    const [doneCycle, setDoneCycle] = useState(false);
+
+
+    const queryParams = new URLSearchParams(location.search);
+    const idCycleEqParam = queryParams.get("cycleIdEq");
+    const isFinishedParam = queryParams.get("isFinished");
+    const colabId = queryParams.get("colabId");
 
     const prosseguirOuSalvarRascClick = async (isSaving: boolean) => {
         if (complete() || isSaving) {
-            const cycleEqualizationId = (await api.get("/api/cycles-equalization")).data.id;
+            const cycleEqualizationId = idCycleEqParam? idCycleEqParam : (await api.get("/api/cycles-equalization")).data;//colocar .id?
             const eqId = (await api.get(`/api/equalization/user/${user?.id}`)).data;
-            const autoAvId = (await api.get(`/api/self-assesment/user/${1}`)).data;//colocar id do colab
-            const cycleId = (await api.get(`/api/self-assesment/${autoAvId}`)).data[0].cycleId;;
+            const autoAvId = (await api.get(`/api/self-assesment/user/${1}`)).data; //colocar id do colab
+            const cycleId = (await api.get(`/api/self-assesment/${autoAvId}`)).data[0].cycleId;
 
             if (eqId) {
                 try {
@@ -92,7 +101,17 @@ function Equalization() {
 
             }
             if (!isSaving) {
-                navigate("/");
+                const cycleEqualizationsResponse = await api.get("/api/cycles-equalization/all");
+                const cycleEqualizations = cycleEqualizationsResponse.data;
+                const currentCycle = cycleEqualizations.find((cycle: any) => cycle.id === cycleEqualizationId);
+                const formattedEndDate = format(new Date(currentCycle.endDate), 'dd/MM/yyyy');
+                const collaboratorResponse = (await api.get(`/api/user/${colabId}`)).data.name;
+
+
+                if(currentCycle){
+                    <DoneCycle setDoneCycle={setDoneCycle} endDate ={formattedEndDate} name={collaboratorResponse}  />
+                }
+                
             }
 
         }
@@ -111,7 +130,7 @@ function Equalization() {
 
     return (
         <div className={`h-full bg-azulBackground w-full ${atencao ? "fixed" : "relative"}`}>
-            <SubHeaderEqualization isSelfAval={isSelfAval} funcaoSalvarOuFinalizar={prosseguirOuSalvarRascClick} />
+            <SubHeaderEqualization isSelfAval={isSelfAval} funcaoSalvarOuFinalizar={prosseguirOuSalvarRascClick} setAtencao={setAtencao} atencao = {atencao}/>
             <div className={`pt-48 {atencao ? "opacity-50" : ""`}>
                 <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path={path} />)}</div>
                 <TutorialEqAv />
@@ -120,7 +139,7 @@ function Equalization() {
                 <div className="flex"><button className={`p-3 ml-2 h-12 ${!isSelfAval ? "" : "rounded-md font-semibold bg-[#F1F7FF] text-roxoPrincipal"}`} onClick={() => setisSelfAval(true)}>Autoavaliação</button></div>
                 <div className="flex"><button className={`p-3 mr-2 h-12 ${isSelfAval ? "" : "rounded-md font-semibold bg-[#F1F7FF] text-roxoPrincipal"}`} onClick={() => setisSelfAval(false)}>Avaliação 360</button></div>
             </div>
-            {isSelfAval ? <EqAutoAv notasSocio={notasSocio} updateNota={updateNota} /> : <EqAv360 />}
+            {isSelfAval ? <EqAutoAv notasSocio={notasSocio} updateNota={updateNota} isFinished={isFinishedParam === "true"? true:false} /> : <EqAv360 />}
         </div>
     );
 

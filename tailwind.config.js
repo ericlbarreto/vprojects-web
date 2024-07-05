@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      spacing:{
+        "32rem":"32rem"
+      },
       colors: {
         // Existing colors
         border: "hsl(var(--border))",
@@ -67,6 +70,9 @@ module.exports = {
         cinzaAlt: "#515151",
         customBlue: '#F1F7FF',
         cinzaClaro: '#5E718D',
+        cinzaMtEscuro: "#262626", 
+        cinzaAlt: "#455468",
+        verde: "#11A75C", 
 
       },
       borderRadius: {
