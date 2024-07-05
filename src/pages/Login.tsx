@@ -37,7 +37,7 @@ function LoginForm() {
                 const data = await response.json();
                 login(data.user, data.accessToken);
                 if (data.user.role === "SOCIO") {
-                    navigate("/homeSocio");
+                    navigate("/home-socio");
                 } else {
 
                     navigate("/");

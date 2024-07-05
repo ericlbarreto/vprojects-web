@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<HomeSocio />} role="SOCIO" />,
       },
       { path: "*", element: <NotFoundPage /> },
-      { path: "/homeSocio/controleColaborador", element: <ControleColaborador />},
+      { path: "/home-socio/controleColaborador", element: <ControleColaborador />},
     ],
   },
 ]);

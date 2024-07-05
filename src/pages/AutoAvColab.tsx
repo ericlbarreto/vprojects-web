@@ -6,17 +6,13 @@ import { useNavigate } from "react-router-dom";
 import AtencaoModal from "@/components/atencao";
 import { useAuth } from "@/contexts/authContext";
 import api from "@/services/axiosConfig";
+import { SelfAssessmentScore } from "@/interfaces/SelfAssessmentScore";
 
-interface SelfAssessmentScore {
-    id: number;
-    selfAssessmentId: number;
-    criterionId: number;
-    grade: number;
-    justification: string;
-}
 
 
 function AutoAvColab() {
+
+
 
     const [notas, setNotas] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
@@ -79,10 +75,16 @@ function AutoAvColab() {
         return Object.values(justif).every(value => value !== "") && Object.values(notas).every(value => value !== 0);
     }
 
+    const queryParams = new URLSearchParams(location.search);
+    const idCycleParam = queryParams.get("cycleId");
+    const isFinishedParam = queryParams.get("isFinished");
+
 
     const prosseguirOuSalvarRascClick = async (salvarOuSeguir:boolean) => {
         if (complete() || salvarOuSeguir) {
-            const cycleId = (await api.get("/api/cycles/current")).data.id;
+
+            
+            const cycleId = idCycleParam? idCycleParam : (await api.get("/api/cycles/current")).data.id;
             const autoAvId = (await api.get(`/api/self-assesment/user/${user?.id}`)).data;
 
             if (autoAvId) {
@@ -93,7 +95,6 @@ function AutoAvColab() {
                         grade: notas[key],
                         justification: justif[justKeys[index]]
                     }));
-
                     await api.patch(`/api/self-assesment/${autoAvId}`, {
                         "userId": user?.id,
                         "cycleId": cycleId,
@@ -127,6 +128,9 @@ function AutoAvColab() {
 
             }
             if (!salvarOuSeguir) {
+                if (isFinishedParam === "true"){
+                    navigate(`/autoavaliacao/avaliacao-360?cycleId=${cycleId}&isFinished${isFinishedParam}`);
+                }
                 navigate("/autoavaliacao/avaliacao-360");
             }
 
@@ -203,6 +207,7 @@ function AutoAvColab() {
     }, []);
 
 
+
     const [path, setPath] = useState("/")
     const [atencao, setAtencao] = useState(false);
     return (
@@ -216,23 +221,23 @@ function AutoAvColab() {
                     <div>
                         <div className="bg-[#F9FAFB] shadow mx-4 h-14 font-extrabold text-roxoPrincipal mt-1 pt-4 pl-12 rounded-sm">Critérios Comportamentais</div>
                         <div className="mx-4 bg-branco rounded-sm pl-12 shadow border">
-                            <NotasJustif nota={"notaSentimentoDono"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justSentimentoDono"} funcaoJust={updateJust} justifObject={justif} text="Sentimento de dono" textInfo="Demonstrar comprometimento e responsabilidade como se fosse dono do negócio." />
-                            <NotasJustif nota={"notaResiliencia"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justResiliencia"} funcaoJust={updateJust} justifObject={justif} text="Resiliência nas Adversidades" textInfo="Manter-se firme e adaptável frente aos desafios e obstáculos do cotidiano profissional." />
-                            <NotasJustif nota={"notaOrganizacao"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justOrganizacao"} funcaoJust={updateJust} justifObject={justif} text="Organização no Trabalho" textInfo="Manter o espaço de trabalho organizado para otimizar a produtividade e eficiência." />
-                            <NotasJustif nota={"notaAprender"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justAprender"} funcaoJust={updateJust} justifObject={justif} text="Capacidade de Aprender" textInfo="Estar aberto ao aprendizado contínuo e à absorção de novos conhecimentos e habilidades." />
+                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaSentimentoDono"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justSentimentoDono"} funcaoJust={updateJust} justifObject={justif} text="Sentimento de dono" textInfo="Demonstrar comprometimento e responsabilidade como se fosse dono do negócio." />
+                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaResiliencia"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justResiliencia"} funcaoJust={updateJust} justifObject={justif} text="Resiliência nas Adversidades" textInfo="Manter-se firme e adaptável frente aos desafios e obstáculos do cotidiano profissional." />
+                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaOrganizacao"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justOrganizacao"} funcaoJust={updateJust} justifObject={justif} text="Organização no Trabalho" textInfo="Manter o espaço de trabalho organizado para otimizar a produtividade e eficiência." />
+                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaAprender"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justAprender"} funcaoJust={updateJust} justifObject={justif} text="Capacidade de Aprender" textInfo="Estar aberto ao aprendizado contínuo e à absorção de novos conhecimentos e habilidades." />
                             <div className="mb-6">
-                                <NotasJustif nota={"notaTeamPlayer"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justTeamPlayer"} funcaoJust={updateJust} justifObject={justif} text='Ser "Team Player"' textInfo="Colaborar e apoiar os colegas de equipe para alcançar objetivos comuns." />
+                                <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaTeamPlayer"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justTeamPlayer"} funcaoJust={updateJust} justifObject={justif} text='Ser "Team Player"' textInfo="Colaborar e apoiar os colegas de equipe para alcançar objetivos comuns." />
                             </div>
                         </div>
                     </div>
                     <div className="mt-6">
                         <div className="bg-[#F9FAFB] shadow mx-4 h-14 font-extrabold text-roxoPrincipal mt-1 pt-4 pl-12 rounded-sm">Critérios de Execução</div>
                         <div className="mx-4 bg-branco rounded-sm pl-12 shadow border">
-                            <NotasJustif nota={"notaQualidade"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justQualidade"} funcaoJust={updateJust} justifObject={justif} text="Entregar com Qualidade" textInfo="Garantir que o trabalho seja realizado com alto padrão de qualidade e excelência." />
-                            <NotasJustif nota={"notaPrazo"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justPrazo"} funcaoJust={updateJust} justifObject={justif} text="Atender aos Prazos" textInfo="Cumprir os prazos estabelecidos de forma consistente e confiável." />
-                            <NotasJustif nota={"notaMaiscomMenos"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justMaiscomMenos"} funcaoJust={updateJust} justifObject={justif} text="Fazer Mais com Menos" textInfo="Buscar maneiras criativas e eficientes de alcançar resultados com recursos limitados." />
+                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaQualidade"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justQualidade"} funcaoJust={updateJust} justifObject={justif} text="Entregar com Qualidade" textInfo="Garantir que o trabalho seja realizado com alto padrão de qualidade e excelência." />
+                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaPrazo"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justPrazo"} funcaoJust={updateJust} justifObject={justif} text="Atender aos Prazos" textInfo="Cumprir os prazos estabelecidos de forma consistente e confiável." />
+                            <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaMaiscomMenos"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justMaiscomMenos"} funcaoJust={updateJust} justifObject={justif} text="Fazer Mais com Menos" textInfo="Buscar maneiras criativas e eficientes de alcançar resultados com recursos limitados." />
                             <div className="mb-6">
-                                <NotasJustif nota={"notaForadaCaixa"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justForadaCaixa"} funcaoJust={updateJust} justifObject={justif} text="Pensar Fora da Caixa" textInfo="Desenvolver soluções inovadoras e fora do convencional para resolver problemas e impulsionar o progresso da empresa." />
+                                <NotasJustif isFinished={isFinishedParam === "true"? true : false} nota={"notaForadaCaixa"} funcaoHandleNota={updateNota} notasObject={notas} justif={"justForadaCaixa"} funcaoJust={updateJust} justifObject={justif} text="Pensar Fora da Caixa" textInfo="Desenvolver soluções inovadoras e fora do convencional para resolver problemas e impulsionar o progresso da empresa." />
                             </div>
                         </div>
                     </div>

@@ -1,8 +1,9 @@
 export interface NotaJustifEq{
     text:string;
     textInfo:string;
-    nota:number;
+    nota:string;
     setNota:Function;
+    notasObject: { [key: string]: number }
     justifiq:string
-
+    notaColab:{ [key: string]: number };
 }
