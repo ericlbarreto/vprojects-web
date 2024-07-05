@@ -6,4 +6,5 @@ export interface NotaJustifEq{
     notasObject: { [key: string]: number }
     justifiq:string
     notaColab:{ [key: string]: number };
+    isFinished:boolean;
 }

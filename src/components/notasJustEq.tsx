@@ -4,7 +4,7 @@ import { useState } from "react";
 import { NotaJustifEq } from "@/interfaces/NotaJustifEq";
 import NotaEq from "./notaEq";
 
-function NotasJustifEq({ text, textInfo, nota, setNota, notasObject, justifiq, notaColab}: NotaJustifEq) {
+function NotasJustifEq({ text, textInfo, nota, setNota, notasObject, justifiq, notaColab, isFinished}: NotaJustifEq) {
     const [condicionalInfo, setCondicionalInfo] = useState(false)
     return (
         <div className="mt-10">
@@ -21,7 +21,7 @@ function NotasJustifEq({ text, textInfo, nota, setNota, notasObject, justifiq, n
             <div className="flex shadow rounded-sm w-80 bg-[#E9E9E9] h-10 pl-3 border text-sm">
                 <div className="pt-3 flex">
                     <div className="w-40">Nota do colaborador:</div>
-                    <div className="pt-0.5 pl-3"><NotaEq isNotaColab={true} nota={nota} setNota={setNota} notasObject={notaColab}/></div>
+                    <div className="pt-0.5 pl-3"><NotaEq isFinished={isFinished} isNotaColab={true} nota={nota} setNota={setNota} notasObject={notaColab}/></div>
                 </div>
                 <div className="text-roxoPrincipal pl-10 pt-1">*</div>
             </div>
@@ -31,7 +31,7 @@ function NotasJustifEq({ text, textInfo, nota, setNota, notasObject, justifiq, n
             <div className="flex shadow rounded-sm w-80 h-10 pl-3 mt-3 border text-sm">
                 <div className="pt-3 flex">
                     <div>Nota do gestor:</div>
-                    <div className="pt-0.5 pl-3"><NotaEq isNotaColab={false} nota={nota} setNota={setNota} notasObject={notasObject}/></div>
+                    <div className="pt-0.5 pl-3"><NotaEq isFinished={isFinished} isNotaColab={false} nota={nota} setNota={setNota} notasObject={notasObject}/></div>
                 </div>
                 <div className="text-roxoPrincipal pl-24 pt-1">*</div>
             </div>

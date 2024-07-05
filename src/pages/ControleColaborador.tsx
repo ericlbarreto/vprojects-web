@@ -76,11 +76,20 @@ function ControleColaborador() {
                     email: collaboratorResponse.data.email,
                     sector: collaboratorResponse.data.sector,
                     position: collaboratorResponse.data.position,
+                    profilePhoto: collaboratorResponse.data.profilePhoto
                 });
 
-                const equalizationResponse = await api.get(`/api/equalization/${collaboratorId}`);
-                if (equalizationResponse.data && equalizationResponse.data.length > 0) {
-                    setEqualization({ status: equalizationResponse.data[0].status });
+                const equalizationResponse = (await api.get(`/api/equalization/${collaboratorId}/${1}`)).data;//colocar id do colaborador
+                if (equalizationResponse === 0) {
+                    setEqualization({ status: "Não iniciado" });
+                }
+                else {
+                    if (equalizationResponse){
+                        setEqualization({ status: "Finalizado" });
+                    }
+                    else{
+                        setEqualization({ status: "Em andamento" });
+                    }
                 }
             } catch (error) {
                 console.error("Erro ao buscar os dados do colaborador ou equalização:", error);
@@ -97,7 +106,7 @@ function ControleColaborador() {
         <><div className="sm:p-10 p-16">
             <div className="col-start-6 col-span-8 bg-white rounded-2xl shadow-md relative flex items-center p-6">
                 <Avatar className="h-24 w-24 ml-4">
-                    <AvatarImage src="https://github.com/shadcn.png" className="h-24 w-24" />
+                    <AvatarImage src={colabData.profilePhoto} className="h-24 w-24" />
                     <AvatarFallback>{colabData.name[0]}</AvatarFallback>
                 </Avatar>
                 <div className="ml-6">
@@ -112,7 +121,7 @@ function ControleColaborador() {
                 </div>
                 <div className="absolute top-8 right-12 text-textoCor text-sm">
                     <p className="mb-2">Equalização</p>
-                    <p className="bg-green-100 text-green-600 px-2 py-1 rounded">{equalization.status}</p>
+                    <p className={`${equalization.status === "Finalizado"? "bg-green-100 text-green-600" : equalization.status === "Em andamento"? "bg-[#FEFFC2] text-[#9B7900]" : "bg-[#F6EBE3] text-[#A71111]"} px-2 py-1 rounded`}>{equalization.status}</p>
                 </div>
             </div>
         </div>
