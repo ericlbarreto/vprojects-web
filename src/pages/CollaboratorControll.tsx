@@ -30,46 +30,35 @@ function CollaboratorControll() {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    setCollaboratorId(queryParams.get("id"));
+    const collaboratorId = queryParams.get("id");
+    setCollaboratorId(collaboratorId);
 
     const fetchData = async () => {
-      try {
-        const collaboratorResponse = await api.get(
-          `/api/user/${collaboratorId}`
-        );
-        setColabData({
-          name: collaboratorResponse.data.name,
-          email: collaboratorResponse.data.email,
-          sector: collaboratorResponse.data.sector,
-          position: collaboratorResponse.data.position,
-          profilePhoto: collaboratorResponse.data.profilePhoto,
-        });
+        try {
+            const collaboratorResponse = await api.get(`/api/user/${collaboratorId}`);
+            setColabData(collaboratorResponse.data);
 
-        const equalizationResponse = (
-          await api.get(`/api/equalization/${user?.id}/${collaboratorId}`)
-        ).data;
-        if (equalizationResponse.length === 0) {
-          setEqualization({ status: "Não iniciado" });
-        } else {
-          const isFinished = equalizationResponse.some(
-            (eq: any) => eq.status === "Finalizado"
-          );
-          setEqualization({
-            status: isFinished ? "Finalizado" : "Em andamento",
-          });
+            const equalizationResponse = (await api.get(`/api/equalization/${user?.id}/${collaboratorId}`)).data;//colocar id do colaborador
+            if (equalizationResponse === 0) {
+                setEqualization({ status: "Não iniciado" });
+            }
+            else {
+                if (equalizationResponse){
+                    setEqualization({ status: "Finalizado" });
+                }
+                else{
+                    setEqualization({ status: "Em andamento" });
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao buscar os dados do colaborador ou equalização:", error);
         }
-      } catch (error) {
-        console.error(
-          "Erro ao buscar os dados do colaborador ou equalização:",
-          error
-        );
-      }
     };
 
     if (collaboratorId) {
-      fetchData();
+        fetchData();
     }
-  }, [location.search, user?.id]);
+}, [location.search]);
 
   useEffect(() => {
     const getEqualizationAndCycles = async () => {
@@ -127,7 +116,9 @@ function CollaboratorControll() {
       </div>
 
       <div className="mt-6">
-        <h1 className="text-2xl font-bold mb-4 text-[#2D2D2D]">Histórico de Ciclos de Equalizações</h1>
+        <h1 className="text-2xl font-bold mb-4 text-[#2D2D2D]">
+          Histórico de Ciclos de Equalizações
+        </h1>
         <div className="bg-white h-[400px]">
           <EqualizationTable columns={columns} data={equalizationCycles} />
         </div>
