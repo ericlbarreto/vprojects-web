@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { formatDate } from "@/common/formatDate";
 import { EqualizationCycle } from "@/interfaces/EqualizationCycle";
 import {
@@ -19,35 +19,44 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function calculateAverages(cycles: EqualizationCycle[], selectedYear: string, selectedSector: string) {
-  return cycles.map((cycle) => {
-    const sectorGrades: { [key: string]: number[] } = {};
+function calculateAverages(
+  cycles: EqualizationCycle[],
+  selectedYear: string,
+  selectedSector: string
+) {
+  return cycles
+    .map((cycle) => {
+      const sectorGrades: { [key: string]: number[] } = {};
 
-    cycle.Equalizations.forEach((equalization) => {
-      const sector = equalization.evaluated.sector;
-      const grade = equalization.finalGrade;
+      cycle.Equalizations.forEach((equalization) => {
+        const sector = equalization.evaluated.sector;
+        const grade = equalization.finalGrade;
 
-      if (!sectorGrades[sector]) {
-        sectorGrades[sector] = [];
+        if (!sectorGrades[sector]) {
+          sectorGrades[sector] = [];
+        }
+        sectorGrades[sector].push(grade);
+      });
+
+      const averages: { [key: string]: number } = {};
+      for (const [sector, grades] of Object.entries(sectorGrades)) {
+        averages[sector] =
+          grades.reduce((sum, grade) => sum + grade, 0) / grades.length;
       }
-      sectorGrades[sector].push(grade);
+
+      return {
+        endDate: cycle.endDate, // Assuming cycle.endDate is already a valid date
+        ...averages,
+      };
+    })
+    .filter((item) => {
+      const yearCondition =
+        selectedYear === "all" ||
+        new Date(item.endDate).getFullYear().toString() === selectedYear;
+      const sectorCondition =
+        selectedSector === "all" || Object.keys(item).includes(selectedSector);
+      return yearCondition && sectorCondition;
     });
-
-    const averages: { [key: string]: number } = {};
-    for (const [sector, grades] of Object.entries(sectorGrades)) {
-      averages[sector] =
-        grades.reduce((sum, grade) => sum + grade, 0) / grades.length;
-    }
-
-    return {
-      endDate: cycle.endDate, // Assuming cycle.endDate is already a valid date
-      ...averages,
-    };
-  }).filter(item => {
-    const yearCondition = selectedYear === 'all' || new Date(item.endDate).getFullYear().toString() === selectedYear;
-    const sectorCondition = selectedSector === 'all' || Object.keys(item).includes(selectedSector);
-    return yearCondition && sectorCondition;
-  });
 }
 
 interface MultipleBarGraphicProps {
@@ -55,9 +64,11 @@ interface MultipleBarGraphicProps {
 }
 
 export default function MultipleBarGraphic({ data }: MultipleBarGraphicProps) {
-  const [selectedYear, setSelectedYear] = useState<string>('all');
-  const [selectedSector, setSelectedSector] = useState<string>('all');
-  const [filteredData, setFilteredData] = useState<ReturnType<typeof calculateAverages>>([]);
+  const [selectedYear, setSelectedYear] = useState<string>("all");
+  const [selectedSector, setSelectedSector] = useState<string>("all");
+  const [filteredData, setFilteredData] = useState<
+    ReturnType<typeof calculateAverages>
+  >([]);
 
   useEffect(() => {
     setFilteredData(calculateAverages(data, selectedYear, selectedSector));
@@ -145,44 +156,57 @@ export default function MultipleBarGraphic({ data }: MultipleBarGraphicProps) {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="endDate" tickFormatter={(value: string) => formatDate(value)} />
+          <XAxis
+            dataKey="endDate"
+            tickFormatter={(value: string) => formatDate(value)}
+          />
           <YAxis ticks={[1, 2, 3, 4, 5]} domain={[0, 5]} />
           <Tooltip labelFormatter={(value: string) => formatDate(value)} />
-          <Bar
-            dataKey="Administração"
-            fill="#962DFF"
-            maxBarSize={50}
-            radius={[10, 10, 0, 0]}
-            activeBar={<Rectangle fill="#962DFF" />}
-          />
-          <Bar
-            dataKey="Design"
-            fill="#4A3AFF"
-            maxBarSize={50}
-            radius={[10, 10, 0, 0]}
-            activeBar={<Rectangle fill="#4A3AFF" />}
-          />
-          <Bar
-            dataKey="Educação"
-            fill="#E0C6FD"
-            maxBarSize={50}
-            radius={[10, 10, 0, 0]}
-            activeBar={<Rectangle fill="#E0C6FD" />}
-          />
-          <Bar
-            dataKey="Gerência"
-            fill="#93AAFD"
-            maxBarSize={50}
-            radius={[10, 10, 0, 0]}
-            activeBar={<Rectangle fill="#93AAFD" />}
-          />
-          <Bar
-            dataKey="QA"
-            fill="#93FDCA"
-            maxBarSize={50}
-            radius={[10, 10, 0, 0]}
-            activeBar={<Rectangle fill="#93FDCA" />}
-          />
+          {(selectedSector === "all" || selectedSector === "Administração") && (
+            <Bar
+              dataKey="Administração"
+              fill="#962DFF"
+              maxBarSize={50}
+              radius={[10, 10, 0, 0]}
+              activeBar={<Rectangle fill="#962DFF" />}
+            />
+          )}
+          {(selectedSector === "all" || selectedSector === "Design") && (
+            <Bar
+              dataKey="Design"
+              fill="#4A3AFF"
+              maxBarSize={50}
+              radius={[10, 10, 0, 0]}
+              activeBar={<Rectangle fill="#4A3AFF" />}
+            />
+          )}
+          {(selectedSector === "all" || selectedSector === "Educação") && (
+            <Bar
+              dataKey="Educação"
+              fill="#E0C6FD"
+              maxBarSize={50}
+              radius={[10, 10, 0, 0]}
+              activeBar={<Rectangle fill="#E0C6FD" />}
+            />
+          )}
+          {(selectedSector === "all" || selectedSector === "Gerência") && (
+            <Bar
+              dataKey="Gerência"
+              fill="#93AAFD"
+              maxBarSize={50}
+              radius={[10, 10, 0, 0]}
+              activeBar={<Rectangle fill="#93AAFD" />}
+            />
+          )}
+          {(selectedSector === "all" || selectedSector === "QA") && (
+            <Bar
+              dataKey="QA"
+              fill="#93FDCA"
+              maxBarSize={50}
+              radius={[10, 10, 0, 0]}
+              activeBar={<Rectangle fill="#93FDCA" />}
+            />
+          )}
         </BarChart>
       </ResponsiveContainer>
     </div>
