@@ -10,7 +10,6 @@ import { EqualizationCycle } from "@/interfaces/EqualizationCycle";
 export const statusOptions = ["Todos", "em andamento", "finalizado"];
 export const yearOptions = ["Todos", "2024", "2023", "2022", "2021"];
 export const gradeOptions = ["Todas", "5", "4", "3", "2", "1"];
-// export const dateOrderOptions = ["Todas", "Mais recente", "Mais antiga"];
 
 export const columns: ColumnDef<EqualizationCycle>[] = [
   {
@@ -92,8 +91,8 @@ export const columns: ColumnDef<EqualizationCycle>[] = [
     filterFn: (row, columnId, filterValue) => {
       if (!filterValue) return true;
       const status = row.getValue(columnId) as boolean;
-      if (filterValue === "Em andamento") return status === true;
-      if (filterValue === "Finalizado") return status === false;
+      if (filterValue === "em andamento") return status === true;
+      if (filterValue === "finalizado") return status === false;
       return true;
     },
   },

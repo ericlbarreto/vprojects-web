@@ -23,9 +23,10 @@ function HomeSocio() {
         const equalizationsResponse = await api.get(
           "/api/cycles-equalization/all"
         );
-        const currentCycle = await api.get("/api/cycles/current");
+        const currentCycle = await api.get("/api/cycles/");
         setEqualizationCycles(equalizationsResponse.data.reverse());
-        setCurrentCycle(currentCycle.data);
+        setCurrentCycle(currentCycle.data[1]);
+        console.log(currentCycle.data)
       } catch (error) {
         console.error("Erro ao buscar os ciclos de equalização:", error);
       }
@@ -142,7 +143,7 @@ function HomeSocio() {
                 equalizationCycles?.[0]?.Equalizations?.length &&
                 currentCycle?.SelfAssessments?.length
                   ? equalizationCycles[0].Equalizations.length /
-                    currentCycle.SelfAssessments.length
+                    currentCycle.SelfAssessments.length * 100
                   : 0
               }
             />
