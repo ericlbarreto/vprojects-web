@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Card360 from "@/components/card360";
 import { Av360 } from "@/interfaces/Av360";
 import { useAuth } from "@/contexts/authContext";
-import { getAllCollaboratorsByUserId, getAv360Data, getCurrentCycle, postAv360 } from "@/services/restServices";
+import { getAllCollaboratorsByUserId, getAv360Data, getCurrentCycle } from "@/services/restServices";
 import { CurrentCycle } from "@/interfaces/CurrentCycle";
 import { Oval } from "react-loader-spinner";
 import AtencaoModal from "@/components/atencao";
@@ -25,6 +25,10 @@ function Avaliacao360() {
 
     const { getUserData } = useAuth();
     const user = getUserData();
+
+    const queryParams = new URLSearchParams(location.search);
+    const idCycleParam = queryParams.get("cycleId");
+    const isFinishedParam = queryParams.get("isFinished");
 
     useEffect(() => {
         const fetchCollaborators = async () => {
@@ -57,7 +61,7 @@ function Avaliacao360() {
         const fetchAv360Data = async () => {
             setLoading(true);
             try {
-                const response = await getAv360Data(user!.id, currentCycle!.id);
+                const response = await getAv360Data(user!.id, isFinishedParam === "true" ? Number(idCycleParam) : currentCycle!.id);
                 const av360DataMap = response!.reduce((acc: { [key: number]: Av360 }, item: any) => {
                     acc[item.evaluatedId] = {
                         evaluatorId: item.evaluatorId,
@@ -200,10 +204,12 @@ function Avaliacao360() {
                 </div>
                 <div className={atencao || doneCycle ? "opacity-50" : ""}>
                     <Tutorial360 />
-                    <div className="m-4">
-                        <p className="font-medium text-lg">Adicione aqui os colaboradores</p>
-                        <SelectColab collaborators={availableCollaborators} onSelect={handleSelectCollaborator} disableAddCollab={disableAddCollab} />
-                    </div>
+                    {(idCycleParam ? (currentCycle!.id === Number(idCycleParam)) : true) && (
+                        <div className="m-4">
+                            <p className="font-medium text-lg">Adicione aqui os colaboradores</p>
+                            <SelectColab collaborators={availableCollaborators} onSelect={handleSelectCollaborator} disableAddCollab={disableAddCollab} />
+                        </div>
+                    )}
                     <div className="m-4">
                         {selectedCollaborators.map(collaborator => (
                             <Card360
@@ -215,6 +221,7 @@ function Avaliacao360() {
                                 onAv360FieldChange={handleAv360FieldChange}
                                 onAv360StatusChange={handleAv360StatusChange}
                                 av360Data={av360Data}
+                                isFinished={isFinishedParam === "true" ? true : false}
                             />
                         ))}
                     </div>
