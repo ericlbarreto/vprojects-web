@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import api from "@/services/axiosConfig";
 import AtencaoModal from "@/components/atencao";
 import FinishEqualization from "@/components/finishEqualization";
+import SuccesToast from "@/components/succesToast";
+import { toast } from "react-toastify";
 
 const datatable: Payment[] = [
     // {
@@ -42,25 +44,44 @@ const datatable: Payment[] = [
     //     role: "Desenvolvedor fullstack", 
     //     status: "Não iniciado",
     // }
-  ]
+]
 
 function CycleControl() {
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const doneToast = queryParams.get("doneToast");
+
+        if (doneToast) {
+            toast.success("Enviado o ciclo de avaliações", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                style: { background: "#E4FFE4", width: "320px" },
+            });
+        }
+    }, [location.search]);
 
     const [Colab, setColab] = useState<Collaborator[]>([]);
     const [currentCycle, setCurrentCycle] = useState<Cycle>()
 
     useEffect(() => {
         const getCollaborator = async () => {
-          try {
-            const response = await api.get("/api/user/all-collabs");
-            setColab(response.data);
-          } catch (error) {
-            console.error("Erro ao buscar os colaboradores:", error);
-          }
+            try {
+                const response = await api.get("/api/user/all-collabs");
+                setColab(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar os colaboradores:", error);
+            }
         };
-    
+
         getCollaborator();
-      }, []);
+    }, []);
 
 
     useEffect(() => {
@@ -70,15 +91,15 @@ function CycleControl() {
                 const cycleEqualizationId = cycleEqualizationIdResponse.data;
 
                 console.log(cycleEqualizationId)
-    
+
                 const cycleEqualizationsResponse = await api.get("/api/cycles-equalization/all");
                 const cycleEqualizations = cycleEqualizationsResponse.data;
 
                 console.log(cycleEqualizations)
-    
+
                 // Encontrar o ciclo com o ID específico
                 const currentCycle = cycleEqualizations.find((cycle: any) => cycle.id === cycleEqualizationId);
-                
+
                 console.log(currentCycle)
 
                 if (currentCycle) {
@@ -90,10 +111,10 @@ function CycleControl() {
                 console.error("Erro ao buscar o ciclo:", error);
             }
         };
-    
+
         getCurrentCycle();
     }, []);
-    
+
 
     console.log(Colab)
 
@@ -104,8 +125,8 @@ function CycleControl() {
 
     return (
         <div className="h-full bg-azulBackground">
-            <div className="h-36"> 
-                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle}/>
+            <div className="h-36">
+                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle} />
             </div>
             <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path={path} />)}</div>
             <div className={atencao ? "opacity-50" : ""}></div>
@@ -115,6 +136,7 @@ function CycleControl() {
             <div className="mt-14 bg-white rounded-2xl shadow-md mx-16">
                 <CycleControlTable columns={columns} data={Colab} />
             </div>
+            <SuccesToast />
         </div>
     );
 }

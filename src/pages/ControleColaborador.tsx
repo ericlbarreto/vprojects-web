@@ -17,6 +17,7 @@ import { Payment, columns } from "@/components/equalizationTable/columns";
 import api from '@/services/axiosConfig';
 import { useLocation } from "react-router-dom";
 import { findPositionOfBar } from 'recharts/types/util/ChartUtils';
+import { useAuth } from '@/contexts/authContext';
 
 const datatable: Payment[] = [
     {
@@ -53,6 +54,8 @@ const datatable: Payment[] = [
 
 
 function ControleColaborador() {
+    const { getUserData } = useAuth();
+    const user = getUserData();
     const location = useLocation();
     const [colabData, setColabData] = useState<{ [key: string]: string }>({
         "name": "",
@@ -79,7 +82,7 @@ function ControleColaborador() {
                     profilePhoto: collaboratorResponse.data.profilePhoto
                 });
 
-                const equalizationResponse = (await api.get(`/api/equalization/${collaboratorId}/${1}`)).data;//colocar id do colaborador
+                const equalizationResponse = (await api.get(`/api/equalization/${user?.id}/${collaboratorId}`)).data;//colocar id do colaborador
                 if (equalizationResponse === 0) {
                     setEqualization({ status: "Não iniciado" });
                 }
