@@ -1,14 +1,14 @@
+import { formatDate } from "@/common/formatDate";
 import { EqualizationCycle } from "@/interfaces/EqualizationCycle";
 import {
   Bar,
   BarChart,
   CartesianGrid,
-  Legend,
   Rectangle,
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 
 function calculateAverages(cycles: EqualizationCycle[]) {
@@ -43,12 +43,14 @@ interface MultipleBarGraphicProps {
 }
 
 export default function MultipleBarGraphic({ data }: MultipleBarGraphicProps) {
+  console.log(calculateAverages(data))
   return (
     <ResponsiveContainer width="100%" height="90%">
       <BarChart
         width={500}
         height={300}
-        data={calculateAverages(data)}
+        data={calculateAverages(data).reverse()}
+        barCategoryGap={180}
         margin={{
           top: 5,
           right: 30,
@@ -57,37 +59,41 @@ export default function MultipleBarGraphic({ data }: MultipleBarGraphicProps) {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="endDate" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
+        <XAxis dataKey="endDate" tickFormatter={formatDate} />
+        <YAxis ticks={[1, 2, 3, 4, 5]} domain={[0, 5]} />
+        <Tooltip labelFormatter={(value: string) => formatDate(value)}/>
         <Bar
-          dataKey="Sector 1"
+          dataKey="Administração"
           fill="#962DFF"
+          maxBarSize={50}
           radius={[10, 10, 0, 0]}
           activeBar={<Rectangle fill="#962DFF" />}
         />
         <Bar
-          dataKey="Sector 2"
+          dataKey="Design"
           fill="#4A3AFF"
+          maxBarSize={50}
           radius={[10, 10, 0, 0]}
           activeBar={<Rectangle fill="#4A3AFF" />}
         />
         <Bar
-          dataKey="Sector 3"
+          dataKey="Educação"
           fill="#E0C6FD"
+          maxBarSize={50}
           radius={[10, 10, 0, 0]}
           activeBar={<Rectangle fill="#E0C6FD" />}
         />
         <Bar
-          dataKey="Sector 4"
+          dataKey="Gerência"
           fill="#93AAFD"
+          maxBarSize={50}
           radius={[10, 10, 0, 0]}
           activeBar={<Rectangle fill="#93AAFD" />}
         />
         <Bar
-          dataKey="Sector 5"
+          dataKey="QA"
           fill="#93FDCA"
+          maxBarSize={50}
           radius={[10, 10, 0, 0]}
           activeBar={<Rectangle fill="#93FDCA"/>}
         />

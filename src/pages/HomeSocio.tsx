@@ -208,7 +208,7 @@ function HomeSocio() {
               </Select>
             </div>
           </div>
-          <MultipleBarGraphic data={equalizationCycles}/>
+          <MultipleBarGraphic data={equalizationCycles} />
         </div>
         <div className="flex flex-col col-span-3 bg-white rounded-2xl shadow-md relative p-6 h-[600px]">
           <div className="flex justify-left items-center mb-4">
