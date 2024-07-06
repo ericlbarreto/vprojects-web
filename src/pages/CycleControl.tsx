@@ -1,19 +1,16 @@
+import { Payment, columns } from "@/components/cycleControlTable/columns";
+import { CycleControlTable } from "@/components/cycleControlTable/data-table";
 import SubHeaderEqualization from "@/components/subHeaderCycleControl";
 import TutorialPartner from "@/components/tutorialPartner";
-import { CycleControlTable } from "@/components/cycleControlTable/data-table";
-import { Payment, columns } from "@/components/cycleControlTable/columns";
 // import { User } from "@/interfaces/User";
 import { Cycle } from "@/interfaces/Cycle";
 // import { User } from "@/interfaces/User";
-import { Collaborator } from "@/interfaces/Collaborator";
-import { EqCycle } from "@/interfaces/EqCycle";
-import { useEffect, useState } from "react";
-import api from "@/services/axiosConfig";
 import AtencaoModal from "@/components/atencao";
 import FinishEqualization from "@/components/finishEqualization";
-import { useNavigate } from "react-router-dom";
 import SuccesToast from "@/components/succesToast";
-import { toast } from "react-toastify";
+import { Collaborator } from "@/interfaces/Collaborator";
+import api from "@/services/axiosConfig";
+import { useEffect, useState } from "react";
 
 const datatable: Payment[] = [
     // {
@@ -53,7 +50,10 @@ const datatable: Payment[] = [
 function CycleControl() {
 
     const [Colab, setColab] = useState<Collaborator[]>([]);
-    const [currentCycle, setCurrentCycle] = useState<Cycle>()
+    const [currentCycle, setCurrentCycle] = useState<Cycle | undefined>()
+    const [finishingEqualization, setFinishingEqualization] = useState(false);
+    const [finishNegate, setFinishNegate] = useState(false);
+    
 
     useEffect(() => {
         const getCollaborator = async () => {
@@ -104,8 +104,6 @@ function CycleControl() {
 
     const [path, setPath] = useState("/home-socio")
     const [atencao, setAtencao] = useState(false);
-    const [elementVisible, setElementVisible] = useState(false);
-
     const queryParams = new URLSearchParams(location.search);
     const idCycleEqParam = queryParams.get("cycleIdEq");
     const isFinishedParam = queryParams.get("isFinished");
@@ -115,11 +113,11 @@ function CycleControl() {
     return (
         <div className="h-full bg-azulBackground">
             <div className="h-36">
-                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle} />
+                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle} cycleId = {idCycleEqParam ? idCycleEqParam : currentCycle?.id} setFinishingEqualization = {setFinishingEqualization} setFinishNegate = {setFinishNegate}/>
             </div>
             <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path={path} />)}</div>
             <div className={atencao ? "opacity-50" : ""}></div>
-            <div className="flex justify-center">{elementVisible && (<FinishEqualization setElementVisible={setElementVisible} elementVisible={elementVisible} path={path} />)}</div>
+            <div className="flex justify-center">{finishingEqualization && (<FinishEqualization setFinishingEqualization={setFinishingEqualization} finishingEqualization={finishingEqualization} cycleId = {idCycleEqParam ? idCycleEqParam : currentCycle?.id} path={path} />)}</div>
             <div className={atencao ? "opacity-50" : ""}></div>
             <TutorialPartner />
             <div className="mt-14 bg-white rounded-2xl shadow-md mx-16">
