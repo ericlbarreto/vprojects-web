@@ -11,41 +11,7 @@ import SuccesToast from "@/components/succesToast";
 // import { Collaborator } from "@/interfaces/Collaborator";
 import api from "@/services/axiosConfig";
 import { useEffect, useState } from "react";
-
-const datatable: Payment[] = [
-    // {
-    //   id: "m5gr84i9",
-    //   name: "Marina da Silva Brito", 
-    //   grade: 5, 
-    //   sector: "Produto e Gestão de Projetos", 
-    //   role: "UI/UX Design", 
-    //   status: "Finalizado",
-    // },
-    // {
-    //     id: "3u1reuv4",
-    //     name: "Breno Gabriel", 
-    //     grade: 10, 
-    //     sector: "Executivos e Liderança", 
-    //     role: "Desenvolvedor fullstack", 
-    //     status: "Não iniciado",
-    // },
-    // {
-    //     id: "3u1reuv4",
-    //     name: "Breno Gabriel", 
-    //     grade: 10, 
-    //     sector: "Infraestrutura e Operações", 
-    //     role: "Desenvolvedor fullstack", 
-    //     status: "Não iniciado",
-    // },
-    // {
-    //     id: "3u1reuv4",
-    //     name: "Breno Gabriel", 
-    //     grade: 10, 
-    //     sector: "Ciência de Dados e Análise", 
-    //     role: "Desenvolvedor fullstack", 
-    //     status: "Não iniciado",
-    // }
-]
+import { toast } from "react-toastify";
 
 function CycleControl() {
 
@@ -107,6 +73,24 @@ function CycleControl() {
     const queryParams = new URLSearchParams(location.search);
     const idCycleEqParam = queryParams.get("cycleIdEq");
     const isFinishedParam = queryParams.get("isFinished");
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const doneToast = queryParams.get("doneToast");
+    
+        if (doneToast) {
+          toast.success("Enviado o ciclo de avaliações", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            style: { background: "#E4FFE4", width: "320px" },
+          });
+        }
+      }, [location.search]);
 
     
 
