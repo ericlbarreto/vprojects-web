@@ -7,7 +7,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Cycle } from "@/interfaces/Cycle";
 // import { formatDate } from "date-fns";
@@ -36,6 +36,38 @@ function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao,
     const currentPath = location.pathname;
     const [finishStatus, setFinishStatus] = useState(false)
     const [elementVisible, setElementVisible] = useState(false); 
+
+    const [colabData, setColabData] = useState<{ [key: string]: string }>({
+        "name": "",
+        "sector": "",
+        "position": "",
+        "profilePhoto":""
+    })
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const collaboratorId = queryParams.get("colabId");
+
+        const fetchData = async () => {
+            try {
+                const collaboratorResponse = await api.get(`/api/user/${collaboratorId}`);
+                setColabData({
+                    name: collaboratorResponse.data.name,
+                    email: collaboratorResponse.data.email,
+                    sector: collaboratorResponse.data.sector,
+                    position: collaboratorResponse.data.position,
+                    profilePhoto: collaboratorResponse.data.profilePhoto
+                });
+            } catch (error) {
+                console.error("Erro ao buscar os dados do colaborador ou equalização:", error);
+            }
+        };
+
+        if (collaboratorId) {
+            fetchData();
+        }
+    }, [location.search]);
+
 
     const handleEncerrarEqualizacao = async () => {
         try {
@@ -125,13 +157,13 @@ function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao,
                             <p className="font-semibold pb-1 text-base">Informações pessoais:</p>
                             <div className="flex gap-x-2">
                             <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" />
+                                <AvatarImage src={colabData.profilePhoto} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>  
                                 <div className="flex gap-x-4 pt-2">
-                                    <p><span className="font-semibold">Colaborador:</span> <span className="font-cinzaClaro">Marina da Silva Brito</span></p>
-                                    <p><span className="font-semibold">Setor:</span> <span className="font-cinzaClaro">design</span></p>
-                                    <p><span className="font-semibold">Cargo:</span> <span className="font-cinzaClaro">UI/UX Design</span></p>    
+                                    <p><span className="font-semibold">Colaborador:</span> <span className="font-cinzaClaro">{colabData.name}</span></p>
+                                    <p><span className="font-semibold">Setor:</span> <span className="font-cinzaClaro">{colabData.sector}</span></p>
+                                    <p><span className="font-semibold">Cargo:</span> <span className="font-cinzaClaro">{colabData.position}</span></p>    
                                 </div>            
                             </div>
                         </div>
@@ -147,13 +179,13 @@ function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao,
                                             <p className="font-semibold pb-1 text-base">Informações pessoais:</p>
                                             <div className="flex gap-x-2">
                                             <Avatar>
-                                                <AvatarImage src="https://github.com/shadcn.png" />
+                                                <AvatarImage src={colabData.profilePhoto} />
                                                 <AvatarFallback>CN</AvatarFallback>
                                             </Avatar>  
                                                 <div className="flex gap-x-4 pt-2">
-                                                    <p><span className="font-semibold">Colaborador:</span> <span className="font-cinzaClaro">Marina da Silva Brito</span></p>
-                                                    <p><span className="font-semibold">Setor:</span> <span className="font-cinzaClaro">design</span></p>
-                                                    <p><span className="font-semibold">Cargo:</span> <span className="font-cinzaClaro">UI/UX Design</span></p>    
+                                                    <p><span className="font-semibold">Colaborador:</span> <span className="font-cinzaClaro">{colabData.name}</span></p>
+                                                    <p><span className="font-semibold">Setor:</span> <span className="font-cinzaClaro">{colabData.sector}</span></p>
+                                                    <p><span className="font-semibold">Cargo:</span> <span className="font-cinzaClaro">{colabData.position}</span></p>    
                                                 </div>            
                                             </div>
                                         </div>
