@@ -7,9 +7,11 @@ interface EqAutoAvProps{
     notasSocio: { [key: string]: number };
     updateNota:Function;
     isFinished:boolean;
+    colabId:string;
 }
 
-function EqAutoAv({notasSocio, updateNota, isFinished}:EqAutoAvProps) {
+function EqAutoAv({notasSocio, updateNota, isFinished, colabId}:EqAutoAvProps) {
+
 
     const [notasColab, setNotasColab] = useState<{ [key: string]: number }>({
         "notaSentimentoDono": 0,
@@ -39,7 +41,7 @@ function EqAutoAv({notasSocio, updateNota, isFinished}:EqAutoAvProps) {
     
     const dadosAtt = async () => {
         try {
-            const autoAvId = (await api.get(`/api/self-assesment/user/${1}`)).data;//idDoColabEscolhido
+            const autoAvId = (await api.get(`/api/self-assesment/user/${colabId}`)).data;//idDoColabEscolhido
             if (autoAvId) {
                 const response = await api.get(`/api/self-assesment/${autoAvId}`);
                 const selfAssessment = response.data;

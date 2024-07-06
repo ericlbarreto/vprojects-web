@@ -2,13 +2,17 @@ import SubHeaderEqualization from "@/components/subHeaderCycleControl";
 import TutorialPartner from "@/components/tutorialPartner";
 import { CycleControlTable } from "@/components/cycleControlTable/data-table";
 import { Payment, columns } from "@/components/cycleControlTable/columns";
-import { Collaborator } from "@/interfaces/Collaborator";
+// import { User } from "@/interfaces/User";
+import { Cycle } from "@/interfaces/Cycle";
+import { User } from "@/interfaces/User";
 import { EqCycle } from "@/interfaces/EqCycle";
 import { useEffect, useState } from "react";
 import api from "@/services/axiosConfig";
 import AtencaoModal from "@/components/atencao";
 import FinishEqualization from "@/components/finishEqualization";
 import { useNavigate } from "react-router-dom";
+import SuccesToast from "@/components/succesToast";
+import { toast } from "react-toastify";
 
 const datatable: Payment[] = [
     // {
@@ -43,25 +47,25 @@ const datatable: Payment[] = [
     //     role: "Desenvolvedor fullstack", 
     //     status: "Não iniciado",
     // }
-  ]
+]
 
 function CycleControl() {
 
-    const [Colab, setColab] = useState<Collaborator[]>([]);
-    const [currentCycle, setCurrentCycle] = useState<EqCycle | undefined>(undefined);
+    const [Colab, setColab] = useState<User[]>([]);
+    const [currentCycle, setCurrentCycle] = useState<Cycle>()
 
     useEffect(() => {
         const getCollaborator = async () => {
-          try {
-            const response = await api.get("/api/user/all-collabs");
-            setColab(response.data);
-          } catch (error) {
-            console.error("Erro ao buscar os colaboradores:", error);
-          }
+            try {
+                const response = await api.get("/api/user/all-collabs");
+                setColab(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar os colaboradores:", error);
+            }
         };
-    
+
         getCollaborator();
-      }, []);
+    }, []);
 
 
     useEffect(() => {
@@ -90,10 +94,10 @@ function CycleControl() {
                 console.error("Erro ao buscar o ciclo:", error);
             }
         };
-    
+
         getCurrentCycle();
     }, []);
-    
+
 
     // console.log(Colab)
 
@@ -109,8 +113,8 @@ function CycleControl() {
 
     return (
         <div className="h-full bg-azulBackground">
-            <div className="h-36"> 
-                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle}/>
+            <div className="h-36">
+                <SubHeaderEqualization setAtencao={setAtencao} atencao={atencao} currentCycle={currentCycle} />
             </div>
             <div className="flex justify-center">{atencao && (<AtencaoModal setAtencao={setAtencao} atencao={atencao} path={path} />)}</div>
             <div className={atencao ? "opacity-50" : ""}></div>
@@ -122,6 +126,7 @@ function CycleControl() {
                 <CycleControlTable columns={columns} data={Colab} idCycleEqParam = {idCycleEqParam ? idCycleEqParam : currentCycle.id} isFinishedParam = {isFinishedParam ? isFinishedParam : false}/>
             )}
             </div>
+            <SuccesToast />
         </div>
     );
 }

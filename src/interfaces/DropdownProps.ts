@@ -1,7 +1,7 @@
-import { Collaborator } from "./Collaborator";
+import { User } from "./User";
 
 export interface DropdownProps {
-    user: Collaborator
+    user: User
     formattedBirthDate: string;
     closeDropdown: () => void;
 }

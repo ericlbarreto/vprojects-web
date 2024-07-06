@@ -8,7 +8,7 @@ import ToolTipInfo from "@/components/ToolTipInfo";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Grade from "./grade";
 
-const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360FieldChange, onAv360StatusChange, av360Data }: Card360Props) => {
+const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360FieldChange, onAv360StatusChange, av360Data, isFinished }: Card360Props) => {
     const [toImproveCharsLeft, setToImproveCharsLeft] = useState(300);
     const [toPraiseCharsLeft, setToPraiseCharsLeft] = useState(300);
     const [edit, setEdit] = useState(false);
@@ -67,7 +67,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                         </Avatar>
                     </div>
 
-                    <div className="col-span-1 col-start-2">
+                    <div className="col-span-1 col-start-2 text-nowrap">
                         <p className="font-medium text-[#455468]">{collaborator.name}</p>
                         <p className="font-regular text-[#5e718d]">{collaborator.position}</p>
                     </div>
@@ -78,7 +78,7 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                         </div>
                     </div>
 
-                    {edit && (
+                    {edit && !isFinished && (
                         <div className="flex items-center justify-center col-span-1 col-start-10 mr-6">
                             <button onClick={handleSaveButton} className="font-semibold text-[#5702ff] bg-[#F1F7FF] w-32 h-10 rounded-md hover:bg-[#D9E7FF]">
                                 Salvar
@@ -86,18 +86,22 @@ const Card360 = ({ collaborator, onRemove, onExpandToggle, isExpanded, onAv360Fi
                         </div>
                     )}
 
-                    <div className="flex items-center space-x-2 col-span-1 col-start-11">
-                        <button onClick={handleEditClick} className="flex items-center text-[#5702ff]">
-                            <HiPencil className="text-[#5702ff] mr-2" />
-                            Editar
-                        </button>
-                    </div>
+                    {!isFinished && (
+                        <div className="flex items-center space-x-2 col-span-1 col-start-11">
+                            <button onClick={handleEditClick} className="flex items-center text-[#5702ff]">
+                                <HiPencil className="text-[#5702ff] mr-2" />
+                                Editar
+                            </button>
+                        </div>
+                    )}
 
-                    <div className="flex items-center col-span-1 col-start-12">
-                        <button onClick={() => onRemove(collaborator)} className="text-[#f96464]">
-                            Excluir
-                        </button>
-                    </div>
+                    {!isFinished && (
+                        <div className="flex items-center col-span-1 col-start-12">
+                            <button onClick={() => onRemove(collaborator)} className="text-[#f96464]">
+                                Excluir
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 <button onClick={() => onExpandToggle(collaborator.id)} className={`flex justify-center items-center bg-white shadow-xl w-10 h-10 overflow-visible rounded-full absolute ${isExpanded ? 'right-1/2 top-52' : 'right-1/2 top-11'}`}>

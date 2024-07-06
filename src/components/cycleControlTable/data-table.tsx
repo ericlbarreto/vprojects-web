@@ -18,22 +18,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { User } from "@/interfaces/User";
+
 import {
-  Payment,
-  columns as defaultColumns,
+  columns as defaultColumns
 } from "./columns"; // Atualize para o caminho correto do seu arquivo columns
 import { Input } from "../ui/input";
 import lupa from "src/assets/lupe.svg"
 import { Button } from "../ui/button";
-import { Collaborator } from "@/interfaces/Collaborator";
+import { USer } from "@/interfaces/User";
 import api from "@/services/axiosConfig";
 import { EqCycle } from "@/interfaces/EqCycle";
 import { useNavigate } from "react-router-dom";
 import { EqProps } from "@/interfaces/Equalizations";
 
 interface DataTableProps {
-  columns?: ColumnDef<Collaborator, any>[];
-  data: Collaborator[];
+  columns?: ColumnDef<USer, any>[];
+  data: USer[];
   idCycleEqParam: string | number; 
   isFinishedParam: string | boolean;
 

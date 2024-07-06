@@ -22,6 +22,7 @@ import {
   columns as defaultColumns,
 } from "./columns";
 import { formatDate } from "@/common/formatDate";
+import { useNavigate } from "react-router-dom";
 
 interface DataTableProps {
   columns?: ColumnDef<Cycle, any>[];
@@ -29,6 +30,7 @@ interface DataTableProps {
 }
 
 export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
+  const navigate = useNavigate();
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
@@ -74,9 +76,7 @@ export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
                   const columnId = cell.column.id;
                   const isStatusCell = columnId === 'status';
                   const status = row.original.status;
-                  console.log(status)
                   const isOngoing = status === true;
-                  console.log(isOngoing)
 
                   const isDateCell = columnId === 'startDate' || columnId === 'endDate';
                   const formattedDate = isDateCell ? formatDate(row.original[columnId]) : null;
@@ -94,9 +94,9 @@ export function CycleTable({ columns = defaultColumns, data }: DataTableProps) {
                       )}
                       {isStatusCell && (
                         isOngoing ? (
-                          <Pencil1Icon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer "/>
+                          <Pencil1Icon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer" onClick={() => navigate(`autoavaliacao?isFinished=${false}&cycleId=${row.original.id}`)}/>
                         ) : (
-                          <ChevronRightIcon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer"/>
+                          <ChevronRightIcon className="absolute right-12 text-roxoPrincipal top-5 cursor-pointer" onClick={() => navigate(`autoavaliacao?isFinished=${true}&cycleId=${row.original.id}`)}/>
                         )
                       )}
                     </TableCell>

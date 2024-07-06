@@ -7,9 +7,8 @@ import AtencaoModal from "@/components/atencao";
 import api from "@/services/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/authContext";
-
-
-
+import DoneCycle from "@/components/doneCycleEq";
+import { format } from 'date-fns';
 
 function Equalization() {
     
@@ -40,18 +39,23 @@ function Equalization() {
         });
     }
 
+    const [doneCycle, setDoneCycle] = useState(false);
+
+
     const queryParams = new URLSearchParams(location.search);
     const idCycleEqParam = queryParams.get("cycleIdEq");
     const isFinishedParam = queryParams.get("isFinished");
+    const colabId = queryParams.get("colabId");
 
     const prosseguirOuSalvarRascClick = async (isSaving: boolean) => {
         if (complete() || isSaving) {
-            const cycleEqualizationId = idCycleEqParam? idCycleEqParam : (await api.get("/api/cycles-equalization")).data;//colocar .id?
+            const cycleEqualizationId = idCycleEqParam? idCycleEqParam : (await api.get("/api/cycles-equalization")).data;
             const eqId = (await api.get(`/api/equalization/user/${user?.id}`)).data;
-            const autoAvId = (await api.get(`/api/self-assesment/user/${1}`)).data; //colocar id do colab
-            const cycleId = (await api.get(`/api/self-assesment/${autoAvId}`)).data[0].cycleId;
+            const autoAvId = (await api.get(`/api/self-assesment/user/${colabId}`)).data;
+            const cycleId = (await api.get(`/api/self-assesment/${autoAvId}`)).data.cycleId;
+            console.log(cycleId)
 
-            if (eqId) {
+            if (eqId !== 0) {
                 try {
                     const scores = Object.keys(notasSocio).map((key, index) => ({
                         equalizationId: eqId,
@@ -59,11 +63,11 @@ function Equalization() {
                         grade: notasSocio[key],
                     }));
 
-                    await api.patch(`/api/self-assesment/${autoAvId}`, {
+                    await api.patch(`/api/equalization/${eqId}`, {
                         "evaluatorId": user?.id,
-                        "evaluatedId": 1,//colocaridocolab
+                        "evaluatedId": Number(colabId),
                         "cycleId": cycleId,
-                        "cycleEqualizationId": cycleEqualizationId,
+                        "cycleEqualizationId": Number(cycleEqualizationId),
                         "status": !isSaving,
                         "scores": scores
 
@@ -80,11 +84,11 @@ function Equalization() {
                         grade: notasSocio[key],
                     }));
 
-                    await api.post(`/api/self-assesment`, {
+                    await api.post(`/api/equalization`, {
                         "evaluatorId": user?.id,
-                        "evaluatedId": 1,//colocar id do colab
+                        "evaluatedId": Number(colabId),
                         "cycleId": cycleId,
-                        "cycleEqualizationId": cycleEqualizationId,
+                        "cycleEqualizationId": Number(cycleEqualizationId),
                         "status": !isSaving,
                         "scores": scores
 
@@ -95,8 +99,17 @@ function Equalization() {
 
             }
             if (!isSaving) {
-                //colocartoast
-                navigate("/home-socio?doneToast=true");
+                const cycleEqualizationsResponse = await api.get("/api/cycles-equalization/all");
+                const cycleEqualizations = cycleEqualizationsResponse.data;
+                const currentCycle = cycleEqualizations.find((cycle: any) => cycle.id === cycleEqualizationId);
+                const formattedEndDate = format(new Date(currentCycle.endDate), 'dd/MM/yyyy');
+                const collaboratorResponse = (await api.get(`/api/user/${colabId}`)).data.name;
+
+
+                if(currentCycle){
+                    <DoneCycle setDoneCycle={setDoneCycle} endDate ={formattedEndDate} name={collaboratorResponse}  />
+                }
+                
             }
 
         }
@@ -124,7 +137,7 @@ function Equalization() {
                 <div className="flex"><button className={`p-3 ml-2 h-12 ${!isSelfAval ? "" : "rounded-md font-semibold bg-[#F1F7FF] text-roxoPrincipal"}`} onClick={() => setisSelfAval(true)}>Autoavaliação</button></div>
                 <div className="flex"><button className={`p-3 mr-2 h-12 ${isSelfAval ? "" : "rounded-md font-semibold bg-[#F1F7FF] text-roxoPrincipal"}`} onClick={() => setisSelfAval(false)}>Avaliação 360</button></div>
             </div>
-            {isSelfAval ? <EqAutoAv notasSocio={notasSocio} updateNota={updateNota} isFinished={isFinishedParam === "true"? true:false} /> : <EqAv360 />}
+            {isSelfAval ? <EqAutoAv notasSocio={notasSocio} updateNota={updateNota} isFinished={isFinishedParam === "true"? true:false} colabId={colabId ? colabId : ''} /> : <EqAv360 />}
         </div>
     );
 
