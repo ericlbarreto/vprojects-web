@@ -34,31 +34,31 @@ function CollaboratorControll() {
     setCollaboratorId(collaboratorId);
 
     const fetchData = async () => {
-        try {
-            const collaboratorResponse = await api.get(`/api/user/${collaboratorId}`);
-            setColabData(collaboratorResponse.data);
+      try {
+        const collaboratorResponse = await api.get(`/api/user/${collaboratorId}`);
+        setColabData(collaboratorResponse.data);
 
-            const equalizationResponse = (await api.get(`/api/equalization/${user?.id}/${collaboratorId}`)).data;//colocar id do colaborador
-            if (equalizationResponse === 0) {
-                setEqualization({ status: "Não iniciado" });
-            }
-            else {
-                if (equalizationResponse){
-                    setEqualization({ status: "Finalizado" });
-                }
-                else{
-                    setEqualization({ status: "Em andamento" });
-                }
-            }
-        } catch (error) {
-            console.error("Erro ao buscar os dados do colaborador ou equalização:", error);
+        const equalizationResponse = (await api.get(`/api/equalization/${user?.id}/${collaboratorId}`)).data;//colocar id do colaborador
+        if (equalizationResponse === 0) {
+          setEqualization({ status: "Não iniciado" });
         }
+        else {
+          if (equalizationResponse) {
+            setEqualization({ status: "Finalizado" });
+          }
+          else {
+            setEqualization({ status: "Em andamento" });
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao buscar os dados do colaborador ou equalização:", error);
+      }
     };
 
     if (collaboratorId) {
-        fetchData();
+      fetchData();
     }
-}, [location.search]);
+  }, [location.search]);
 
   useEffect(() => {
     const getEqualizationAndCycles = async () => {
@@ -79,10 +79,9 @@ function CollaboratorControll() {
     <div className="h-full bg-azulBackground p-8">
       <div className="bg-white p-6 rounded-lg shadow-md flex flex-col lg:flex-row items-center">
         <div className="flex-shrink-0">
-          <Avatar className="h-24 w-24">
-            <AvatarImage src={colabData.profilePhoto} />
-            <AvatarFallback>{colabData.name[0]}</AvatarFallback>
-          </Avatar>
+          <div className="flex items-center justify-center">
+            <img className="rounded-full size-24" src={colabData?.profilePhoto} />
+          </div>
         </div>
         <div className="mt-4 lg:mt-0 lg:ml-6 flex-grow text-center lg:text-left">
           <h2 className="text-2xl font-bold">{colabData.name}</h2>
@@ -93,13 +92,12 @@ function CollaboratorControll() {
         <div className="mt-4 lg:mt-0 lg:ml-6 flex-shrink-0 text-center lg:text-left">
           <p className="text-sm text-gray-600">Equalização</p>
           <p
-            className={`${
-              equalization.status === "Finalizado"
-                ? "bg-green-100 text-green-600"
-                : equalization.status === "Em andamento"
+            className={`${equalization.status === "Finalizado"
+              ? "bg-green-100 text-green-600"
+              : equalization.status === "Em andamento"
                 ? "bg-yellow-100 text-yellow-600"
                 : "bg-red-100 text-red-600"
-            } px-2 py-1 rounded`}
+              } px-2 py-1 rounded`}
           >
             {equalization.status}
           </p>
