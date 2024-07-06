@@ -106,8 +106,6 @@ function Equalization() {
 
     };
 
-
-
     const [isSelfAval, setisSelfAval] = useState(true)
     const [atencao, setAtencao] = useState(false);
     const [path, setPath] = useState("")

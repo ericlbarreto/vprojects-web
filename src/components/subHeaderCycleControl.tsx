@@ -7,14 +7,12 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Cycle } from "@/interfaces/Cycle";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Cycle } from "@/interfaces/Cycle";
 // import { formatDate } from "date-fns";
 import { formatDate } from "@/common/formatDate";
 import api from "@/services/axiosConfig";
-import FinishEqualization from "./finishEqualization";
-import Done from "../assets/done.svg"
 
 
 
@@ -172,7 +170,6 @@ function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao,
             )}
 
             {/* {elementVisible && (
-
                 <div className="flex-col z-50 fixed bg-branco w-80 h-52 p-4 border-2 shadow rounded-sm">
                     <div className="flex justify-center mb-2"><img className="size-12" src={Done} alt="Atenção" /></div>
                     <div className="text-black text-sm justify-center font-semibold flex mb-2">Concluído!</div>
