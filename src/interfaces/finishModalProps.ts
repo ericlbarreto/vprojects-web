@@ -1,7 +1,8 @@
 export interface FinishModalProps {
 
-    elementVisible: boolean; 
-    setElementVisible: (value: boolean) => void;
+    finishingEqualization: boolean; 
+    setFinishingEqualization: (value: boolean) => void;
+    cycleId: number | string | undefined ;
     path: string
 
 }

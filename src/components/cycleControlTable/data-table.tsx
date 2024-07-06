@@ -26,17 +26,6 @@ import { Input } from "../ui/input";
 import {
   columns as defaultColumns
 } from "./columns"; // Atualize para o caminho correto do seu arquivo columns
-<<<<<<< HEAD
-import { Input } from "../ui/input";
-import lupa from "src/assets/lupe.svg"
-import { Button } from "../ui/button";
-// import { User } from "@/interfaces/User";
-import api from "@/services/axiosConfig";
-import { EqCycle } from "@/interfaces/EqCycle";
-import { useNavigate } from "react-router-dom";
-import { EqProps } from "@/interfaces/Equalizations";
-=======
->>>>>>> c5eb4203aa30c75fa01748ad610247a3a3e1cb74
 
 interface DataTableProps {
   columns?: ColumnDef<User, any>[];

@@ -9,12 +9,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Cycle } from "@/interfaces/Cycle";
-// import { formatDate } from "date-fns";
 import { formatDate } from "@/common/formatDate";
 import api from "@/services/axiosConfig";
-import FinishEqualization from "./finishEqualization";
-import Done from "../assets/done.svg"
+import { User } from "@/interfaces/AvaliationCycle";
+import { Cycle } from "@/interfaces/Cycle";
 
 
 
@@ -26,11 +24,14 @@ interface SubHeaderEqualizationProps{
     // elementVisible: boolean; 
     // setElementVisible: (value: boolean) => void;
     currentCycle?: Cycle;
+    cycleId?: number | string | undefined; 
     funcaoSalvarOuFinalizar?: Function;
+    setFinishingEqualization: (value: boolean) => void;
+    setFinishNegate: (value: boolean) => void;
 
 }
 
-function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao, atencao, currentCycle}:SubHeaderEqualizationProps){
+function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao, atencao, currentCycle, cycleId, setFinishingEqualization, setFinishNegate}:SubHeaderEqualizationProps){
 
     const location = useLocation();
     const currentPath = location.pathname;
@@ -69,25 +70,36 @@ function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao,
     }, [location.search]);
 
 
-    const handleEncerrarEqualizacao = async () => {
+    const handleFinishingEqualization = async () => {
         try {
-            if (!currentCycle?.id) {
-                console.error("ID do ciclo não encontrado.");
-                return;
+            const response = await api.get<User[]>("/api/user/all-collabs");
+            const fetchColaboratorsInCycle = response.data;
+    
+            if (!cycleId) {
+                throw new Error("Cycle ID is undefined.");
             }
+    
+            const response2 = await api.get<Cycle[]>(`/api/equalization/cycle/${+cycleId}`);
+            const fetchEqualizations = response2.data;
+    
+            if (fetchColaboratorsInCycle.length === fetchEqualizations.length) {
 
-            const response = await api.patch(`/api/cycles-equalization/${currentCycle.id}`, {
-                status: true, 
-            });
+                console.log('igual')
 
-            console.log("Status do ciclo atualizado:", response.data);
+                setFinishingEqualization(true);
 
-            setFinishStatus(true);
-            setElementVisible(true);
+            }else {
+
+                console.log('diferente')
+
+                setFinishNegate(true);
+
+            }
         } catch (error) {
-            console.error("Erro ao encerrar a equalização:", error);
+            console.error("Error fetching data:", error);
         }
     };
+    
 
     const handleSetAtencao = (value: boolean) => {
         setAtencao(value);
@@ -198,13 +210,12 @@ function SubHeaderEqualization({isSelfAval, funcaoSalvarOuFinalizar, setAtencao,
 
             {(currentPath == "/controle-de-ciclo") && (
                 <div className="flex flex-col justify-center gap-y-2.5 mt-6">
-                <button onClick={handleEncerrarEqualizacao} className="px-0 py-3 gap-y-2.5 rounded-xl bg-roxoPrincipal text-white w-60 ml-auto">Encerrar equalização</button>
+                <button onClick={handleFinishingEqualization} className="px-0 py-3 gap-y-2.5 rounded-xl bg-roxoPrincipal text-white w-60 ml-auto">Encerrar equalização</button>
                 <p className="text-cinzaAlt">Informações são salvas automaticamente</p>
             </div>
             )}
 
             {/* {elementVisible && (
-
                 <div className="flex-col z-50 fixed bg-branco w-80 h-52 p-4 border-2 shadow rounded-sm">
                     <div className="flex justify-center mb-2"><img className="size-12" src={Done} alt="Atenção" /></div>
                     <div className="text-black text-sm justify-center font-semibold flex mb-2">Concluído!</div>
