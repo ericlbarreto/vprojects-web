@@ -70,7 +70,7 @@ const PartnerSearchBar = () => {
               onClick={() => handleItemClick(collaborator)}
             >
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src={collaborator.profilePhoto} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div>
