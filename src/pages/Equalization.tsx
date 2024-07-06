@@ -39,10 +39,9 @@ function Equalization() {
 
     const [doneCycle, setDoneCycle] = useState(false);
 
-
     const queryParams = new URLSearchParams(location.search);
-    const idCycleEqParam = queryParams.get("cycleIdEq");
-    const isFinishedParam = queryParams.get("isFinished");
+    const idCycleEqParam = queryParams.get("idCycleEqParam");
+    const isFinishedParam = queryParams.get("isFinishedParam");
     const colabId = queryParams.get("colabId");
 
     const prosseguirOuSalvarRascClick = async (isSaving: boolean) => {

@@ -10,13 +10,15 @@ function EqAv360() {
    const [av360Data, setAv360Data] = useState<{ [key: number]: Av360 }>({});
    const [evaluators, setEvaluators] = useState<User[]>([]);
    const [expandedEvaluators, setExpandedEvaluators] = useState<{ [key: number]: boolean }>({});
-   const queryParams = new URLSearchParams(location.search);
-    const idCycleEqParam = queryParams.get("cycleIdEq");
-    const colabId = queryParams.get("colabId");
 
    useEffect(() => {
       const fetchAv360Data = async () => {
          setLoading(true);
+
+         const queryParams = new URLSearchParams(location.search);
+         const idCycleEqParam = queryParams.get("idCycleEqParam");
+         const colabId = queryParams.get("colabId");
+
          try {
             const response = await getReceivedAv360(Number(colabId), Number(idCycleEqParam));
             const av360DataMap = response!.reduce((acc: { [key: number]: Av360 }, item: any) => {

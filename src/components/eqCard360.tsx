@@ -17,7 +17,7 @@ const EqCard360 = ({ av360Data, evaluator, onExpandToggle, isExpanded }: EqCard3
                         <img className="rounded-full size-10" src={evaluator?.profilePhoto} alt="Evaluator profile photo" />
                     </div>
 
-                    <div className="col-start-2">
+                    <div className="col-span-1 col-start-2 text-nowrap">
                         <p className="font-medium text-[#455468]">{evaluator.name}</p>
                         <p className="font-regular text-[#5e718d]">{evaluator.position}</p>
                     </div>
