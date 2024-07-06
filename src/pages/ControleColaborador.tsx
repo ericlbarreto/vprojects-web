@@ -61,7 +61,8 @@ function ControleColaborador() {
         "name": "",
         "email": "",
         "sector": "",
-        "position": ""
+        "position": "",
+        "profilePhoto": ""
     })
     const [equalization, setEqualization] = useState<{ [key: string]: string }>({
         "status": ""

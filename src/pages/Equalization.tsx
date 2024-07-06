@@ -5,7 +5,6 @@ import EqAutoAv from "@/components/eqAutoAv";
 import EqAv360 from "@/components/eqAv360";
 import AtencaoModal from "@/components/atencao";
 import api from "@/services/axiosConfig";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/authContext";
 import DoneCycle from "@/components/doneCycleEq";
 import { format } from 'date-fns';
@@ -14,7 +13,6 @@ function Equalization() {
     
     const { getUserData } = useAuth();
     const user = getUserData();
-    const navigate = useNavigate();
     const complete = () => {
         return Object.values(notasSocio).every(value => value !== 0);
     }
@@ -70,7 +68,6 @@ function Equalization() {
                         "cycleEqualizationId": Number(cycleEqualizationId),
                         "status": !isSaving,
                         "scores": scores
-
                     });
                     console.log(`patch feito:${scores}`)
                 } catch (error) {

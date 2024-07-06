@@ -1,5 +1,5 @@
 import { Av360 } from "@/interfaces/Av360";
-import { Collaborator } from "@/interfaces/Collaborator";
+import { User } from "@/interfaces/User";
 import { getAllCollaborators, getReceivedAv360 } from "@/services/restServices";
 import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
@@ -8,14 +8,17 @@ import EqCard360 from "./eqCard360";
 function EqAv360() {
    const [loading, setLoading] = useState(true);
    const [av360Data, setAv360Data] = useState<{ [key: number]: Av360 }>({});
-   const [evaluators, setEvaluators] = useState<Collaborator[]>([]);
+   const [evaluators, setEvaluators] = useState<User[]>([]);
    const [expandedEvaluators, setExpandedEvaluators] = useState<{ [key: number]: boolean }>({});
+   const queryParams = new URLSearchParams(location.search);
+    const idCycleEqParam = queryParams.get("cycleIdEq");
+    const colabId = queryParams.get("colabId");
 
    useEffect(() => {
       const fetchAv360Data = async () => {
          setLoading(true);
          try {
-            const response = await getReceivedAv360(3, 1);
+            const response = await getReceivedAv360(Number(colabId), Number(idCycleEqParam));
             const av360DataMap = response!.reduce((acc: { [key: number]: Av360 }, item: any) => {
                acc[item.evaluatorId] = {
                   evaluatorId: item.evaluatorId,
@@ -44,7 +47,7 @@ function EqAv360() {
    useEffect(() => {
       const fetchCollaborators = async () => {
          const collaborators = await getAllCollaborators();
-         const filteredCollaborators = collaborators.filter((collaborator: Collaborator) => av360Data.hasOwnProperty(collaborator.id));
+         const filteredCollaborators = collaborators.filter((collaborator: User) => av360Data.hasOwnProperty(collaborator.id));
          setEvaluators(filteredCollaborators);
       };
 
