@@ -68,7 +68,6 @@ function Equalization() {
                         "cycleEqualizationId": Number(cycleEqualizationId),
                         "status": !isSaving,
                         "scores": scores
-
                     });
                     console.log(`patch feito:${scores}`)
                 } catch (error) {
