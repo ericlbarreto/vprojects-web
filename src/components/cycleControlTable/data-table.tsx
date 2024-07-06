@@ -26,15 +26,15 @@ import {
 import { Input } from "../ui/input";
 import lupa from "src/assets/lupe.svg"
 import { Button } from "../ui/button";
-import { USer } from "@/interfaces/User";
+// import { User } from "@/interfaces/User";
 import api from "@/services/axiosConfig";
 import { EqCycle } from "@/interfaces/EqCycle";
 import { useNavigate } from "react-router-dom";
 import { EqProps } from "@/interfaces/Equalizations";
 
 interface DataTableProps {
-  columns?: ColumnDef<USer, any>[];
-  data: USer[];
+  columns?: ColumnDef<User, any>[];
+  data: User[];
   idCycleEqParam: string | number; 
   isFinishedParam: string | boolean;
 
