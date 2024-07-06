@@ -2,12 +2,15 @@ import SubHeaderEqualization from "@/components/subHeaderCycleControl";
 import TutorialPartner from "@/components/tutorialPartner";
 import { CycleControlTable } from "@/components/cycleControlTable/data-table";
 import { Payment, columns } from "@/components/cycleControlTable/columns";
-import { User } from "@/interfaces/User";
+// import { User } from "@/interfaces/User";
 import { Cycle } from "@/interfaces/Cycle";
+import { User } from "@/interfaces/User";
+import { EqCycle } from "@/interfaces/EqCycle";
 import { useEffect, useState } from "react";
 import api from "@/services/axiosConfig";
 import AtencaoModal from "@/components/atencao";
 import FinishEqualization from "@/components/finishEqualization";
+import { useNavigate } from "react-router-dom";
 import SuccesToast from "@/components/succesToast";
 import { toast } from "react-toastify";
 
@@ -48,25 +51,6 @@ const datatable: Payment[] = [
 
 function CycleControl() {
 
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const doneToast = queryParams.get("doneToast");
-
-        if (doneToast) {
-            toast.success("Enviado o ciclo de avaliações", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                style: { background: "#E4FFE4", width: "320px" },
-            });
-        }
-    }, [location.search]);
-
     const [Colab, setColab] = useState<User[]>([]);
     const [currentCycle, setCurrentCycle] = useState<Cycle>()
 
@@ -90,17 +74,16 @@ function CycleControl() {
                 const cycleEqualizationIdResponse = await api.get("/api/cycles-equalization");
                 const cycleEqualizationId = cycleEqualizationIdResponse.data;
 
-                console.log(cycleEqualizationId)
-
+                // console.log(cycleEqualizationId)
+    
                 const cycleEqualizationsResponse = await api.get("/api/cycles-equalization/all");
                 const cycleEqualizations = cycleEqualizationsResponse.data;
 
-                console.log(cycleEqualizations)
-
-                // Encontrar o ciclo com o ID específico
+                // console.log(cycleEqualizations)
+    
                 const currentCycle = cycleEqualizations.find((cycle: any) => cycle.id === cycleEqualizationId);
-
-                console.log(currentCycle)
+                
+                // console.log(currentCycle)
 
                 if (currentCycle) {
                     setCurrentCycle(currentCycle);
@@ -116,12 +99,17 @@ function CycleControl() {
     }, []);
 
 
-    console.log(Colab)
+    // console.log(Colab)
 
     const [path, setPath] = useState("/home-socio")
     const [atencao, setAtencao] = useState(false);
     const [elementVisible, setElementVisible] = useState(false);
 
+    const queryParams = new URLSearchParams(location.search);
+    const idCycleEqParam = queryParams.get("cycleIdEq");
+    const isFinishedParam = queryParams.get("isFinished");
+
+    
 
     return (
         <div className="h-full bg-azulBackground">
@@ -134,7 +122,9 @@ function CycleControl() {
             <div className={atencao ? "opacity-50" : ""}></div>
             <TutorialPartner />
             <div className="mt-14 bg-white rounded-2xl shadow-md mx-16">
-                <CycleControlTable columns={columns} data={Colab} />
+            {currentCycle && (
+                <CycleControlTable columns={columns} data={Colab} idCycleEqParam = {idCycleEqParam ? idCycleEqParam : currentCycle.id} isFinishedParam = {isFinishedParam ? isFinishedParam : false}/>
+            )}
             </div>
             <SuccesToast />
         </div>

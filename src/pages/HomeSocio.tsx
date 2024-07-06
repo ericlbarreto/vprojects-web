@@ -45,7 +45,7 @@ function HomeSocio() {
       <div className="space-y-6 md:space-y-0 md:grid md:gap-x-6 md:grid-cols-8 md:p-10 sm:p-10 p-8">
         <div className="col-span-5 bg-white rounded-2xl shadow-md">
           <div className="grid gap-x-2 grid-cols-5 py-6 px-6">
-            <div className="col-span-3 space-y-14">
+            <div className="col-span-3 space-y-16">
               <p>
                 <span className="font-extrabold text-[#2d2d2d]">
                   Boas vindas,
@@ -97,7 +97,7 @@ function HomeSocio() {
         </div>
         <div className="col-span-3 col-start-6 bg-white rounded-2xl shadow-md relative">
           <div className="grid gap-x-2 grid-cols-7">
-            <div className="col-span-4 py-6 px-6 space-y-11">
+            <div className="col-span-4 py-6 px-6 space-y-10">
               <p className="font-extrabold text-[#2d2d2d]">
                 Tutorial da Plataforma
               </p>
