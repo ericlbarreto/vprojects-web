@@ -1,30 +1,16 @@
-# React + TypeScript + Vite
+## 💜 V-Projects 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="https://i.ibb.co/M6j0cQT/VPROJECTS.png"/>
+</p>
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⁉️ Quem somos:
+Na V-Projects, oferecemos uma solução web inovadora para autoavaliação e avaliações 360 graus, projetada para apoiar o desenvolvimento contínuo de colaboradores. Nossa plataforma permite que os colaboradores façam uma autoavaliação honesta, recebam feedback abrangente de colegas e gestores, e acompanhem seu progresso ao longo de ciclos de avaliação. Para os sócios e gestores, proporcionamos uma visão clara da evolução de cada membro da equipe, facilitando a gestão estratégica do desenvolvimento pessoal e profissional. Estamos aqui para ajudar sua organização a crescer e a alcançar novos patamares de excelência.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 👥 Colaboradores do projeto:
+- @ericlbarreto
+- @ViniSeabraa
+- @VS-Lucas
+- @breno-gabriel
+- @AnaJulia22
